@@ -12,7 +12,7 @@ public class Bruh
         db.Database.EnsureCreated();
 
         var facultyRepository = new FacultyRepository(db);
-        
+
         var faculty = new Faculty
         {
             Name = "Faculty of Science",
@@ -33,6 +33,7 @@ public class Bruh
             }
         }
         
+        /*
         var departmentRepository = new DepartmentRepository(db);
         var newDepartment = new Department
         {
@@ -52,5 +53,6 @@ public class Bruh
             Console.WriteLine("Department Faculty:");
             Console.WriteLine($"- {dept.Faculty.Name}");
         }
+        */
     }
 }
