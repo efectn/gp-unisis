@@ -154,7 +154,9 @@ public class CourseRepository
         return course.Quota > 0 ? (double)(course.Grades?.Count ?? 0) / course.Quota * 100 : 0;
     }
 
+
     public List<Course> GetTopCourses(int topCount)
+
     {
         return _context.Courses
             .Include(c => c.Grades)
