@@ -1,6 +1,7 @@
 ﻿using gp_unisis.Database;
 using gp_unisis.Database.Entities;
 using gp_unisis.Database.Repositories;
+using gp_unisis.ViewModel;
 
 namespace Bruh;
 
@@ -12,6 +13,39 @@ public class Bruh
         db.Database.EnsureCreated();
 
         var facultyRepository = new FacultyRepository(db);
+
+        var facultyViewModel = new FacultyViewModel(facultyRepository);
+
+        while (true)
+        {
+            Console.WriteLine("Sayfa numarası girin: ");
+            var rl = Console.ReadLine();
+            if (string.IsNullOrEmpty(rl))
+            {
+                Console.WriteLine("Geçersiz giriş. Çıkılıyor...");
+                continue;
+            }
+
+            var pageNumber = int.Parse(rl);
+            switch (pageNumber)
+            {
+                case 1:
+                    facultyViewModel.AddFaculty();
+                    break;
+                case 2:
+                    facultyViewModel.ListFaculties();
+                    break;
+                case 3:
+                    facultyViewModel.UpdateFaculty();
+                    break;
+                case 4:
+                    facultyViewModel.DeleteFaculty();
+                    break;
+                default:
+                    Console.WriteLine("sayfa yok");
+                    break;
+            }
+        }
 
         var faculty = new Faculty
         {
@@ -32,7 +66,7 @@ public class Bruh
                 Console.WriteLine($"- {department.Name}");
             }
         }
-        
+
         /*
         var departmentRepository = new DepartmentRepository(db);
         var newDepartment = new Department
@@ -44,7 +78,7 @@ public class Bruh
             ViceHead = "Dr. Green",
             FacultyId = 5
         };
-        
+
         departmentRepository.AddDepartment(newDepartment);
         var departments = departmentRepository.GetAllDepartments();
         foreach (var dept in departments)
