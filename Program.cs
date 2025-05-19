@@ -13,8 +13,10 @@ public class Bruh
         db.Database.EnsureCreated();
 
         var facultyRepository = new FacultyRepository(db);
+        var departmentRepository = new DepartmentRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
+        var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
 
         while (true)
         {
@@ -29,17 +31,32 @@ public class Bruh
             var pageNumber = int.Parse(rl);
             switch (pageNumber)
             {
+                case 0:
+                    Console.WriteLine("Çıkılıyor...");
+                    return;
                 case 1:
-                    facultyViewModel.AddFaculty();
+                    facultyViewModel.ListFaculties();
                     break;
                 case 2:
-                    facultyViewModel.ListFaculties();
+                    facultyViewModel.AddFaculty();
                     break;
                 case 3:
                     facultyViewModel.UpdateFaculty();
                     break;
                 case 4:
                     facultyViewModel.DeleteFaculty();
+                    break;
+                case 5:
+                    departmentViewModel.ListDepartments();
+                    break;
+                case 6:
+                    departmentViewModel.AddDepartment();
+                    break;
+                case 7:
+                    departmentViewModel.UpdateDepartment();
+                    break;
+                case 8:
+                    departmentViewModel.DeleteDepartment();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

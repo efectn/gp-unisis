@@ -9,5 +9,5 @@ public class Faculty
     public string Dean { get; set; }
     public string ViceDean { get; set; }
 
-    public ICollection<Department> Departments { get; set; }
+    public ICollection<Department> Departments { get; set; } = new List<Department>();
 }

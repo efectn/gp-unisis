@@ -1,0 +1,26 @@
+todo list:
+
+- [ ] Admin operations.
+  - [x] CRUD for faculty.
+  - [x] CRUD for departments.
+  - [ ] CRUD for semesters.
+  - [ ] CRUD for lecturers.
+  - [ ] CRUD for admins.
+  - [ ] Add course groups for departments.
+  - [ ] Approve courses added by lecturers.
+- [ ] Student personal operations.
+  - [ ] CRUD for students.
+- [ ] Lecturer operations.
+  - [ ] Add new courses.
+  - [ ] Add grades for courses.
+  - [ ] Calculate transcript grade for students.
+  - [ ] Show course schedule.
+  - [ ] Show and add exam schedule.
+- [ ] Student operations.
+  - [ ] Take courses for semester.
+  - [ ] Show course schedule.
+  - [ ] Show exam schedule.
+  - [ ] Show transcript.
+  - [ ] Show grades of courses.
+  - [ ] Show course groups and check graduation status.
+  - [ ] Show announcements.

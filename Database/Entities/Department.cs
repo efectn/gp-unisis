@@ -9,8 +9,8 @@ public class Department
     public string Head { get; set; }
     public string ViceHead { get; set; }
 
-    public int FacultyId { get; set; }
-    public Faculty Faculty { get; set; }
+    public int? FacultyId { get; set; }
+    public Faculty? Faculty { get; set; }
 
     public ICollection<Lecturer> Lecturers { get; set; }
     public ICollection<Student> Students { get; set; }

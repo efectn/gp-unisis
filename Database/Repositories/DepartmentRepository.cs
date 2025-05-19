@@ -36,18 +36,26 @@ public class DepartmentRepository
             throw new InvalidOperationException($"Department with name {department.Name} already exists.");
         }
         
+        // Check if faculty exists
+        if (department.FacultyId != null)
+        {
+            var faculty = _context.Faculties.FirstOrDefault(f => f.Id == department.FacultyId);
+            if (faculty == null)
+            {
+                throw new InvalidOperationException($"Faculty with ID {department.FacultyId} does not exist.");
+            }
+            department.Faculty = faculty;
+        }
+        
         // Check if all required properties are set
         if (string.IsNullOrEmpty(department.Name) || string.IsNullOrEmpty(department.Address) || string.IsNullOrEmpty(department.ContactNumber))
         {
             throw new ArgumentException("All required properties must be set.");
         }
-        
-        // Check if the faculty exists
-        
-        _context.Departments.Add(department);
 
         try
         {
+            _context.Departments.Add(department);
             _context.SaveChanges();
         }
         catch (DbUpdateException e)
