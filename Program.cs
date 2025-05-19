@@ -14,10 +14,12 @@ public class Bruh
 
         var facultyRepository = new FacultyRepository(db);
         var departmentRepository = new DepartmentRepository(db);
+        var semesterRepository = new SemesterRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
-
+        var semesterViewModel = new SemesterViewModel(semesterRepository);
+        
         while (true)
         {
             Console.WriteLine("Sayfa numarası girin: ");
@@ -57,6 +59,18 @@ public class Bruh
                     break;
                 case 8:
                     departmentViewModel.DeleteDepartment();
+                    break;
+                case 9:
+                    semesterViewModel.ListSemesters();
+                    break;
+                case 10:
+                    semesterViewModel.AddSemester();
+                    break;
+                case 11:
+                    semesterViewModel.UpdateSemester();
+                    break;
+                case 12:
+                    semesterViewModel.DeleteSemester();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

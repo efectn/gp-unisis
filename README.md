@@ -3,7 +3,7 @@ todo list:
 - [ ] Admin operations.
   - [x] CRUD for faculty.
   - [x] CRUD for departments.
-  - [ ] CRUD for semesters.
+  - [x] CRUD for semesters.
   - [ ] CRUD for lecturers.
   - [ ] CRUD for admins.
   - [ ] Add course groups for departments.
