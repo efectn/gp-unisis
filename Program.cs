@@ -15,10 +15,14 @@ public class Bruh
         var facultyRepository = new FacultyRepository(db);
         var departmentRepository = new DepartmentRepository(db);
         var semesterRepository = new SemesterRepository(db);
+        var lecturerRepository = new LecturerRepository(db);
+        var courseGroupRepository = new CourseGroupsRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
         var semesterViewModel = new SemesterViewModel(semesterRepository);
+        var lecturerViewModel = new LecturerViewModel(lecturerRepository);
+        var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
         
         while (true)
         {
@@ -71,6 +75,33 @@ public class Bruh
                     break;
                 case 12:
                     semesterViewModel.DeleteSemester();
+                    break;
+                case 13:
+                    lecturerViewModel.ListLecturers();
+                    break;
+                case 14:
+                    lecturerViewModel.AddLecturer();
+                    break;
+                case 15:
+                    lecturerViewModel.UpdateLecturer();
+                    break;
+                case 16:
+                    lecturerViewModel.DeleteLecturer();
+                    break;
+                case 17:
+                    courseGroupViewModel.AddCourseGroup();
+                    break;
+                case 18:
+                    courseGroupViewModel.DeleteCourseGroup();
+                    break;
+                case 19:
+                    courseGroupViewModel.UpdateCourseGroup();
+                    break;
+                case 20:
+                    courseGroupViewModel.ListCourseGroupsByDepartment();
+                    break;
+                case 21:
+                    courseGroupViewModel.ShowCourseGroupDetails();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

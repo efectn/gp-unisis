@@ -14,7 +14,7 @@ public class LecturerRepository
 
     public List<Lecturer> GetAllLecturers()
     {
-        return _context.Lecturers.Include(d => d.Departments).ToList();
+        return _context.Lecturers.ToList();
     }
 
     public Lecturer GetLecturerById(int id)
