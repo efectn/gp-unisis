@@ -10,6 +10,7 @@ public class Course
     public int Quota { get; set; }
     public bool IsElective { get; set; }
     public string Description { get; set; }
+    public bool IsConfirmed { get; set; }
 
     public int LecturerId { get; set; }
     public Lecturer Lecturer { get; set; }

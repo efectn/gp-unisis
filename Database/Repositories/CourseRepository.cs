@@ -27,12 +27,6 @@ public class CourseRepository
     public Course GetCourseById(int id)
     {
         var course = _context.Courses
-            .Include(c => c.Lecturer)
-            .Include(c => c.Semesters)
-            .Include(c => c.CourseScheduleEntries)
-            .Include(c => c.Grades)
-            .Include(c => c.Announcements)
-            .Include(c => c.CourseGroups)
             .FirstOrDefault(c => c.Id == id);
 
         if (course == null)
@@ -42,6 +36,7 @@ public class CourseRepository
 
         return course;
     }
+
 
     public void AddCourse(Course course)
     {
@@ -163,5 +158,41 @@ public class CourseRepository
             .OrderByDescending(c => c.Grades.Count)
             .Take(topCount)
             .ToList();
+    }
+
+    public List<Course> ApprovedCourses()
+    {
+        return _context.Courses.Where(c => c.IsConfirmed == true).ToList();
+    }
+
+    public List<Course> NonApprovedCourses()
+    {
+        return _context.Courses.Where(c => c.IsConfirmed == false).ToList();
+    }
+
+    public void ApproveCourse(int id)
+    {
+        var course = _context.Courses.FirstOrDefault(c => c.Id == id);
+        if(course == null)
+        {
+            throw new InvalidOperationException($"Course with ID {id} does not exist.");
+        }
+
+        course.IsConfirmed = true;
+        _context.Courses.Update(course);
+        _context.SaveChanges();
+    }
+
+    public void RejectCourse(int id)
+    {
+        var course = _context.Courses.FirstOrDefault(c => c.Id == id);
+        if(course == null)
+        {
+            throw new InvalidOperationException($"Course with ID {id} does not exist.");
+        }
+
+        course.IsConfirmed = false;
+        _context.Courses.Update(course);
+        _context.SaveChanges();
     }
 }

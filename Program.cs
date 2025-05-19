@@ -17,12 +17,14 @@ public class Bruh
         var semesterRepository = new SemesterRepository(db);
         var lecturerRepository = new LecturerRepository(db);
         var courseGroupRepository = new CourseGroupsRepository(db);
+        var courseRepository = new CourseRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
         var semesterViewModel = new SemesterViewModel(semesterRepository);
         var lecturerViewModel = new LecturerViewModel(lecturerRepository);
         var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
+        var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         
         while (true)
         {
@@ -102,6 +104,15 @@ public class Bruh
                     break;
                 case 21:
                     courseGroupViewModel.ShowCourseGroupDetails();
+                    break;
+                case 22:
+                    courseApproveViewModel.AwaitingApprovalCourses();
+                    break;
+                case 23:
+                    courseApproveViewModel.ApproveCourse();
+                    break;
+                case 24:
+                    courseApproveViewModel.RejectCourse();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
