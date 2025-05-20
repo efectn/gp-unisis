@@ -21,6 +21,7 @@ public class Bruh
         var courseRepository = new CourseRepository(db);
         var studentRepository = new StudentRepository(db);
         var courseScheduleRepository = new CourseScheduleEntryRepository(db);
+        var examRepository = new ExamRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
@@ -32,7 +33,9 @@ public class Bruh
         var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
         var courseViewModel = new CourseViewModel(departmentRepository, courseRepository, semesterRepository);
         var courseScheduleViewModel = new CourseScheduleViewModel(courseRepository, semesterRepository);
+        var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository);
         
+        /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
         var role = Console.ReadLine();
@@ -57,7 +60,7 @@ public class Bruh
                 Console.WriteLine("Geçersiz giriş. Çıkılıyor...");
                 return;
         }
-
+*/
         while (true)
         {
             Console.WriteLine("Sayfa numarası girin: ");
@@ -190,6 +193,15 @@ public class Bruh
                     break;
                 case 39:
                     courseScheduleViewModel.RemoveCourseScheduleEntry();
+                    break;
+                case 40:
+                    examScheduleViewModel.AddExamSchedule();
+                    break;
+                case 41:
+                    examScheduleViewModel.RemoveExamSchedule();
+                    break;
+                case 42:
+                    examScheduleViewModel.ListExamSchedule();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

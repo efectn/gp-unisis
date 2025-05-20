@@ -81,6 +81,11 @@ public class ExamRepository
             .FirstOrDefault(e => e.Id == id);
     }
 
+    public List<Exam> GetExamsByCourseId(int courseId)
+    {
+        return _context.Exams.Where(e => e.CourseId == courseId).ToList();
+    }
+
     public List<Exam> GetExamsBySemesterId(int semesterId)
     {
         return _context.Exams
@@ -89,4 +94,16 @@ public class ExamRepository
             .Where(e => e.SemesterId == semesterId)
             .ToList();
     }
+
+    public List<Exam> GetExamsByDepartmentId(int departmentId)
+    {
+        return _context.Exams
+            .Include(e => e.Semester)
+            .Include(e => e.Course)
+                .ThenInclude(c => c.Department)
+            .Where(e => e.Course.DepartmentId == departmentId)
+            .ToList();
+    }
+    
+
 }
