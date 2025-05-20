@@ -209,12 +209,17 @@ namespace gp_unisis.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SemesterId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("SemesterId");
 
                     b.ToTable("CourseScheduleEntries");
                 });
@@ -589,7 +594,15 @@ namespace gp_unisis.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("gp_unisis.Database.Entities.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Course");
+
+                    b.Navigation("Semester");
                 });
 
             modelBuilder.Entity("gp_unisis.Database.Entities.Department", b =>

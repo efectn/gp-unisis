@@ -6,15 +6,17 @@ todo list:
   - [x] CRUD for semesters.
   - [x] CRUD for lecturers.
   - [x] CRUD for admins.
-  - [x] Add course groups for departments.
+  - [ ] Add course groups for departments.
+    - [ ] Check graduation status.
+    - [ ] Syllabus for course groups.
   - [x] Approve courses added by lecturers.
 - [ ] Student personal operations.
   - [x] CRUD for students.
 - [ ] Lecturer operations.
-  - [ ] Add new courses.
+  - [x] Add new courses.
   - [ ] Add grades for courses.
   - [ ] Calculate transcript grade for students.
-  - [ ] Show course schedule.
+  - [x] Show course schedule.
   - [ ] Show and add exam schedule.
 - [ ] Student operations.
   - [ ] Take courses for semester.

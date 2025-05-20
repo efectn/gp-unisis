@@ -11,22 +11,22 @@ namespace gp_unisis.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "DepartmentId",
-                table: "Courses",
+                name: "SemesterId",
+                table: "CourseScheduleEntries",
                 type: "INTEGER",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_DepartmentId",
-                table: "Courses",
-                column: "DepartmentId");
+                name: "IX_CourseScheduleEntries_SemesterId",
+                table: "CourseScheduleEntries",
+                column: "SemesterId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Courses_Departments_DepartmentId",
-                table: "Courses",
-                column: "DepartmentId",
-                principalTable: "Departments",
+                name: "FK_CourseScheduleEntries_Semesters_SemesterId",
+                table: "CourseScheduleEntries",
+                column: "SemesterId",
+                principalTable: "Semesters",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -35,16 +35,16 @@ namespace gp_unisis.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Courses_Departments_DepartmentId",
-                table: "Courses");
+                name: "FK_CourseScheduleEntries_Semesters_SemesterId",
+                table: "CourseScheduleEntries");
 
             migrationBuilder.DropIndex(
-                name: "IX_Courses_DepartmentId",
-                table: "Courses");
+                name: "IX_CourseScheduleEntries_SemesterId",
+                table: "CourseScheduleEntries");
 
             migrationBuilder.DropColumn(
-                name: "DepartmentId",
-                table: "Courses");
+                name: "SemesterId",
+                table: "CourseScheduleEntries");
         }
     }
 }

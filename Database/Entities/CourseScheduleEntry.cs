@@ -10,4 +10,7 @@ public class CourseScheduleEntry
     public string Day { get; set; }
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }
+    
+    public int SemesterId { get; set; }
+    public Semester Semester { get; set; }
 }

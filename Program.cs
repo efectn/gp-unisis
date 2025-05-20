@@ -20,6 +20,7 @@ public class Bruh
         var courseGroupRepository = new CourseGroupsRepository(db);
         var courseRepository = new CourseRepository(db);
         var studentRepository = new StudentRepository(db);
+        var courseScheduleRepository = new CourseScheduleEntryRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
@@ -30,7 +31,8 @@ public class Bruh
         var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
         var courseViewModel = new CourseViewModel(departmentRepository, courseRepository, semesterRepository);
-
+        var courseScheduleViewModel = new CourseScheduleViewModel(courseRepository, semesterRepository);
+        
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
         var role = Console.ReadLine();
@@ -179,6 +181,15 @@ public class Bruh
                     break;
                 case 36:
                     courseViewModel.DeleteCourse();
+                    break;
+                case 37:
+                    courseScheduleViewModel.ListCourseSchedule();
+                    break;
+                case 38:
+                    courseScheduleViewModel.AddCourseScheduleEntry();
+                    break;
+                case 39:
+                    courseScheduleViewModel.RemoveCourseScheduleEntry();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
