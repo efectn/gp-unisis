@@ -35,4 +35,18 @@ public class ApplicationDbContext : DbContext
         if (!optionsBuilder.IsConfigured)
             optionsBuilder.UseSqlite("Data Source=database.db");
     }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Seed the data
+        Seed.AdminSeeder.Seed(modelBuilder);
+        Seed.FacultySeeder.Seed(modelBuilder);
+        Seed.DepartmentSeeder.Seed(modelBuilder);
+        Seed.LecturerSeeder.Seed(modelBuilder);
+        Seed.SemesterSeeder.Seed(modelBuilder);
+        Seed.CourseSeeder.Seed(modelBuilder);
+        Seed.StudentSeeder.Seed(modelBuilder);
+    }
 }
