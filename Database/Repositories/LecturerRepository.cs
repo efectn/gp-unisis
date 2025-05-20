@@ -116,4 +116,12 @@ public class LecturerRepository
 
         return lecturer.Departments.ToList();
     }
+
+    public List<Lecturer> GetLecturersByDepartment(int departmentId)
+    {
+        return _context.Lecturers
+                       .Where(l => l.Departments.Any(d => d.Id == departmentId))
+                       .ToList();
+    }
+
 }

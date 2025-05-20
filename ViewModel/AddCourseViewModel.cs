@@ -11,16 +11,53 @@ namespace gp_unisis.ViewModel
         private readonly CourseRepository _courseRepository;
         private readonly CourseGroupsRepository _courseGroupRepository;
         private readonly LecturerRepository _lecturerRepository;
+        private readonly DepartmentRepository _departmentRepository;
 
-        public AddCourseViewModel(CourseRepository courseRepository, CourseGroupsRepository courseGroupRepository, LecturerRepository lecturerRepository)
+        public AddCourseViewModel(CourseRepository courseRepository, CourseGroupsRepository courseGroupRepository, LecturerRepository lecturerRepository, DepartmentRepository departmentRepository )
         {
             _courseRepository = courseRepository;
             _courseGroupRepository = courseGroupRepository;
             _lecturerRepository = lecturerRepository;
+            _departmentRepository = departmentRepository;
         }
 
         public void AddCourse()
         {
+
+            Console.WriteLine("Mevcut bölümler:");
+            var departments = _departmentRepository.GetAllDepartments();
+            foreach (var dep in departments)
+            {
+                Console.WriteLine($"- ID: {dep.Id}, İsim: {dep.Name}");
+            }
+
+            Console.Write("Bölüm ID girin: ");
+            if (!int.TryParse(Console.ReadLine(), out int departmentId))
+            {
+                Console.WriteLine("Geçersiz bölüm ID'si.");
+                return;
+            }
+
+            var lecturers = _lecturerRepository.GetLecturersByDepartment(departmentId);
+            if (lecturers.Count == 0)
+            {
+                Console.WriteLine("Bu bölümde akademisyen bulunamadı.");
+                return;
+            }
+
+            Console.WriteLine("Bölüme ait akademisyenler:");
+            foreach (var lecturer in lecturers)
+            {
+                Console.WriteLine($"- ID: {lecturer.Id}, İsim: {lecturer.FullName}");
+            }
+
+            Console.Write("Akademisyen ID (int): ");
+            if (!int.TryParse(Console.ReadLine(), out int LecturerId))
+            {
+                Console.WriteLine("Geçersiz akademisyen ID'si.");
+                return;
+            }
+
             Console.WriteLine("Ders adı: ");
             var Name = Console.ReadLine();
 
@@ -45,20 +82,6 @@ namespace gp_unisis.ViewModel
             if (!int.TryParse(Console.ReadLine(), out int Quota))
             {
                 Console.WriteLine("Geçersiz kontenjan değeri.");
-                return;
-            }
-
-            Console.WriteLine("Mevcut akademisyenler: ");
-            var lecturers = _lecturerRepository.GetAllLecturers();
-            foreach (var lecturer in lecturers)
-            {
-                Console.WriteLine($"- ID: {lecturer.Id}, İsim: {lecturer.FullName}");
-            }
-
-            Console.Write("Akademisyen ID (int): ");
-            if (!int.TryParse(Console.ReadLine(), out int LecturerId))
-            {
-                Console.WriteLine("Geçersiz akademisyen ID'si.");
                 return;
             }
 

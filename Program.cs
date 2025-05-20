@@ -29,7 +29,7 @@ public class Bruh
         var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
         var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
-        var addCourseViewModel = new AddCourseViewModel(courseRepository, courseGroupRepository, lecturerRepository);
+        var addCourseViewModel = new AddCourseViewModel(courseRepository, courseGroupRepository, lecturerRepository, departmentRepository);
 
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
