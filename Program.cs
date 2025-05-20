@@ -28,7 +28,7 @@ public class Bruh
         var semesterViewModel = new SemesterViewModel(semesterRepository);
         var adminViewModel = new AdminViewModel(adminRepository);
         var lecturerViewModel = new LecturerViewModel(lecturerRepository, departmentRepository);
-        var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
+        var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository, semesterRepository);
         var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
         var courseViewModel = new CourseViewModel(departmentRepository, courseRepository, semesterRepository);
@@ -143,14 +143,11 @@ public class Bruh
                 case 22:
                     courseGroupViewModel.DeleteCourseGroup();
                     break;
-                case 23:
-                    courseGroupViewModel.UpdateCourseGroup();
-                    break;
                 case 24:
                     courseGroupViewModel.ListCourseGroupsByDepartment();
                     break;
                 case 25:
-                    courseGroupViewModel.ShowCourseGroupDetails();
+                    courseGroupViewModel.DeleteCourseGroup();
                     break;
                 case 26:
                     courseApproveViewModel.AwaitingApprovalCourses();

@@ -50,7 +50,7 @@ public class CourseGroupsRepository
 
         if (string.IsNullOrEmpty(courseGroup.Name))
         {
-            throw new ArgumentException("Course name must be set.");
+            throw new ArgumentException("Course group name must be set.");
         }
 
         var existCourseGroups = _context.CourseGroups

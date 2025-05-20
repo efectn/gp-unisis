@@ -19,7 +19,10 @@ public class DepartmentRepository
     
     public Department GetDepartmentById(int id)
     {
-        return _context.Departments.Include(d => d.Faculty).FirstOrDefault(d => d.Id == id);
+        return _context.Departments.Include(d => d.Faculty)
+            .Include(d => d.Lecturers)
+            .Include(d => d.Courses)
+            .FirstOrDefault(d => d.Id == id);
     }
     
     public void AddDepartment(Department department)

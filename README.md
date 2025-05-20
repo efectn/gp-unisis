@@ -8,7 +8,7 @@ todo list:
   - [x] CRUD for admins.
   - [ ] Add course groups for departments.
     - [ ] Check graduation status.
-    - [ ] Syllabus for course groups.
+    - [x] Syllabus for course groups.
   - [x] Approve courses added by lecturers.
 - [ ] Student personal operations.
   - [x] CRUD for students.
