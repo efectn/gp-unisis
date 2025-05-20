@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace gp_unisis.Database.Entities;
 
+[Index(nameof(Email), IsUnique = true)]
 public class Student
 {
     public int Id { get; set; }

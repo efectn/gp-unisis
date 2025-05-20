@@ -6,9 +6,11 @@ namespace gp_unisis.ViewModel;
 public class LecturerViewModel
 {
     private readonly LecturerRepository _lecturerRepository;
+    private readonly DepartmentRepository _departmentRepository;
 
-    public LecturerViewModel(LecturerRepository lecturerRepository)
+    public LecturerViewModel(LecturerRepository lecturerRepository, DepartmentRepository departmentRepository)
     {
+        _departmentRepository = departmentRepository;
         _lecturerRepository = lecturerRepository;
     }
 
@@ -19,6 +21,7 @@ public class LecturerViewModel
         foreach (var lecturer in lecturers)
         {
             Console.WriteLine($"- ID: {lecturer.Id}, İsim: {lecturer.FullName}, Email: {lecturer.Email}");
+            Console.WriteLine($"  - Bölümler: {string.Join(", ", lecturer.Departments.Select(d => d.Name))}");
         }
     }
 
@@ -29,6 +32,23 @@ public class LecturerViewModel
         string fullName = Console.ReadLine();
         Console.Write("Email: ");
         string email = Console.ReadLine();
+        
+        Console.WriteLine("Bölümler: ");
+        var departments = _departmentRepository.GetAllDepartments();
+        foreach (var department in departments)
+        {
+            Console.WriteLine($"  - ID: {department.Id} İsim: {department.Name}");
+        }
+        
+        Console.Write("Bölüm ID'leri: ");
+        var departmentIdsInput = Console.ReadLine();
+        var departmentIds = departmentIdsInput?.Split(',').Select(id => int.TryParse(id.Trim(), out var parsedId) ? parsedId : (int?)null).Where(id => id.HasValue).Select(id => id.Value).ToList();
+        if (departmentIds == null || departmentIds.Count == 0)
+        {
+            Console.WriteLine("Geçersiz bölüm ID'leri.");
+            return;
+        }
+        
         Console.Write("Şifre: ");
         string password = Console.ReadLine();
 
@@ -44,6 +64,21 @@ public class LecturerViewModel
             Email = email,
             Password = password
         };
+        
+        // Add departments to the lecturer
+        lecturer.Departments = new List<Department>();
+        foreach (var departmentId in departmentIds)
+        {
+            var department = _departmentRepository.GetDepartmentById(departmentId);
+            if (department != null)
+            {
+                lecturer.Departments.Add(department);
+            }
+            else
+            {
+                Console.WriteLine($"Bölüm ID {departmentId} bulunamadı.");
+            }
+        }
 
         try
         {
@@ -77,6 +112,18 @@ public class LecturerViewModel
         string fullName = Console.ReadLine();
         Console.Write("Yeni email : ");
         string email = Console.ReadLine();
+        
+        Console.WriteLine("Bölümler: ");
+        var departments = _departmentRepository.GetAllDepartments();
+        foreach (var department in departments)
+        {
+            Console.WriteLine($"  - ID: {department.Id} İsim: {department.Name}");
+        }
+        
+        Console.Write("Yeni bölüm ID'leri (virgülle ayırarak): ");
+        var departmentIdsInput = Console.ReadLine();
+        var departmentIds = departmentIdsInput?.Split(',').Select(id => int.TryParse(id.Trim(), out var parsedId) ? parsedId : (int?)null).Where(id => id.HasValue).Select(id => id.Value).ToList();
+        
         Console.Write("Yeni şifre : ");
         string password = Console.ReadLine();
 
@@ -84,6 +131,26 @@ public class LecturerViewModel
         lecturer.Email = string.IsNullOrWhiteSpace(email) ? lecturer.Email : email;
         lecturer.Password = string.IsNullOrWhiteSpace(password) ? lecturer.Password : password;
 
+        // Clear existing departments if any new ones are provided
+        if (lecturer.Departments == null) lecturer.Departments = new List<Department>();
+        lecturer.Departments.Clear();
+        // Add new departments to the lecturer
+        if (departmentIds != null && departmentIds.Count > 0)
+        {
+            foreach (var departmentId in departmentIds)
+            {
+                var department = _departmentRepository.GetDepartmentById(departmentId);
+                if (department != null)
+                {
+                    lecturer.Departments.Add(department);
+                }
+                else
+                {
+                    Console.WriteLine($"Bölüm ID {departmentId} bulunamadı.");
+                }
+            }
+        }
+        
         try
         {
             _lecturerRepository.UpdateLecturer(lecturer);

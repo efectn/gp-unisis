@@ -24,7 +24,7 @@ public class Bruh
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
         var semesterViewModel = new SemesterViewModel(semesterRepository);
         var adminViewModel = new AdminViewModel(adminRepository);
-        var lecturerViewModel = new LecturerViewModel(lecturerRepository);
+        var lecturerViewModel = new LecturerViewModel(lecturerRepository, departmentRepository);
         var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
         var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         
