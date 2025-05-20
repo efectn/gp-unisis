@@ -9,7 +9,7 @@ todo list:
   - [x] Add course groups for departments.
   - [x] Approve courses added by lecturers.
 - [ ] Student personal operations.
-  - [ ] CRUD for students.
+  - [x] CRUD for students.
 - [ ] Lecturer operations.
   - [ ] Add new courses.
   - [ ] Add grades for courses.

@@ -19,6 +19,7 @@ public class Bruh
         var lecturerRepository = new LecturerRepository(db);
         var courseGroupRepository = new CourseGroupsRepository(db);
         var courseRepository = new CourseRepository(db);
+        var studentRepository = new StudentRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
@@ -27,7 +28,8 @@ public class Bruh
         var lecturerViewModel = new LecturerViewModel(lecturerRepository, departmentRepository);
         var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
         var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
-        
+        var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
+
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
         var role = Console.ReadLine();
@@ -36,7 +38,7 @@ public class Bruh
             Console.WriteLine("Geçersiz giriş. Çıkılıyor...");
             return;
         }
-        
+
         switch (role)
         {
             case "1":
@@ -52,7 +54,7 @@ public class Bruh
                 Console.WriteLine("Geçersiz giriş. Çıkılıyor...");
                 return;
         }
-        
+
         while (true)
         {
             Console.WriteLine("Sayfa numarası girin: ");
@@ -153,52 +155,22 @@ public class Bruh
                 case 28:
                     courseApproveViewModel.RejectCourse();
                     break;
+                case 29:
+                    studentViewModel.ListStudents();
+                    break;
+                case 30:
+                    studentViewModel.AddStudent();
+                    break;
+                case 31:
+                    studentViewModel.UpdateStudent();
+                    break;
+                case 32:
+                    studentViewModel.DeleteStudent();
+                    break;
                 default:
                     Console.WriteLine("sayfa yok");
                     break;
             }
         }
-
-        var faculty = new Faculty
-        {
-            Name = "Faculty of Science",
-            Address = "123 Science St.",
-            ContactNumber = "123-456-7890",
-            Dean = "Dr. Smith",
-            ViceDean = "Dr. Johnson"
-        };
-        //facultyRepository.AddFaculty(faculty);
-        var faculties = facultyRepository.GetAllFaculties();
-        foreach (var fac in faculties)
-        {
-            Console.WriteLine($"Faculty: {fac.Name}, Address: {fac.Address}, Contact: {fac.ContactNumber}");
-            Console.WriteLine("Faculty Departments:");
-            foreach (var department in fac.Departments)
-            {
-                Console.WriteLine($"- {department.Name}");
-            }
-        }
-
-        /*
-        var departmentRepository = new DepartmentRepository(db);
-        var newDepartment = new Department
-        {
-            Name = "Department of Physics",
-            Address = "456 Physics Ave.",
-            ContactNumber = "987-654-3210",
-            Head = "Dr. Brown",
-            ViceHead = "Dr. Green",
-            FacultyId = 5
-        };
-
-        departmentRepository.AddDepartment(newDepartment);
-        var departments = departmentRepository.GetAllDepartments();
-        foreach (var dept in departments)
-        {
-            Console.WriteLine($"Department: {dept.Name}, Address: {dept.Address}, Contact: {dept.ContactNumber}");
-            Console.WriteLine("Department Faculty:");
-            Console.WriteLine($"- {dept.Faculty.Name}");
-        }
-        */
     }
 }
