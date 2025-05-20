@@ -16,11 +16,17 @@ public class Bruh
         var departmentRepository = new DepartmentRepository(db);
         var semesterRepository = new SemesterRepository(db);
         var adminRepository = new AdminRepository(db);
+        var lecturerRepository = new LecturerRepository(db);
+        var courseGroupRepository = new CourseGroupsRepository(db);
+        var courseRepository = new CourseRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
         var semesterViewModel = new SemesterViewModel(semesterRepository);
         var adminViewModel = new AdminViewModel(adminRepository);
+        var lecturerViewModel = new LecturerViewModel(lecturerRepository);
+        var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
+        var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
@@ -110,6 +116,42 @@ public class Bruh
                     break;
                 case 16:
                     adminViewModel.DeleteAdmin();
+                    break;
+                case 17:
+                    lecturerViewModel.ListLecturers();
+                    break;
+                case 18:
+                    lecturerViewModel.AddLecturer();
+                    break;
+                case 19:
+                    lecturerViewModel.UpdateLecturer();
+                    break;
+                case 20:
+                    lecturerViewModel.DeleteLecturer();
+                    break;
+                case 21:
+                    courseGroupViewModel.AddCourseGroup();
+                    break;
+                case 22:
+                    courseGroupViewModel.DeleteCourseGroup();
+                    break;
+                case 23:
+                    courseGroupViewModel.UpdateCourseGroup();
+                    break;
+                case 24:
+                    courseGroupViewModel.ListCourseGroupsByDepartment();
+                    break;
+                case 25:
+                    courseGroupViewModel.ShowCourseGroupDetails();
+                    break;
+                case 26:
+                    courseApproveViewModel.AwaitingApprovalCourses();
+                    break;
+                case 27:
+                    courseApproveViewModel.ApproveCourse();
+                    break;
+                case 28:
+                    courseApproveViewModel.RejectCourse();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
