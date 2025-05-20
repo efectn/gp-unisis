@@ -19,6 +19,6 @@ public class Course
     public ICollection<CourseScheduleEntry> CourseScheduleEntries { get; set; }
     public ICollection<Grade> Grades { get; set; }
     public ICollection<Announcement> Announcements { get; set; }
-    public ICollection<CourseGroup> CourseGroups { get; set; }
+    public ICollection<CourseGroup> CourseGroups { get; set; } = new List<CourseGroup>();
 
 }

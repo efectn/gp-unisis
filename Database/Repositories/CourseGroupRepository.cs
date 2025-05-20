@@ -36,6 +36,11 @@ public class CourseGroupsRepository
         return courseGroup;
     }
 
+    public List<CourseGroup> GetAllCourseGroups()
+    {
+        return _context.CourseGroups.ToList();
+    }
+
     public void AddCourseGroups(CourseGroup courseGroup)
     {
         if (courseGroup == null)

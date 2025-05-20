@@ -29,6 +29,7 @@ public class Bruh
         var courseGroupViewModel = new CourseGroupsViewModel(courseGroupRepository, departmentRepository);
         var courseApproveViewModel = new CourseApproveViewModel(courseRepository);
         var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
+        var addCourseViewModel = new AddCourseViewModel(courseRepository, courseGroupRepository, lecturerRepository);
 
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
@@ -166,6 +167,9 @@ public class Bruh
                     break;
                 case 32:
                     studentViewModel.DeleteStudent();
+                    break;
+                case 33:
+                    addCourseViewModel.AddCourse();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

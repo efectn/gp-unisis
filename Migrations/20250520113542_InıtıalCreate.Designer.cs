@@ -11,8 +11,8 @@ using gp_unisis.Database;
 namespace gp_unisis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250520093502_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250520113542_InıtıalCreate")]
+    partial class InıtıalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
