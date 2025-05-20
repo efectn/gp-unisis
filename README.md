@@ -5,7 +5,7 @@ todo list:
   - [x] CRUD for departments.
   - [x] CRUD for semesters.
   - [ ] CRUD for lecturers.
-  - [ ] CRUD for admins.
+  - [x] CRUD for admins.
   - [ ] Add course groups for departments.
   - [ ] Approve courses added by lecturers.
 - [ ] Student personal operations.

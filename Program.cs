@@ -15,10 +15,37 @@ public class Bruh
         var facultyRepository = new FacultyRepository(db);
         var departmentRepository = new DepartmentRepository(db);
         var semesterRepository = new SemesterRepository(db);
+        var adminRepository = new AdminRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
         var semesterViewModel = new SemesterViewModel(semesterRepository);
+        var adminViewModel = new AdminViewModel(adminRepository);
+        
+        Console.WriteLine("GP Unisis Yönetim Sistemi");
+        Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
+        var role = Console.ReadLine();
+        if (string.IsNullOrEmpty(role))
+        {
+            Console.WriteLine("Geçersiz giriş. Çıkılıyor...");
+            return;
+        }
+        
+        switch (role)
+        {
+            case "1":
+                Console.WriteLine("Admin girişi");
+                break;
+            case "2":
+                Console.WriteLine("Öğrenci girişi");
+                break;
+            case "3":
+                Console.WriteLine("Çıkılıyor...");
+                return;
+            default:
+                Console.WriteLine("Geçersiz giriş. Çıkılıyor...");
+                return;
+        }
         
         while (true)
         {
@@ -71,6 +98,18 @@ public class Bruh
                     break;
                 case 12:
                     semesterViewModel.DeleteSemester();
+                    break;
+                case 13:
+                    adminViewModel.ListAdmins();
+                    break;
+                case 14:
+                    adminViewModel.AddAdmin();
+                    break;
+                case 15:
+                    adminViewModel.UpdateAdmin();
+                    break;
+                case 16:
+                    adminViewModel.DeleteAdmin();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
