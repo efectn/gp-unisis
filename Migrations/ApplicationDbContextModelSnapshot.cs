@@ -294,7 +294,7 @@ namespace gp_unisis.Migrations
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("Exam");
+                    b.ToTable("Exams");
                 });
 
             modelBuilder.Entity("gp_unisis.Database.Entities.Faculty", b =>

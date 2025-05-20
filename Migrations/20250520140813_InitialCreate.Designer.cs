@@ -11,8 +11,8 @@ using gp_unisis.Database;
 namespace gp_unisis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250520135800_InıtıalCreate_2")]
-    partial class InıtıalCreate_2
+    [Migration("20250520140813_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,6 +141,9 @@ namespace gp_unisis.Migrations
                     b.Property<int>("Credit")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -165,6 +168,8 @@ namespace gp_unisis.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("LecturerId");
 
@@ -207,12 +212,17 @@ namespace gp_unisis.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SemesterId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("SemesterId");
 
                     b.ToTable("CourseScheduleEntries");
                 });
@@ -287,7 +297,7 @@ namespace gp_unisis.Migrations
 
                     b.HasIndex("SemesterId");
 
-                    b.ToTable("Exam");
+                    b.ToTable("Exams");
                 });
 
             modelBuilder.Entity("gp_unisis.Database.Entities.Faculty", b =>
@@ -586,11 +596,19 @@ namespace gp_unisis.Migrations
 
             modelBuilder.Entity("gp_unisis.Database.Entities.Course", b =>
                 {
+                    b.HasOne("gp_unisis.Database.Entities.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("gp_unisis.Database.Entities.Lecturer", "Lecturer")
                         .WithMany()
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Department");
 
                     b.Navigation("Lecturer");
                 });
@@ -614,7 +632,15 @@ namespace gp_unisis.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("gp_unisis.Database.Entities.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Course");
+
+                    b.Navigation("Semester");
                 });
 
             modelBuilder.Entity("gp_unisis.Database.Entities.Department", b =>
@@ -748,6 +774,8 @@ namespace gp_unisis.Migrations
 
             modelBuilder.Entity("gp_unisis.Database.Entities.Department", b =>
                 {
+                    b.Navigation("Courses");
+
                     b.Navigation("Students");
                 });
 
