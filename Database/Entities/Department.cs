@@ -14,5 +14,6 @@ public class Department
 
     public ICollection<Lecturer> Lecturers { get; set; }
     public ICollection<Student> Students { get; set; }
+    public ICollection<Course> Courses { get; set; }
     //public ICollection<CourseGroupDepartment> CourseGroupDepartments { get; set; }
 }

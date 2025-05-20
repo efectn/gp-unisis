@@ -14,6 +14,9 @@ public class Course
 
     public int LecturerId { get; set; }
     public Lecturer Lecturer { get; set; }
+    
+    public int DepartmentId { get; set; }
+    public Department Department { get; set; }
 
     public ICollection<Semester> Semesters { get; set; }
     public ICollection<CourseScheduleEntry> CourseScheduleEntries { get; set; }

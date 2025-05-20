@@ -36,6 +36,26 @@ public class CourseRepository
 
         return course;
     }
+    
+    public Course[] GetCoursesByDepartment(int departmentId)
+    {
+        var courses = _context.Courses
+            .Include(c => c.Lecturer)
+            .Include(c => c.Semesters)
+            .Include(c => c.CourseScheduleEntries)
+            .Include(c => c.Grades)
+            .Include(c => c.Announcements)
+            .Include(c => c.CourseGroups)
+            .Where(c => c.DepartmentId == departmentId)
+            .ToArray();
+
+        if (courses.Length == 0)
+        {
+            return [];
+        }
+
+        return courses;
+    }
 
 
     public void AddCourse(Course course)

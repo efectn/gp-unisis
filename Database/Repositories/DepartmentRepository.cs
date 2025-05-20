@@ -109,4 +109,15 @@ public class DepartmentRepository
         _context.Departments.Remove(department);
         _context.SaveChanges();
     }
+    
+    public Lecturer[] GetLecturersByDepartmentId(int departmentId)
+    {
+        var department = _context.Departments.Include(d => d.Lecturers).FirstOrDefault(d => d.Id == departmentId);
+        if (department == null)
+        {
+            throw new InvalidOperationException($"Department with ID {departmentId} does not exist.");
+        }
+        
+        return department.Lecturers.ToArray();
+    }
 }
