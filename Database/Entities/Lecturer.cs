@@ -5,8 +5,7 @@ namespace gp_unisis.Database.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 [Index(nameof(Email), IsUnique = true)]
 public class Lecturer

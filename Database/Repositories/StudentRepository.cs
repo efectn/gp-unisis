@@ -132,18 +132,4 @@ public class StudentRepository
     {
         return _context.Students.FirstOrDefault(s => s.NationalId == id);
     }
-
-    public double GetStudentGANOById(int id)
-    {
-        var grades = _context.Grades
-            .Where(g => g.StudentId == id)
-            .ToList();
-
-        if (grades.Count == 0)
-        {
-            throw new InvalidOperationException("Student has no grades.");
-        }
-
-        return grades.Average(g => g.Score * g.Percentage / 100);
-    }
 }

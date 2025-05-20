@@ -15,18 +15,22 @@ public class GradeRepository
     public List<Grade> GetAllGrades()
     {
         return _context.Grades
-            .Include(c => c.Course)
-            .Include(sem => sem.Semester)
-            .Include(st => st.Student)
+            .Include(g => g.Student)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Course)     // Exam -> Course
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Semester)   // Exam -> Semester
             .ToList();
     }
 
     public Grade GetGradeById(int id)
     {
         var grade = _context.Grades
-            .Include(c => c.Course)
-            .Include(sem => sem.Semester)
-            .Include(st => st.Student)
+            .Include(g => g.Student)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Course)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Semester)
             .FirstOrDefault(g => g.Id == id);
 
         if (grade == null)
@@ -42,11 +46,8 @@ public class GradeRepository
         if (grade == null)
             throw new ArgumentNullException(nameof(grade));
 
-        if (grade.StudentId == -1 ||
-            grade.CourseId == -1 ||
-            grade.SemesterId == -1 ||
-            string.IsNullOrWhiteSpace(grade.ExamName) ||
-            grade.Percentage < 0 || grade.Percentage > 100 ||
+        if (grade.StudentId == 0 ||
+            grade.ExamId == 0 ||
             grade.Score < 0 || grade.Score > 100)
         {
             throw new ArgumentException("All required properties must be valid and properly set.");
@@ -59,31 +60,21 @@ public class GradeRepository
     public void UpdateGrade(Grade grade)
     {
         if (grade == null)
-        {
             throw new ArgumentNullException(nameof(grade));
-        }
 
         var existGrade = _context.Grades.FirstOrDefault(g => g.Id == grade.Id);
         if (existGrade == null)
-        {
             throw new InvalidOperationException($"Grade with ID {grade.Id} does not exist.");
-        }
 
-        if (grade.StudentId == -1 ||
-            grade.CourseId == -1 ||
-            grade.SemesterId == -1 ||
-            string.IsNullOrWhiteSpace(grade.ExamName) ||
-            grade.Percentage < 0 || grade.Percentage > 100 ||
+        if (grade.StudentId == 0 ||
+            grade.ExamId == 0 ||
             grade.Score < 0 || grade.Score > 100)
         {
             throw new ArgumentException("All required properties must be valid and properly set.");
         }
 
-        existGrade.CourseId = grade.CourseId;
-        existGrade.SemesterId = grade.SemesterId;
         existGrade.StudentId = grade.StudentId;
-        existGrade.ExamName = grade.ExamName;
-        existGrade.Percentage = grade.Percentage;
+        existGrade.ExamId = grade.ExamId;
         existGrade.Score = grade.Score;
 
         _context.SaveChanges();
@@ -93,57 +84,55 @@ public class GradeRepository
     {
         var grade = _context.Grades.Find(id);
         if (grade == null)
-        {
             throw new InvalidOperationException($"Grade with ID {id} does not exist.");
-        }
 
         _context.Grades.Remove(grade);
         _context.SaveChanges();
     }
 
-    public List<Grade> GetAllGradesByStudentId(int id)
+    public List<Grade> GetGradesByStudentId(int studentId)
     {
         return _context.Grades
-            .Include(c => c.Course)
-            .Include(sem => sem.Semester)
-            .Include(st => st.Student)
-            .Where(st => st.StudentId == id)
+            .Include(g => g.Student)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Course)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Semester)
+            .Where(g => g.StudentId == studentId)
             .ToList();
     }
 
-    public List<Grade> GetAllCourseGradesByCourseId(int id)
+    public List<Grade> GetGradesByExamId(int examId)
     {
         return _context.Grades
-            .Include(c => c.Course)
-            .Include(sem => sem.Semester)
-            .Include(st => st.Student)
-            .Where(c => c.CourseId == id)
+            .Include(g => g.Student)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Course)
+            .Include(g => g.Exam)
+                .ThenInclude(e => e.Semester)
+            .Where(g => g.ExamId == examId)
             .ToList();
     }
 
-    public double GetAverageScoreByCourseId(int id)
+    public double GetAverageScoreByExamId(int examId)
     {
-        var grade = _context.Grades.FirstOrDefault(g => g.CourseId == id);
-        if (grade == null)
-        {
-            throw new InvalidOperationException($"Course with ID {id} does not exist.");
-        }
+        var gradesExist = _context.Grades.Any(g => g.ExamId == examId);
+        if (!gradesExist)
+            throw new InvalidOperationException($"No grades found for Exam with ID {examId}.");
 
         return _context.Grades
-            .Where(c => c.CourseId == id)
-            .Average(c => c.Score);
+            .Where(g => g.ExamId == examId)
+            .Average(g => g.Score);
     }
 
-    public double GetStudentGANO(int id)
+    public double GetStudentAverageScore(int studentId)
     {
-        var grade = _context.Grades.FirstOrDefault(g => g.StudentId == id);
-        if (grade == null)
-        {
-            throw new InvalidOperationException($"Student with ID {id} does not exist.");
-        }
+        var gradesExist = _context.Grades.Any(g => g.StudentId == studentId);
+        if (!gradesExist)
+            throw new InvalidOperationException($"No grades found for Student with ID {studentId}.");
 
         return _context.Grades
-            .Where(st => st.StudentId == id)
-            .Average(st => st.Score * st.Percentage / 100);
+            .Where(g => g.StudentId == studentId)
+            .Average(g => g.Score);
     }
 }

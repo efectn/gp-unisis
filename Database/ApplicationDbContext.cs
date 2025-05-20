@@ -19,6 +19,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<CourseGroup> CourseGroups { get; set; }
     public DbSet<CourseScheduleEntry> CourseScheduleEntries { get; set; }
     public DbSet<StudentCourseSelection> StudentCourseSelections { get; set; }
+    public DbSet<Exam> Exams { get; set; }
 
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
