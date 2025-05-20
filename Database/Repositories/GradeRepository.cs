@@ -135,4 +135,13 @@ public class GradeRepository
             .Where(g => g.StudentId == studentId)
             .Average(g => g.Score);
     }
+
+    public List<Grade> GetGradesByStudentAndCourse(int studentId, int courseId)
+{
+    return _context.Grades
+        .Where(g => g.StudentId == studentId && g.Exam.CourseId == courseId)
+        .Include(g => g.Exam)
+        .Include(g => g.Student)
+        .ToList();
+}
 }

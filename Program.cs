@@ -36,7 +36,8 @@ public class Bruh
         var courseScheduleViewModel = new CourseScheduleViewModel(courseRepository, semesterRepository);
         var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository);
         var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository);
-        
+        var CalculateLetterGradeViewModel = new CalculateLetterGradeViewModel(examRepository, gradeRepository, studentRepository, courseRepository);
+
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
@@ -201,6 +202,9 @@ public class Bruh
                     break;
                 case 42:
                     examScheduleViewModel.ListExamSchedule();
+                    break;
+                case 43:
+                    CalculateLetterGradeViewModel.CalculateStudentCourseGrade();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
