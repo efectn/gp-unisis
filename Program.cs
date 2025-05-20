@@ -22,6 +22,7 @@ public class Bruh
         var studentRepository = new StudentRepository(db);
         var courseScheduleRepository = new CourseScheduleEntryRepository(db);
         var examRepository = new ExamRepository(db);
+        var gradeRepository = new GradeRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
@@ -34,6 +35,7 @@ public class Bruh
         var courseViewModel = new CourseViewModel(departmentRepository, courseRepository, semesterRepository);
         var courseScheduleViewModel = new CourseScheduleViewModel(courseRepository, semesterRepository);
         var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository);
+        var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository);
         
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");

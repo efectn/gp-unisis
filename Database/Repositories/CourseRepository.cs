@@ -27,6 +27,7 @@ public class CourseRepository
     public Course GetCourseById(int id)
     {
         var course = _context.Courses
+            .Include(d => d.Department)
             .FirstOrDefault(c => c.Id == id);
 
         if (course == null)

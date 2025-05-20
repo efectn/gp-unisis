@@ -132,4 +132,9 @@ public class StudentRepository
     {
         return _context.Students.FirstOrDefault(s => s.NationalId == id);
     }
+
+    public Student StudentGetById(int id)
+    {
+        return _context.Students.Include(s => s.Grades).FirstOrDefault(s => s.Id == id);
+    }
 }

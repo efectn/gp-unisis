@@ -14,7 +14,7 @@ todo list:
   - [x] CRUD for students.
 - [ ] Lecturer operations.
   - [x] Add new courses.
-  - [ ] Add grades for courses.
+  - [x] Add grades for courses.
   - [ ] Calculate transcript grade for students.
   - [x] Show course schedule.
   - [x] Show and add exam schedule.

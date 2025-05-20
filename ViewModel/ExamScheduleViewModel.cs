@@ -113,11 +113,11 @@ public class ExamScheduleViewModel
             return;
         }
 
-        Console.WriteLine("Ders adı: ");
+        Console.WriteLine("Sınav adı: ");
         var name = Console.ReadLine();
         if (string.IsNullOrEmpty(name))
         {
-            Console.WriteLine("Geçersiz ders adı.");
+            Console.WriteLine("Geçersiz sınav adı.");
             return;
         }
 
