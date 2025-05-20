@@ -287,7 +287,14 @@ public class CourseViewModel
             }
 
             // Clear existing semesters and add new ones
-            course.Semesters.Clear();
+            if (course.Semesters != null)
+            {
+                course.Semesters.Clear();
+            }
+            else
+            {
+                course.Semesters = new List<Semester>();
+            }
             foreach (var semesterId in semesterIds)
             {
                 var semester = semesters.First(s => s.Id == semesterId);

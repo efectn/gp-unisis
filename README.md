@@ -17,7 +17,7 @@ todo list:
   - [ ] Add grades for courses.
   - [ ] Calculate transcript grade for students.
   - [x] Show course schedule.
-  - [ ] Show and add exam schedule.
+  - [x] Show and add exam schedule.
 - [ ] Student operations.
   - [ ] Take courses for semester.
   - [ ] Show course schedule.

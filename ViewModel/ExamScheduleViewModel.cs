@@ -147,19 +147,47 @@ public class ExamScheduleViewModel
             Console.WriteLine("Böyle bir dönem bulunamadı.");
             return;
         }
+        
+        // Check if the course is available in the semester
+        if (course.Semesters.Any(s => s.Id != parsedSemesterId))
+        {
+            Console.WriteLine("Bu ders belirtilen dönemde mevcut değil.");
+            return;
+        }
 
+        Console.WriteLine("Sınavın yüzdelik etkisi:");
+        var examCoefficient = Console.ReadLine();
+        if (!int.TryParse(examCoefficient, out int parsedExamCoefficient))
+        {
+            Console.WriteLine("Geçersiz yüzdelik etki.");
+            return;
+        }
+        if (parsedExamCoefficient < 0 || parsedExamCoefficient > 100)
+        {
+            Console.WriteLine("Yüzdelik etki 0 ile 100 arasında olmalıdır.");
+            return;
+        }
+        
         var newExam = new Exam
         {
             Name = name,
             SemesterId = parsedSemesterId,
-            CourseId = parsedCourseId,
+            CourseId = course.Id,
             ExamDate = examDate,
-            DurationMinutes = parsedDuration
+            DurationMinutes = parsedDuration,
+            examCoefficient = parsedExamCoefficient,
         };
 
-        _examRepository.AddExam(newExam);
-
-        Console.WriteLine("Sınav başarıyla eklendi.");
+        try
+        {
+            _examRepository.AddExam(newExam);
+            Console.WriteLine("Sınav başarıyla eklendi.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Hata: {e.Message}");
+            return;
+        }
     }
 
     public void RemoveExamSchedule()

@@ -14,17 +14,20 @@ public class ExamRepository
 
     public void AddExam(Exam exam)
     {
-        if (exam == null)
-            throw new ArgumentNullException(nameof(exam));
-
-        if (string.IsNullOrEmpty(exam.Name))
-            throw new ArgumentException("Exam name must be provided.");
-
         var existExam = _context.Exams
-            .FirstOrDefault(e => e.Name == exam.Name && e.Semester.Id == exam.Semester.Id);
+            .FirstOrDefault(e => e.Name == exam.Name && e.SemesterId == exam.SemesterId);
+
         if (existExam != null)
             throw new InvalidOperationException($"Exam with name {exam.Name} in this semester already exists.");
 
+        // Check if coefficient doesnt exceed 100 for the same semester and course
+        var existingExams = _context.Exams
+            .Where(e => e.CourseId == exam.CourseId && e.SemesterId == exam.SemesterId)
+            .ToList();
+        var totalCoefficient = existingExams.Sum(e => e.examCoefficient) + exam.examCoefficient;
+        if (totalCoefficient > 100)
+            throw new InvalidOperationException("Total exam coefficient for the same semester and course cannot exceed 100.");
+        
         _context.Exams.Add(exam);
         _context.SaveChanges();
     }
