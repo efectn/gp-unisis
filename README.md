@@ -21,7 +21,7 @@ todo list:
 - [ ] Student operations.
   - [x] Take courses for semester.
   - [x] Show course schedule.
-  - [ ] Show exam schedule.
+  - [x] Show exam schedule.
   - [ ] Show transcript.
   - [ ] Show grades of courses.
   - [ ] Show course groups and check graduation status.

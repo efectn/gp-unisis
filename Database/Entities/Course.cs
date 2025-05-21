@@ -25,5 +25,7 @@ public class Course
     public ICollection<CourseGroup> CourseGroups { get; set; } = new List<CourseGroup>();
     
     public ICollection<StudentCourseSelection> StudentCourseSelections { get; set; } = new List<StudentCourseSelection>();
+    
+    public ICollection<Exam> Exams { get; set; } = new List<Exam>();
 
 }

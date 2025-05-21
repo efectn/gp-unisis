@@ -113,6 +113,9 @@ public class StudentCourseSelectionRepository
             .Where(scs => scs.StudentId == id)
             .Include(scs => scs.Courses)
             .ThenInclude(c => c.CourseScheduleEntries)
+            .Include(scs => scs.Courses)
+            .ThenInclude(c => c.Exams)
+            .Include(scs => scs.Courses)
             .Include(scs => scs.Semester)
             .ToList();
     }
