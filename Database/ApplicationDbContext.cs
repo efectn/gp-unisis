@@ -39,7 +39,12 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
+        
+        modelBuilder.Entity<Exam>()
+            .HasOne(a => a.ExamLetterGradeInterval)
+            .WithOne(a => a.Exam)
+            .HasForeignKey<ExamLetterGradeInterval>(c => c.ExamId);
+        
         // Seed the data
         Seed.AdminSeeder.Seed(modelBuilder);
         Seed.FacultySeeder.Seed(modelBuilder);

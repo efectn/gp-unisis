@@ -19,7 +19,7 @@ todo list:
   - [x] Show course schedule.
   - [x] Show and add exam schedule.
 - [ ] Student operations.
-  - [ ] Take courses for semester.
+  - [x] Take courses for semester.
   - [ ] Show course schedule.
   - [ ] Show exam schedule.
   - [ ] Show transcript.

@@ -2,6 +2,7 @@
 using gp_unisis.Database.Entities;
 using gp_unisis.Database.Repositories;
 using gp_unisis.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bruh;
 
@@ -10,7 +11,103 @@ public class Bruh
     public static void Main()
     {
         var db = new ApplicationDbContext();
-        db.Database.EnsureCreated();
+        if (db.Database.EnsureCreated())
+        {
+            // Add courses to semesters randomly
+            for (int i = 1; i <= 50; i++)
+            {
+                // select a random semester
+                var semesters = new List<Semester>();
+                for (int j = 1; j < 25; j++)
+                {
+                    var rnd = new Random();
+                    var semesterId = rnd.Next(1, 5);
+
+                    if (!semesters.Any(s => s.Id == semesterId))
+                    {
+                        semesters.Add(db.Semesters.FirstOrDefault(s => s.Id == semesterId));
+                    }
+
+                    var course = db.Courses.FirstOrDefault(c => c.Id == i);
+                    if (course != null)
+                    {
+                        course.Semesters = semesters;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            
+            // Add vize and final exams to courses for each semester
+            for (int i = 1; i <= 50; i++)
+            {
+                var course = db.Courses.Include(c => c.Semesters).FirstOrDefault(c => c.Id == i);
+                if (course != null)
+                {
+                    var semesters = course.Semesters.ToList();
+                    if (semesters.Count == 0)
+                    {
+                        continue;
+                    }
+                    
+                    foreach (var semester in semesters)
+                    {
+                        var exam = new Exam
+                        {
+                            Name = "Vize",
+                            ExamType = true,
+                            examCoefficient = 40,
+                            DurationMinutes = 60,
+                            CourseId = course.Id,
+                            SemesterId = semester.Id,
+                            ExamDate = DateTime.Now.AddDays(30),
+                            IsExamCalculated = false
+                        };
+                        db.Exams.Add(exam);
+                        
+                        var finalExam = new Exam
+                        {
+                            Name = "Final",
+                            ExamType = false,
+                            examCoefficient = 60,
+                            DurationMinutes = 120,
+                            CourseId = course.Id,
+                            SemesterId = semester.Id,
+                            ExamDate = DateTime.Now.AddDays(60),
+                            IsExamCalculated = false
+                        };
+                        db.Exams.Add(finalExam);
+                        
+                        db.SaveChanges();
+                    }
+                }
+            }
+            
+            // Add lecturers to departments according to courses
+            for (int i = 1; i <= 50; i++)
+            {
+                var course = db.Courses.Include(c => c.Semesters).FirstOrDefault(c => c.Id == i);
+                if (course != null)
+                {
+                    var lecturerId = course.LecturerId;
+                    var lecturer = db.Lecturers.FirstOrDefault(l => l.Id == lecturerId);
+                    
+                    if (lecturer != null)
+                    {
+                        var departmentId = course.DepartmentId;
+                        var department = db.Departments.FirstOrDefault(d => d.Id == departmentId);
+                        if (department != null)
+                        {
+                            if (department.Lecturers == null)
+                            {
+                                department.Lecturers = new List<Lecturer>();
+                            }
+                            department.Lecturers.Add(lecturer);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
+        }
 
         var facultyRepository = new FacultyRepository(db);
         var departmentRepository = new DepartmentRepository(db);
@@ -23,6 +120,7 @@ public class Bruh
         var courseScheduleRepository = new CourseScheduleEntryRepository(db);
         var examRepository = new ExamRepository(db);
         var gradeRepository = new GradeRepository(db);
+        var studentCourseSelectionRepository = new StudentCourseSelectionRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
@@ -37,6 +135,7 @@ public class Bruh
         var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository);
         var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository, departmentRepository);
         var calculateLetterGradeViewModel = new CalculateLetterGradeViewModel(examRepository, gradeRepository, studentRepository, courseRepository);
+        var courseSelectionViewModel = new StudentCourseSelectionViewModel(semesterRepository, courseRepository, studentRepository, studentCourseSelectionRepository);
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
@@ -213,6 +312,24 @@ public class Bruh
                     break;
                 case 46:
                     gradeViewModel.DeleteGrade();
+                    break;
+                case 47:
+                    courseSelectionViewModel.ListCourseSelections();
+                    break;
+                case 48:
+                    courseSelectionViewModel.AddCourses();
+                    break;
+                case 49:
+                    courseSelectionViewModel.UpdateCourses();
+                    break;
+                case 50:
+                    courseSelectionViewModel.DeleteCourseSelection();
+                    break;
+                case 51:
+                    courseSelectionViewModel.ListCourseSelectionsByStudentId();
+                    break;
+                case 52:
+                    courseSelectionViewModel.ConfirmOrCancelCourseSelection();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

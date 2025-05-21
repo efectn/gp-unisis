@@ -16,7 +16,7 @@ public class StudentCourseSelectionRepository
     {
         return _context.StudentCourseSelections
             .Include(scs => scs.Student)
-            .Include(scs => scs.Course)
+            .Include(scs => scs.Courses)
             .Include(scs => scs.Semester)
             .ToList();
     }
@@ -25,7 +25,7 @@ public class StudentCourseSelectionRepository
     {
         var courseSelection = _context.StudentCourseSelections
             .Include(scs => scs.Student)
-            .Include(scs => scs.Course)
+            .Include(scs => scs.Courses)
             .Include(scs => scs.Semester)
             .FirstOrDefault(scs => scs.Id == id);
 
@@ -45,38 +45,24 @@ public class StudentCourseSelectionRepository
             throw new ArgumentNullException(nameof(selection));
         }
 
-        if (selection.StudentId <= 0 || selection.CourseId <= 0 || selection.SemesterId <= 0)
-        {
-            throw new ArgumentException("StudentId, CourseId and SemesterId must be valid.");
-        }
-
-        var student = _context.Students.FirstOrDefault(s => s.Id == selection.StudentId);
-        if (student == null)
-        {
-            throw new InvalidOperationException($"Student with ID {selection.StudentId} does not exist.");
-        }
-
-        var course = _context.Courses.FirstOrDefault(c => c.Id == selection.CourseId);
-        if (course == null)
-        {
-            throw new InvalidOperationException($"Course with ID {selection.CourseId} does not exist.");
-        }
-
         var semester = _context.Semesters.FirstOrDefault(s => s.Id == selection.SemesterId);
         if (semester == null)
         {
             throw new InvalidOperationException($"Semester with ID {selection.SemesterId} does not exist.");
         }
 
-        var existingSelection = _context.StudentCourseSelections.FirstOrDefault(scs =>
-            scs.StudentId == selection.StudentId &&
-            scs.CourseId == selection.CourseId &&
-            scs.SemesterId == selection.SemesterId);
-
-        if (existingSelection != null)
+        // Check courses exists for that semester
+        foreach (var course in selection.Courses)
         {
-            throw new InvalidOperationException("This course selection already exists for the student in the given semester.");
+            if (!course.Semesters.Any(s => s.Id == selection.SemesterId))
+            {
+                throw new InvalidOperationException(
+                    $"Course with ID {course.Id} does not exist in semester with ID {selection.SemesterId}.");
+            }
         }
+
+        // Remove redundant courses
+        selection.Courses = selection.Courses.Distinct().ToList();
 
         _context.StudentCourseSelections.Add(selection);
         _context.SaveChanges();
@@ -89,17 +75,22 @@ public class StudentCourseSelectionRepository
             throw new ArgumentNullException(nameof(selection));
         }
 
-        var existCourseSelection = _context.StudentCourseSelections.FirstOrDefault(scs => scs.Id == selection.Id);
+        var existCourseSelection = _context.StudentCourseSelections
+            .Include(scs => scs.Courses)
+            .FirstOrDefault(scs => scs.Id == selection.Id);
+
         if (existCourseSelection == null)
         {
             throw new InvalidOperationException($"Selection with ID {selection.Id} does not exist.");
         }
 
+        // Update properties
         existCourseSelection.Confirmed = selection.Confirmed;
         existCourseSelection.Cancelled = selection.Cancelled;
-        existCourseSelection.StudentId = selection.StudentId;
-        existCourseSelection.CourseId = selection.CourseId;
-        existCourseSelection.SemesterId = selection.SemesterId;
+        existCourseSelection.UpdatedAt = DateTime.Now;
+
+        // Update courses
+        existCourseSelection.Courses = selection.Courses.Distinct().ToList();
 
         _context.SaveChanges();
     }
@@ -120,26 +111,7 @@ public class StudentCourseSelectionRepository
     {
         return _context.StudentCourseSelections
             .Where(scs => scs.StudentId == id)
-            .Include(scs => scs.Course)
-            .Include(scs => scs.Semester)
-            .ToList();
-    }
-
-    public List<StudentCourseSelection> GetSelectionsByCourseId(int id)
-    {
-        return _context.StudentCourseSelections
-            .Where(scs => scs.CourseId == id)
-            .Include(scs => scs.Student)
-            .Include(scs => scs.Semester)
-            .ToList();
-    }
-
-    public List<StudentCourseSelection> GetConfirmedSelections()
-    {
-        return _context.StudentCourseSelections
-            .Where(scs => scs.Confirmed && !scs.Cancelled)
-            .Include(scs => scs.Student)
-            .Include(scs => scs.Course)
+            .Include(scs => scs.Courses)
             .Include(scs => scs.Semester)
             .ToList();
     }

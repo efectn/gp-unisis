@@ -6,10 +6,7 @@ public class StudentCourseSelection
     
     public int SemesterId { get; set; }
     public Semester Semester { get; set; }
-
-    public int CourseId { get; set; }
-    public Course Course { get; set; }
-
+    
     public int StudentId { get; set; }
     public Student Student { get; set; }
 
@@ -18,4 +15,6 @@ public class StudentCourseSelection
     
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+    
+    public ICollection<Course> Courses { get; set; } = new List<Course>();
 }

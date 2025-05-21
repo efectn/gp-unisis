@@ -23,5 +23,7 @@ public class Course
     public ICollection<Grade> Grades { get; set; }
     public ICollection<Announcement> Announcements { get; set; }
     public ICollection<CourseGroup> CourseGroups { get; set; } = new List<CourseGroup>();
+    
+    public ICollection<StudentCourseSelection> StudentCourseSelections { get; set; } = new List<StudentCourseSelection>();
 
 }
