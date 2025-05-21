@@ -19,4 +19,11 @@ public class Exam
     
     public int SemesterId { get; set; }
     public Semester Semester { get; set; }
+    
+    public int? ExamLetterGradeIntervalId { get; set; }
+    public ExamLetterGradeInterval? ExamLetterGradeInterval { get; set; }
+    
+    public bool IsExamCalculated { get; set; } = false;
+    
+    public ICollection<Grade> Grades { get; set; } = new List<Grade>();
 }
