@@ -10,14 +10,18 @@ todo list:
     - [ ] Check graduation status.
     - [x] Syllabus for course groups.
   - [x] Approve courses added by lecturers.
+  - [x] Publish announcements.
 - [ ] Student personal operations.
+  - [x] CRUD for personal information.
   - [x] CRUD for students.
+  - [x] Publish announcements.
 - [ ] Lecturer operations.
   - [x] Add new courses.
   - [x] Add grades for courses.
   - [x] Calculate transcript grade for students.
   - [x] Show course schedule.
   - [x] Show and add exam schedule.
+  - [x] Publish announcements.
 - [ ] Student operations.
   - [x] Take courses for semester.
   - [x] Show course schedule.
@@ -25,4 +29,5 @@ todo list:
   - [ ] Show transcript.
   - [ ] Show grades of courses.
   - [ ] Show course groups and check graduation status.
-  - [ ] Show announcements.
+    - [ ] Check graduation in accordance with transcript.
+  - [x] Show announcements.

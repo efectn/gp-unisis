@@ -20,6 +20,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<CourseScheduleEntry> CourseScheduleEntries { get; set; }
     public DbSet<StudentCourseSelection> StudentCourseSelections { get; set; }
     public DbSet<Exam> Exams { get; set; }
+    public DbSet<StudentPersonal> StudentPersonals { get; set; }
+
 
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -53,5 +55,6 @@ public class ApplicationDbContext : DbContext
         Seed.SemesterSeeder.Seed(modelBuilder);
         Seed.CourseSeeder.Seed(modelBuilder);
         Seed.StudentSeeder.Seed(modelBuilder);
+        Seed.StudentPersonalSeeder.Seed(modelBuilder);
     }
 }

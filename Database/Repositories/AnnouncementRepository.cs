@@ -39,74 +39,85 @@ public class AnnouncementRepository
         {
             throw new ArgumentException("Title and descriptions must be set.");
         }
-
-        var existAnnouncement = _context.Announcements
-            .FirstOrDefault(a => a.Title == announcement.Title && a.Description == announcement.Description);
-
-        if (existAnnouncement != null)
+        
+        if (announcement.ExpirationDate < DateTime.Now)
         {
-            throw new InvalidOperationException("Announcement already exist.");
+            throw new ArgumentException("Expiration date must be in the future.");
+        }
+        
+        if (announcement.AdminId == null && announcement.StudentPersonalId == null && announcement.LecturerId == null)
+        {
+            throw new ArgumentException("Admin ID, Student Personal ID or Lecturer ID must be set.");
+        }
+        
+        if (announcement.LecturerId != null && announcement.CourseId == null)
+        {
+            throw new ArgumentException("Course ID must be set when Lecturer ID is set.");
         }
 
-        var existAdmin = _context.Admins.FirstOrDefault(a => a.Id == announcement.AdminId);
-        if (existAdmin == null)
+        if (announcement.AdminId != null)
         {
-            throw new InvalidOperationException($"Admin with ID {announcement.AdminId} does not exist.");
+            var existAdmin = _context.Admins.FirstOrDefault(a => a.Id == announcement.AdminId);
+            if (existAdmin == null)
+            {
+                throw new InvalidOperationException($"Admin with ID {announcement.AdminId} does not exist.");
+            }
         }
-
-        var existLecturer = _context.Lecturers.FirstOrDefault(a => a.Id == announcement.LecturerId);
-        if (existLecturer == null)
+        
+        if (announcement.LecturerId != null)
         {
-            throw new InvalidOperationException($"Lecturer with ID {announcement.LecturerId} does not exist.");
+            var existLecturer = _context.Lecturers.FirstOrDefault(l => l.Id == announcement.LecturerId);
+            if (existLecturer == null)
+            {
+                throw new InvalidOperationException($"Lecturer with ID {announcement.LecturerId} does not exist.");
+            }
         }
-
-        var existCourse = _context.Courses.FirstOrDefault(a => a.Id == announcement.CourseId);
-        if (existCourse == null)
+        
+        if (announcement.CourseId != null)
         {
-            throw new InvalidOperationException($"Course with ID {announcement.CourseId} does not exist.");
+            var existCourse = _context.Courses.FirstOrDefault(c => c.Id == announcement.CourseId);
+            if (existCourse == null)
+            {
+                throw new InvalidOperationException($"Course with ID {announcement.CourseId} does not exist.");
+            }
         }
-
-        _context.Announcements.Add(announcement);
-        _context.SaveChanges();
+        
+        if (announcement.StudentPersonalId != null)
+        {
+            var existStudent = _context.Students.FirstOrDefault(s => s.Id == announcement.StudentPersonalId);
+            if (existStudent == null)
+            {
+                throw new InvalidOperationException($"Student with ID {announcement.StudentPersonalId} does not exist.");
+            }
+        }
+        
+        try
+        {
+            _context.Announcements.Add(announcement);
+            _context.SaveChanges();
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new InvalidOperationException("Failed to add announcement.", ex);
+        }
     }
-
-    public void UpdateAnnouncement(Announcement announcement)
+    
+    public void DeleteAnnouncement(int id)
     {
+        var announcement = _context.Announcements.Find(id);
         if (announcement == null)
         {
-            throw new ArgumentNullException(nameof(announcement));
+            throw new InvalidOperationException($"Announcement with ID {id} does not exist.");
         }
 
-        var existAnnouncement = _context.Announcements.FirstOrDefault(a => a.Id == announcement.Id);
-        if (existAnnouncement == null)
+        try
         {
-            throw new InvalidOperationException($"Announcement with ID {announcement.Id} does not exist.");
+            _context.Announcements.Remove(announcement);
+            _context.SaveChanges();
         }
-
-        existAnnouncement.Title = announcement.Title;
-        existAnnouncement.Description = announcement.Description;
-        existAnnouncement.ExpirationDate = announcement.ExpirationDate;
-        existAnnouncement.AdminId = announcement.AdminId;
-        existAnnouncement.LecturerId = announcement.LecturerId;
-        existAnnouncement.CourseId = announcement.CourseId;
-
-        _context.SaveChanges();
-    }
-
-    public void DeleteAnnouncement(Announcement announcement)
-    {
-        if (announcement == null)
+        catch (DbUpdateException ex)
         {
-            throw new ArgumentNullException(nameof(announcement));
+            throw new InvalidOperationException("Failed to delete announcement.", ex);
         }
-
-        var existing = _context.Announcements.FirstOrDefault(a => a.Id == announcement.Id);
-        if (existing == null)
-        {
-            throw new InvalidOperationException($"Announcement with ID {announcement.Id} does not exist.");
-        }
-
-        _context.Announcements.Remove(existing);
-        _context.SaveChanges();
     }
 }

@@ -134,6 +134,8 @@ public class Bruh
         var examRepository = new ExamRepository(db);
         var gradeRepository = new GradeRepository(db);
         var studentCourseSelectionRepository = new StudentCourseSelectionRepository(db);
+        var studentPersonalRepository = new StudentPersonalRepository(db);
+        var announcementRepository = new AnnouncementRepository(db);
 
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
@@ -151,6 +153,8 @@ public class Bruh
         var courseSelectionViewModel = new StudentCourseSelectionViewModel(semesterRepository, courseRepository, studentRepository, studentCourseSelectionRepository);
         var studentCourseScheduleViewModel = new StudentCourseScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentCourseExamScheduleViewModel = new StudentCourseExamScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
+        var studentPersonalViewModel = new StudentPersonalViewModel(studentPersonalRepository);
+        var announcementViewModel = new AnnouncementViewModel(announcementRepository, studentCourseSelectionRepository, courseRepository);
         
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
@@ -359,6 +363,30 @@ public class Bruh
                     break;
                 case 54:
                     studentCourseExamScheduleViewModel.ListStudentCourseSchedule();
+                    break;
+                case 55:
+                    studentPersonalViewModel.ListStudentPersonals();
+                    break;
+                case 56:
+                    studentPersonalViewModel.AddStudentPersonal();
+                    break;
+                case 57:
+                    studentPersonalViewModel.UpdateStudentPersonal();
+                    break;
+                case 58:
+                    studentPersonalViewModel.DeleteStudentPersonal();
+                    break;
+                case 59:
+                    announcementViewModel.ListAnnouncements();
+                    break;
+                case 60:
+                    announcementViewModel.AddAnnouncement();
+                    break;
+                case 61:
+                    announcementViewModel.DeleteAnnouncement();
+                    break;
+                case 62:
+                    announcementViewModel.ShowStudentAnnouncements();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
