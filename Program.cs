@@ -37,6 +37,7 @@ public class Bruh
                 }
             }
             
+            string[] days = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
             // Add vize and final exams to courses for each semester
             for (int i = 1; i <= 50; i++)
             {
@@ -51,6 +52,7 @@ public class Bruh
                     
                     foreach (var semester in semesters)
                     {
+                        // Add exams for course
                         var exam = new Exam
                         {
                             Name = "Vize",
@@ -76,6 +78,17 @@ public class Bruh
                             IsExamCalculated = false
                         };
                         db.Exams.Add(finalExam);
+                        
+                        // Also add course schedule entries
+                        var courseScheduleEntry = new CourseScheduleEntry
+                        {
+                            CourseId = course.Id,
+                            SemesterId = semester.Id,
+                            Day = days[new Random().Next(0, 7)],
+                            StartTime = new TimeSpan(new Random().Next(8, 18), new Random().Next(0, 60), 0),
+                            EndTime = new TimeSpan(new Random().Next(18, 24), new Random().Next(0, 60), 0),
+                        };
+                        db.CourseScheduleEntries.Add(courseScheduleEntry);
                         
                         db.SaveChanges();
                     }
@@ -136,6 +149,7 @@ public class Bruh
         var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository, departmentRepository);
         var calculateLetterGradeViewModel = new CalculateLetterGradeViewModel(examRepository, gradeRepository, studentRepository, courseRepository);
         var courseSelectionViewModel = new StudentCourseSelectionViewModel(semesterRepository, courseRepository, studentRepository, studentCourseSelectionRepository);
+        var studentCourseScheduleViewModel = new StudentCourseScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
@@ -162,6 +176,13 @@ public class Bruh
                 return;
         }
 */
+
+        var courseId = 28;
+        var students = db.StudentCourseSelections
+            .Where(scs => scs.Confirmed == true && scs.SemesterId == 1)
+            .Where(scs => scs.Courses.Any(c => c.Id == courseId)).Select(scs => scs.StudentId).ToList();
+        Console.WriteLine("Öğrenci Listesi {0}", string.Join(", ", students));
+        
         while (true)
         {
             Console.WriteLine("Sayfa numarası girin: ");
@@ -330,6 +351,9 @@ public class Bruh
                     break;
                 case 52:
                     courseSelectionViewModel.ConfirmOrCancelCourseSelection();
+                    break;
+                case 53:
+                    studentCourseScheduleViewModel.ListStudentCourseSchedule();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
