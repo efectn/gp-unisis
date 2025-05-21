@@ -155,7 +155,7 @@ public class Bruh
         var studentCourseExamScheduleViewModel = new StudentCourseExamScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentPersonalViewModel = new StudentPersonalViewModel(studentPersonalRepository);
         var announcementViewModel = new AnnouncementViewModel(announcementRepository, studentCourseSelectionRepository, courseRepository);
-        
+        var bellCurveViewModel = new BellCurveViewModel(examRepository, gradeRepository, studentRepository, courseRepository, departmentRepository, studentCourseSelectionRepository);
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
         Console.WriteLine("Giriş yapın: (1 = Admin, 2 = Öğrenci, 3 = Çıkış)");
@@ -387,6 +387,9 @@ public class Bruh
                     break;
                 case 62:
                     announcementViewModel.ShowStudentAnnouncements();
+                    break;
+                case 63:
+                    bellCurveViewModel.CalculateBellCurve();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");

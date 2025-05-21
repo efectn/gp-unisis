@@ -119,4 +119,12 @@ public class StudentCourseSelectionRepository
             .Include(scs => scs.Semester)
             .ToList();
     }
+
+    public List<Student> GetStudentByCourseId(int courseId)
+    {
+        return _context.StudentCourseSelections.Where(csc => csc.Courses.Any(c => c.Id == courseId) && csc.Confirmed == true).
+        Include(csc => csc.Student)
+        .Select(csc => csc.Student)
+        .ToList();
+    }
 }
