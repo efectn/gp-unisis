@@ -147,9 +147,9 @@ public class ExamScheduleViewModel
             Console.WriteLine("Böyle bir dönem bulunamadı.");
             return;
         }
-        
+
         // Check if the course is available in the semester
-        if (course.Semesters.Any(s => s.Id != parsedSemesterId))
+        if (course.Semesters == null || course.Semesters.Any(s => s.Id != parsedSemesterId))
         {
             Console.WriteLine("Bu ders belirtilen dönemde mevcut değil.");
             return;
