@@ -15,7 +15,7 @@ todo list:
 - [ ] Lecturer operations.
   - [x] Add new courses.
   - [x] Add grades for courses.
-  - [ ] Calculate transcript grade for students.
+  - [x] Calculate transcript grade for students.
   - [x] Show course schedule.
   - [x] Show and add exam schedule.
 - [ ] Student operations.

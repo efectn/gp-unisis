@@ -9,30 +9,39 @@ public class GradeViewModel
     private readonly StudentRepository _studentRepository;
     private readonly ExamRepository _examRepository;
     private readonly SemesterRepository _semesterRepository;
+    private readonly DepartmentRepository _departmentRepository;
 
 
-    public GradeViewModel(GradeRepository gradeRepository, StudentRepository studentRepository, ExamRepository examRepository, SemesterRepository semesterRepository)
+    public GradeViewModel(GradeRepository gradeRepository, StudentRepository studentRepository, ExamRepository examRepository, SemesterRepository semesterRepository, DepartmentRepository departmentRepository)
     {
         _gradeRepository = gradeRepository;
         _studentRepository = studentRepository;
         _examRepository = examRepository;
         _semesterRepository = semesterRepository;
+        _departmentRepository = departmentRepository;
     }
 
 
     public void ListExamGrades()
     {
-        Console.Write("Dönem ID'si girin: ");
+        Console.Write("Dï¿½nem ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var semesterId))
         {
-            Console.WriteLine("Geçersiz dönem ID'si.");
+            Console.WriteLine("Geï¿½ersiz dï¿½nem ID'si.");
             return;
         }
 
-        Console.Write("Bölüm ID'si girin: ");
+        Console.WriteLine("BÃ¶lÃ¼mler:");
+        foreach (var department in _departmentRepository.GetAllDepartments())
+        {
+            var facultyName = department.Faculty != null ? department.Faculty.Name : "FakÃ¼lte bulunamadÄ±";
+            Console.WriteLine($"- ID: {department.Id} Ä°sim: {department.Name}, FakÃ¼lte: {facultyName}");
+        }
+
+        Console.Write("Bï¿½lï¿½m ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var departmentId))
         {
-            Console.WriteLine("Geçersiz bölüm ID'si.");
+            Console.WriteLine("Geï¿½ersiz bï¿½lï¿½m ID'si.");
             return;
         }
 
@@ -41,27 +50,27 @@ public class GradeViewModel
 
         if (exams.Count == 0)
         {
-            Console.WriteLine("Bu bölümde belirtilen döneme ait sýnav bulunmamaktadýr.");
+            Console.WriteLine("Bu bï¿½lï¿½mde belirtilen dï¿½neme ait sï¿½nav bulunmamaktadï¿½r.");
             return;
         }
 
-        Console.WriteLine("Sýnav listesi: ");
+        Console.WriteLine("Sï¿½nav listesi: ");
         foreach (var exam in exams)
         {
-            Console.WriteLine($"Ders Adý: {exam.Name}, ID: {exam.Id}");
+            Console.WriteLine($"Ders Adï¿½: {exam.Name}, ID: {exam.Id}");
         }
 
-        Console.Write("Sýnav ID'si girin: ");
+        Console.Write("Sï¿½nav ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var examId))
         {
-            Console.WriteLine("Geçersiz sýnav ID'si.");
+            Console.WriteLine("Geï¿½ersiz sï¿½nav ID'si.");
             return;
         }
 
         var getExam = _examRepository.GetExamById(examId);
         if (getExam == null)
         {
-            Console.WriteLine("Sýnav bulunamadý.");
+            Console.WriteLine("Sï¿½nav bulunamadï¿½.");
             return;
         }
 
@@ -69,30 +78,37 @@ public class GradeViewModel
 
         if (grades.Count == 0)
         {
-            Console.WriteLine("Bu ders için herhangi bir not bulunamadý.");
+            Console.WriteLine("Bu ders iï¿½in herhangi bir not bulunamadï¿½.");
             return;
         }
 
-        Console.WriteLine("Ders notlarý:");
+        Console.WriteLine("Ders notlarï¿½:");
         foreach (var grade in grades)
         {
-            Console.WriteLine($" - Öðrenci: {grade.Student.FirstName} {grade.Student.LastName}, Sonuç: {grade.Score}");
+            Console.WriteLine($" - ï¿½ï¿½renci: {grade.Student.FirstName} {grade.Student.LastName}, Sonuï¿½: {grade.Score}");
         }
 
     }
     public void AddGrade()
     {
-        Console.Write("Dönem ID'si girin: ");
+        Console.Write("Dï¿½nem ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var semesterId))
         {
-            Console.WriteLine("Geçersiz dönem ID'si.");
+            Console.WriteLine("Geï¿½ersiz dï¿½nem ID'si.");
             return;
         }
 
-        Console.Write("Bölüm ID'si girin: ");
+        Console.WriteLine("BÃ¶lÃ¼mler:");
+        foreach (var department in _departmentRepository.GetAllDepartments())
+        {
+            var facultyName = department.Faculty != null ? department.Faculty.Name : "FakÃ¼lte bulunamadÄ±";
+            Console.WriteLine($"- ID: {department.Id} Ä°sim: {department.Name}, FakÃ¼lte: {facultyName}");
+        }
+
+        Console.Write("Bï¿½lï¿½m ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var departmentId))
         {
-            Console.WriteLine("Geçersiz bölüm ID'si.");
+            Console.WriteLine("Geï¿½ersiz bï¿½lï¿½m ID'si.");
             return;
         }
 
@@ -101,61 +117,61 @@ public class GradeViewModel
 
         if (exams.Count == 0)
         {
-            Console.WriteLine("Bu bölümde belirtilen döneme ait sýnav bulunmamaktadýr.");
+            Console.WriteLine("Bu bï¿½lï¿½mde belirtilen dï¿½neme ait sï¿½nav bulunmamaktadï¿½r.");
             return;
         }
 
-        Console.WriteLine("Sýnav listesi: ");
+        Console.WriteLine("Sï¿½nav listesi: ");
         foreach (var exam in exams)
         {
-            Console.WriteLine($"Ders Adý: {exam.Name}, ID: {exam.Id}, Türü :{exam.ExamType}");
+            Console.WriteLine($"Ders Adï¿½: {exam.Name}, ID: {exam.Id}, Tï¿½rï¿½ :{exam.ExamType}");
         }
 
-        Console.Write("Sýnav ID'si girin: ");
+        Console.Write("Sï¿½nav ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var examId))
         {
-            Console.WriteLine("Geçersiz sýnav ID'si.");
+            Console.WriteLine("Geï¿½ersiz sï¿½nav ID'si.");
             return;
         }
 
         var getExam = _examRepository.GetExamById(examId);
         if (getExam == null)
         {
-            Console.WriteLine("Sýnav bulunamadý.");
+            Console.WriteLine("Sï¿½nav bulunamadï¿½.");
             return;
         }
 
         var students = _studentRepository.GetStudentsByDepartmentId(departmentId).ToList();
         if (students == null)
         {
-            Console.WriteLine("Bu bölümde öðrenci yok.");
+            Console.WriteLine("Bu bï¿½lï¿½mde ï¿½ï¿½renci yok.");
             return;
         }
 
-        Console.WriteLine("Dersi alan öðrenci listesi: ");
+        Console.WriteLine("Dersi alan ï¿½ï¿½renci listesi: ");
         foreach (var student in students)
         {
             Console.WriteLine($"ID: {student.Id}, Ad: {student.FirstName} {student.LastName}");
         }
 
-        Console.WriteLine("Not girilecek öðrenci ID'si: ");
+        Console.WriteLine("Not girilecek ï¿½ï¿½renci ID'si: ");
         if (!int.TryParse(Console.ReadLine(), out var studentId))
         {
-            Console.WriteLine("Geçersiz öðrenci ID'si.");
+            Console.WriteLine("Geï¿½ersiz ï¿½ï¿½renci ID'si.");
             return;
         }
 
         var selectedStudent = _studentRepository.StudentGetById(studentId);
         if (selectedStudent == null)
         {
-            Console.WriteLine("Öðrenci bulunamadý.");
+            Console.WriteLine("ï¿½ï¿½renci bulunamadï¿½.");
             return;
         }
 
         Console.Write("Not girin (0-100): ");
         if (!double.TryParse(Console.ReadLine(), out var score) || score < 0 || score > 100)
         {
-            Console.WriteLine("Geçersiz not giriþi.");
+            Console.WriteLine("Geï¿½ersiz not giriï¿½i.");
             return;
         }
 
@@ -169,7 +185,7 @@ public class GradeViewModel
         try
         {
             _gradeRepository.AddGrade(newGrade);
-            Console.WriteLine("Sýnav baþarýyla eklendi.");
+            Console.WriteLine("Sï¿½nav baï¿½arï¿½yla eklendi.");
         }
         catch (Exception e)
         {
@@ -180,48 +196,48 @@ public class GradeViewModel
 
     public void DeleteGrade()
     {
-        Console.Write("Silmek istediðiniz sýnav ID'sini girin: ");
+        Console.Write("Silmek istediï¿½iniz sï¿½nav ID'sini girin: ");
         if (!int.TryParse(Console.ReadLine(), out var examId))
         {
-            Console.WriteLine("Geçersiz sýnav ID'si.");
+            Console.WriteLine("Geï¿½ersiz sï¿½nav ID'si.");
             return;
         }
 
         var exam = _examRepository.GetExamById(examId);
         if (exam == null)
         {
-            Console.WriteLine("Sýnav bulunamadý.");
+            Console.WriteLine("Sï¿½nav bulunamadï¿½.");
             return;
         }
 
         var grades = _gradeRepository.GetGradesByExamId(examId);
         if (grades.Count == 0)
         {
-            Console.WriteLine("Bu sýnav için kayýtlý not bulunmamaktadýr.");
+            Console.WriteLine("Bu sï¿½nav iï¿½in kayï¿½tlï¿½ not bulunmamaktadï¿½r.");
             return;
         }
 
-        Console.WriteLine($"Sýnav Notlarý");
+        Console.WriteLine($"Sï¿½nav Notlarï¿½");
         foreach (var grade in grades)
         {
-            Console.WriteLine($"Not ID: {grade.Id}, Öðrenci: {grade.Student.FirstName} {grade.Student.LastName}, Not: {grade.Score}");
+            Console.WriteLine($"Not ID: {grade.Id}, ï¿½ï¿½renci: {grade.Student.FirstName} {grade.Student.LastName}, Not: {grade.Score}");
         }
 
-        Console.Write("Silmek istediðiniz Not ID'sini girin: ");
+        Console.Write("Silmek istediï¿½iniz Not ID'sini girin: ");
         if (!int.TryParse(Console.ReadLine(), out var gradeId))
         {
-            Console.WriteLine("Geçersiz not ID'si.");
+            Console.WriteLine("Geï¿½ersiz not ID'si.");
             return;
         }
 
         var gradeToDelete = _gradeRepository.GetGradeById(gradeId);
         if (gradeToDelete == null)
         {
-            Console.WriteLine("Belirtilen sýnav bulunamadý veya bu derse ait deðil.");
+            Console.WriteLine("Belirtilen sï¿½nav bulunamadï¿½ veya bu derse ait deï¿½il.");
             return;
         }
 
         _gradeRepository.DeleteGrade(gradeToDelete.Id);
-        Console.WriteLine("Not baþarýyla silindi.");
+        Console.WriteLine("Not baï¿½arï¿½yla silindi.");
     }
 }

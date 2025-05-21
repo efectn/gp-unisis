@@ -35,22 +35,6 @@ public class CalculateLetterGradeViewModel
 			return;
 		}
 
-		var students = _studentRepository.GetStudentsByDepartmentId(int.Parse(departmentId));
-		if (students == null)
-		{
-			Console.WriteLine("Bu departmande öğrenci bulunamadı.");
-			return;
-		}
-
-		Console.WriteLine("Öğrenci listesi:");
-		foreach (var student in students)
-		{
-			Console.WriteLine($"Öğrenci ID: {student.Id} Öğrenci Adı: {student.FirstName} {student.LastName}");
-		}
-
-		Console.Write("Öğrenci ID: ");
-		int studentId = int.Parse(Console.ReadLine());
-
 		var courses = _courseRepository.GetCoursesByDepartment(int.Parse(departmentId))
             .Where(c => c.Semesters.Any(s => s.Id == int.Parse(semesterId)))
             .ToArray();
@@ -68,6 +52,22 @@ public class CalculateLetterGradeViewModel
         
 		Console.Write("Ders ID: ");
 		int courseId = int.Parse(Console.ReadLine());
+
+		var students = _studentRepository.GetStudentsByDepartmentId(int.Parse(departmentId));
+		if (students == null)
+		{
+			Console.WriteLine("Bu departmande öğrenci bulunamadı.");
+			return;
+		}
+
+		Console.WriteLine("Öğrenci listesi:");
+		foreach (var student in students)
+		{
+			Console.WriteLine($"Öğrenci ID: {student.Id} Öğrenci Adı: {student.FirstName} {student.LastName}");
+		}
+
+		Console.Write("Öğrenci ID: ");
+		int studentId = int.Parse(Console.ReadLine());
 
 		var grades = _gradeRepository.GetGradesByStudentAndCourse(studentId, courseId);
 
