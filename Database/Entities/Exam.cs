@@ -5,10 +5,8 @@ public class Exam
     public int Id { get; set; }
 
     public string Name { get; set; }
-
-    public bool ExamType { get; set; } // Vize final ayrımı
-
-    public int examCoefficient { get; set; }
+    
+    public int ExamCoefficient { get; set; }
 
     public DateTime ExamDate { get; set; }
 
@@ -20,10 +18,7 @@ public class Exam
     public int SemesterId { get; set; }
     public Semester Semester { get; set; }
     
-    public int? ExamLetterGradeIntervalId { get; set; }
-    public ExamLetterGradeInterval? ExamLetterGradeInterval { get; set; }
-    
-    public bool IsExamCalculated { get; set; } = false;
+    public bool IsExamCalculated { get; set; }
     
     public ICollection<Grade> Grades { get; set; } = new List<Grade>();
 }

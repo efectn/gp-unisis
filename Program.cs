@@ -56,8 +56,7 @@ public class Bruh
                         var exam = new Exam
                         {
                             Name = "Vize",
-                            ExamType = true,
-                            examCoefficient = 40,
+                            ExamCoefficient = 40,
                             DurationMinutes = 60,
                             CourseId = course.Id,
                             SemesterId = semester.Id,
@@ -69,8 +68,7 @@ public class Bruh
                         var finalExam = new Exam
                         {
                             Name = "Final",
-                            ExamType = false,
-                            examCoefficient = 60,
+                            ExamCoefficient = 60,
                             DurationMinutes = 120,
                             CourseId = course.Id,
                             SemesterId = semester.Id,

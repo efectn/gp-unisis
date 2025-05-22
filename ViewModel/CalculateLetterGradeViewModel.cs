@@ -82,7 +82,7 @@ public class CalculateLetterGradeViewModel
 
 		foreach (var grade in grades)
 		{
-			int coefficient = grade.Exam.examCoefficient;
+			int coefficient = grade.Exam.ExamCoefficient;
 			double score = grade.Score;
 
 			totalWeightedScore += score * coefficient;

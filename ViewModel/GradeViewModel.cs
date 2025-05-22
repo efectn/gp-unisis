@@ -124,7 +124,7 @@ public class GradeViewModel
         Console.WriteLine("Sınav listesi: ");
         foreach (var exam in exams)
         {
-            Console.WriteLine($"Ders Adı: {exam.Name}, ID: {exam.Id}, Türü :{exam.ExamType}");
+            Console.WriteLine($"Ders Adı: {exam.Name}, ID: {exam.Id}");
         }
 
         Console.Write("Sınav ID'si girin: ");

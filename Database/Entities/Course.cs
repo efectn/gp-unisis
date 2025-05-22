@@ -27,5 +27,6 @@ public class Course
     public ICollection<StudentCourseSelection> StudentCourseSelections { get; set; } = new List<StudentCourseSelection>();
     
     public ICollection<Exam> Exams { get; set; } = new List<Exam>();
+    public ICollection<CourseLetterGradeInterval> CourseLetterGradeIntervals { get; set; } = new List<CourseLetterGradeInterval>();
 
 }

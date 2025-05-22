@@ -175,7 +175,7 @@ public class ExamScheduleViewModel
             CourseId = course.Id,
             ExamDate = examDate,
             DurationMinutes = parsedDuration,
-            examCoefficient = parsedExamCoefficient,
+            ExamCoefficient = parsedExamCoefficient,
         };
 
         try

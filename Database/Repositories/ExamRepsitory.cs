@@ -24,7 +24,7 @@ public class ExamRepository
         var existingExams = _context.Exams
             .Where(e => e.CourseId == exam.CourseId && e.SemesterId == exam.SemesterId)
             .ToList();
-        var totalCoefficient = existingExams.Sum(e => e.examCoefficient) + exam.examCoefficient;
+        var totalCoefficient = existingExams.Sum(e => e.ExamCoefficient) + exam.ExamCoefficient;
         if (totalCoefficient > 100)
             throw new InvalidOperationException("Total exam coefficient for the same semester and course cannot exceed 100.");
         
@@ -45,8 +45,7 @@ public class ExamRepository
             throw new ArgumentException("Exam name must be provided.");
 
         existExam.Name = exam.Name;
-        existExam.ExamType = exam.ExamType;
-        existExam.examCoefficient = exam.examCoefficient;
+        existExam.ExamCoefficient = exam.ExamCoefficient;
         existExam.ExamDate = exam.ExamDate;
         existExam.DurationMinutes = exam.DurationMinutes;
         existExam.CourseId = exam.CourseId;
@@ -107,6 +106,4 @@ public class ExamRepository
             .Where(e => e.Course.DepartmentId == departmentId)
             .ToList();
     }
-    
-
 }

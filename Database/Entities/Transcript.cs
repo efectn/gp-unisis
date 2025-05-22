@@ -9,6 +9,9 @@ public class Transcript
     
     public int CourseId { get; set; }
     public Course Course { get; set; }
+    
+    public string CourseName { get; set; }
+    public string CourseCode { get; set; }
 
     public int SemesterId { get; set; }
     public Semester Semester { get; set; }
