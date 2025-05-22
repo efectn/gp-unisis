@@ -28,4 +28,7 @@ public class CourseLetterGradeInterval
     public double DDEnd { get; set; }
     public double FDStart { get; set; }
     public double FDEnd { get; set; }
+    
+    public double Average { get; set; }
+    public double Stdev { get; set; }
 }

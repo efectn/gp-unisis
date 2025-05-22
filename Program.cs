@@ -134,7 +134,9 @@ public class Bruh
         var studentCourseSelectionRepository = new StudentCourseSelectionRepository(db);
         var studentPersonalRepository = new StudentPersonalRepository(db);
         var announcementRepository = new AnnouncementRepository(db);
-
+        var transcriptRepository = new TranscriptRepository(db);
+        var courseLetterGradeIntervalRepository = new CourseLetterGradeIntervalRepository(db);
+        
         var facultyViewModel = new FacultyViewModel(facultyRepository);
         var departmentViewModel = new DepartmentViewModel(departmentRepository, facultyRepository);
         var semesterViewModel = new SemesterViewModel(semesterRepository);
@@ -153,6 +155,8 @@ public class Bruh
         var studentCourseExamScheduleViewModel = new StudentCourseExamScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentPersonalViewModel = new StudentPersonalViewModel(studentPersonalRepository);
         var announcementViewModel = new AnnouncementViewModel(announcementRepository, studentCourseSelectionRepository, courseRepository);
+        var transcriptViewModel = new TranscriptViewModel(studentCourseSelectionRepository, gradeRepository, lecturerRepository, examRepository, courseLetterGradeIntervalRepository, transcriptRepository);
+        
         //var bellCurveViewModel = new BellCurveViewModel(examRepository, gradeRepository, studentRepository, courseRepository, departmentRepository, studentCourseSelectionRepository);
         /*
         Console.WriteLine("GP Unisis Yönetim Sistemi");
@@ -388,6 +392,15 @@ public class Bruh
                     break;
                 case 64:
                     gradeViewModel.ShowGradesStudent();
+                    break;
+                case 65:
+                    transcriptViewModel.CalculateTranscriptNotesByLecturer();
+                    break;
+                case 66:
+                    transcriptViewModel.RecalculateTranscriptNoteForStudent();
+                    break;
+                case 67:
+                    transcriptViewModel.DeleteTranscript();
                     break;
                 //case 63:
                 //    bellCurveViewModel.CalculateBellCurve();

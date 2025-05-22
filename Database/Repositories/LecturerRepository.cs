@@ -19,7 +19,11 @@ public class LecturerRepository
 
     public Lecturer GetLecturerById(int id)
     {
-        var lecturer = _context.Lecturers.Include(d => d.Departments).FirstOrDefault(l => l.Id == id);
+        var lecturer = _context.Lecturers.
+            Include(d => d.Departments).
+            Include(c => c.Courses).
+            ThenInclude(c => c.Semesters).
+            FirstOrDefault(l => l.Id == id);
         if (lecturer == null)
         {
             throw new InvalidOperationException($"Lecturer with ID {id} not found.");

@@ -21,7 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<StudentCourseSelection> StudentCourseSelections { get; set; }
     public DbSet<Exam> Exams { get; set; }
     public DbSet<StudentPersonal> StudentPersonals { get; set; }
-    public DbSet<CourseLetterGradeInterval> courseLetterGradeIntervals { get; set;}
+    public DbSet<CourseLetterGradeInterval> CourseLetterGradeIntervals { get; set;}
 
 
     

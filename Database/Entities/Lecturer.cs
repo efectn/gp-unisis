@@ -20,4 +20,6 @@ public class Lecturer
 
     public ICollection<Department> Departments { get; set; }
     public ICollection<Announcement> Announcements { get; set; }
+    public ICollection<Course> Courses { get; set; } = new List<Course>();
+
 }
