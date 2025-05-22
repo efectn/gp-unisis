@@ -402,9 +402,9 @@ public class Bruh
                 case 67:
                     transcriptViewModel.DeleteTranscript();
                     break;
-                //case 63:
-                //    bellCurveViewModel.CalculateBellCurve();
-                //    break;
+                case 68:
+                    transcriptViewModel.ShowStudentTranscript();
+                    break;
                 default:
                     Console.WriteLine("sayfa yok");
                     break;

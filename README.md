@@ -26,7 +26,7 @@ todo list:
   - [x] Take courses for semester.
   - [x] Show course schedule.
   - [x] Show exam schedule.
-  - [ ] Show transcript. (akademisyen final not hesaplama)
+  - [x] Show transcript. (akademisyen final not hesaplama)
   - [x] Show grades of courses.
   - [ ] Show course groups and check graduation status.
     - [ ] Check graduation in accordance with transcript.
