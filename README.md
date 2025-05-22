@@ -11,18 +11,18 @@ todo list:
     - [x] Syllabus for course groups.
   - [x] Approve courses added by lecturers.
   - [x] Publish announcements.
-- [ ] Student personal operations.
+- [x] Student personal operations.
   - [x] CRUD for personal information.
   - [x] CRUD for students.
   - [x] Publish announcements.
-- [ ] Lecturer operations.
+- [x] Lecturer operations.
   - [x] Add new courses.
   - [x] Add grades for courses.
   - [x] Calculate transcript grade for students.
   - [x] Show course schedule.
   - [x] Show and add exam schedule.
   - [x] Publish announcements.
-- [ ] Student operations.
+- [x] Student operations.
   - [x] Take courses for semester.
   - [x] Show course schedule.
   - [x] Show exam schedule.
@@ -31,3 +31,7 @@ todo list:
   - [x] Show course groups and check graduation status.
     - [x] Check graduation in accordance with transcript.
   - [x] Show announcements.
+- [ ] Additional things.
+  - [ ] Helper method to get CGPA.
+  - [ ] Don't allow students to retake courses that they have already passed.
+    - [ ] What if student passed FF course later?

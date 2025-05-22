@@ -31,7 +31,9 @@ public class StudentCourseGroupViewModel
             return;
         }
 
-        var courseGroups = _courseGroupsRepository.GetCourseGroupsByDepartmentId(student.DepartmentId);
+        var courseGroups = _courseGroupsRepository.GetCourseGroupsByDepartmentId(student.DepartmentId)
+            .Where(cg => cg.EntranceSemesterId == student.EntranceSemesterId)
+            .ToList();
         if (courseGroups == null || courseGroups.Count == 0)
         {
             Console.WriteLine("Kurs grupları bulunamadı.");
@@ -97,7 +99,9 @@ public class StudentCourseGroupViewModel
             return;
         }
 
-        var courseGroups = _courseGroupsRepository.GetCourseGroupsByDepartmentId(student.DepartmentId);
+        var courseGroups = _courseGroupsRepository.GetCourseGroupsByDepartmentId(student.DepartmentId)
+            .Where(cg => cg.EntranceSemesterId == student.EntranceSemesterId)
+            .ToList();
         if (courseGroups == null || courseGroups.Count == 0)
         {
             Console.WriteLine("Kurs grupları bulunamadı.");
