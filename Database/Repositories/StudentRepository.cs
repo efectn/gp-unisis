@@ -29,6 +29,9 @@ public class StudentRepository
             .Include(s => s.Grades)
             .Include(s => s.Transcripts)
             .Include(s => s.StudentCourseSelections)
+            .ThenInclude(scs => scs.Courses)
+            .ThenInclude(c => c.Exams)
+            .ThenInclude(e => e.Grades)
             .FirstOrDefault(s => s.Id == id);
     }
 

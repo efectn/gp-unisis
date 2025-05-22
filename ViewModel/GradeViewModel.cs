@@ -10,17 +10,20 @@ public class GradeViewModel
     private readonly ExamRepository _examRepository;
     private readonly SemesterRepository _semesterRepository;
     private readonly DepartmentRepository _departmentRepository;
+    private readonly StudentCourseSelectionRepository _studentCourseSelectionRepository;
+    private readonly CourseRepository _courseRepository;
 
 
-    public GradeViewModel(GradeRepository gradeRepository, StudentRepository studentRepository, ExamRepository examRepository, SemesterRepository semesterRepository, DepartmentRepository departmentRepository)
+    public GradeViewModel(GradeRepository gradeRepository, StudentRepository studentRepository, ExamRepository examRepository, SemesterRepository semesterRepository, DepartmentRepository departmentRepository, StudentCourseSelectionRepository studentCourseSelectionRepository, CourseRepository courseRepository)
     {
         _gradeRepository = gradeRepository;
         _studentRepository = studentRepository;
         _examRepository = examRepository;
         _semesterRepository = semesterRepository;
         _departmentRepository = departmentRepository;
+        _studentCourseSelectionRepository = studentCourseSelectionRepository;
+        _courseRepository = courseRepository;
     }
-
 
     public void ListExamGrades()
     {
@@ -74,8 +77,7 @@ public class GradeViewModel
             return;
         }
 
-        var grades = _gradeRepository.GetGradesByExamId(getExam.Id);
-
+        var grades = getExam.Grades.ToList();
         if (grades.Count == 0)
         {
             Console.WriteLine("Bu ders için herhangi bir not bulunamadı.");
@@ -112,12 +114,35 @@ public class GradeViewModel
             return;
         }
 
-        var exams = _examRepository.GetExamsByDepartmentId(departmentId)
+        Console.WriteLine("Dersler:");
+        var courses = _courseRepository.GetCoursesByDepartment(departmentId)
+            .Where(c => c.Semesters.Any(s => s.Id == semesterId)).ToList();
+        foreach (var course in courses)
+        {
+            Console.WriteLine($"- ID: {course.Id} İsim: {course.Name}");
+        }
+
+        Console.Write("Ders ID'si girin: ");
+        if (!int.TryParse(Console.ReadLine(), out var courseId))
+        {
+            Console.WriteLine("Geçersiz ders ID'si.");
+            return;
+        }
+
+        var courseSelected = _courseRepository.GetCourseById(courseId);
+        if (courseSelected == null)
+        {
+            Console.WriteLine("Ders bulunamadı.");
+            return;
+        }
+
+
+        var exams = _examRepository.GetExamsByCourseId(courseId)
             .Where(e => e.SemesterId == semesterId).ToList();
 
         if (exams.Count == 0)
         {
-            Console.WriteLine("Bu bölümde belirtilen döneme ait sınav bulunmamaktadır.");
+            Console.WriteLine("Bu bölümde belirtilen derse ve döneme ait sınav bulunmamaktadır.");
             return;
         }
 
@@ -141,62 +166,89 @@ public class GradeViewModel
             return;
         }
 
-        var students = _studentRepository.GetStudentsByDepartmentId(departmentId).ToList();
-        if (students == null)
+        var students = _studentCourseSelectionRepository.GetAllSelections()
+            .Where(s => s.SemesterId == semesterId && s.Confirmed && s.Courses.Any(c => c.Id == courseId))
+            .Select(s => s.Student).ToList();
+        if (students.Count == 0)
         {
-            Console.WriteLine("Bu bölümde öğrenci yok.");
+            Console.WriteLine("Bu ders için kayıtlı öğrenci bulunmamaktadır.");
             return;
         }
 
-        Console.WriteLine("Dersi alan öğrenci listesi: ");
+        Console.WriteLine("Öğrenciler:");
         foreach (var student in students)
         {
-            Console.WriteLine($"ID: {student.Id}, Ad: {student.FirstName} {student.LastName}");
+            Console.WriteLine($"- ID: {student.Id} İsim: {student.FirstName} {student.LastName}");
         }
 
-        Console.WriteLine("Not girilecek öğrenci ID'si: ");
+        Console.Write("Öğrenci ID'si girin: ");
         if (!int.TryParse(Console.ReadLine(), out var studentId))
         {
             Console.WriteLine("Geçersiz öğrenci ID'si.");
             return;
         }
+        
+        // Check ID is in students
+        var studentExists = students.Any(s => s.Id == studentId);
+        if (!studentExists)
+        {
+            Console.WriteLine("Bu öğrenci belirtilen derse kayıtlı değil.");
+            return;
+        }
 
-        var selectedStudent = _studentRepository.StudentGetById(studentId);
-        if (selectedStudent == null)
+        var studentSelected = _studentRepository.GetStudentById(studentId);
+        if (studentSelected == null)
         {
             Console.WriteLine("Öğrenci bulunamadı.");
             return;
         }
 
-        Console.Write("Not girin (0-100): ");
-        if (!double.TryParse(Console.ReadLine(), out var score) || score < 0 || score > 100)
+        Console.Write("Notu girin: ");
+        if (!int.TryParse(Console.ReadLine(), out var score))
         {
-            Console.WriteLine("Geçersiz not giriii.");
+            Console.WriteLine("Geçersiz not.");
             return;
         }
 
-        var newGrade = new Grade
+        if (score < 0 || score > 100)
         {
-            StudentId = studentId,
+            Console.WriteLine("Not 0 ile 100 arasında olmalıdır.");
+            return;
+        }
+
+        // Check if the student already has a grade for this exam
+        var existingGrade = _gradeRepository.GetGradesByExamId(examId)
+            .FirstOrDefault(g => g.StudentId == studentId && g.ExamId == examId);
+        if (existingGrade != null)
+        {
+            Console.WriteLine("Bu öğrenci için bu sınavda zaten bir not var, güncelleniyor.");
+            existingGrade.Score = score;
+            _gradeRepository.UpdateGrade(existingGrade);
+            Console.WriteLine("Not başarıyla güncellendi.");
+            return;
+        }
+
+        var grade = new Grade
+        {
             ExamId = examId,
+            StudentId = studentId,
             Score = score
         };
 
-        try
+        try 
         {
-            _gradeRepository.AddGrade(newGrade);
+            _gradeRepository.AddGrade(grade);
             Console.WriteLine("Not başarıyla eklendi.");
         }
-        catch (Exception e)
+        catch (InvalidOperationException ex)
         {
-            Console.WriteLine($"Hata: {e.Message}");
-            return;
+            Console.WriteLine($"Hata: {ex.Message}");
         }
     }
 
     public void DeleteGrade()
     {
-        Console.Write("Silmek istediğiniz sınav ID'sini girin: ");
+        Console.Write("Silmek istediğiniz not için sınav ID'sini girin: ");
         if (!int.TryParse(Console.ReadLine(), out var examId))
         {
             Console.WriteLine("Geçersiz sınav ID'si.");
@@ -210,15 +262,21 @@ public class GradeViewModel
             return;
         }
 
-        var grades = _gradeRepository.GetGradesByExamId(examId);
-        if (grades.Count == 0)
+        // Can't delete exam if it is already calculated
+        if (exam.IsExamCalculated)
+        {
+            Console.WriteLine("Bu sınavın notları hesaplandığı için silinemez. Yalnızca aktif dönem içinde değiştirebilirsiniz");
+            return;
+        }
+
+        if (exam.Grades.Count == 0)
         {
             Console.WriteLine("Bu sınav için kayıtlı not bulunmamaktadır.");
             return;
         }
 
         Console.WriteLine($"Sınav Notlar: ");
-        foreach (var grade in grades)
+        foreach (var grade in exam.Grades)
         {
             Console.WriteLine($"Not ID: {grade.Id}, Öğrenci: {grade.Student.FirstName} {grade.Student.LastName}, Not: {grade.Score}");
         }
@@ -239,5 +297,51 @@ public class GradeViewModel
 
         _gradeRepository.DeleteGrade(gradeToDelete.Id);
         Console.WriteLine("Not başarıyla silindi.");
+    }
+
+    public void ShowGradesStudent()
+    {
+        Console.WriteLine("Dönem ID'si");
+        if (!int.TryParse(Console.ReadLine(), out var semesterId))
+        {
+            Console.WriteLine("Geçersiz dönem ID'si.");
+            return;
+        }
+        
+        Console.WriteLine("Öğrenci ID'si: ");
+        if (!int.TryParse(Console.ReadLine(), out var studentId))
+        {
+            Console.WriteLine("Geçersiz öğrenci ID'si.");
+            return;
+        }
+        
+        var student = _studentRepository.GetStudentById(studentId);
+        if (student == null)
+        {
+            Console.WriteLine("Öğrenci bulunamadı.");
+            return;
+        }
+
+        var courses = student.StudentCourseSelections.FirstOrDefault(scs => scs.SemesterId == semesterId && scs.Confirmed)
+            .Courses.ToList();
+
+        foreach (var course in courses)
+        {
+            var exams = course.Exams;
+            if (exams.Count == 0)
+            {
+                continue;
+            }
+
+            Console.WriteLine($"Ders: {course.Name}");
+            foreach (var exam in exams)
+            {
+                var grades = exam.Grades.FirstOrDefault(g => g.StudentId == studentId);
+                if (grades != null)
+                {
+                    Console.WriteLine($" - Sınav: {exam.Name}, Not: {grades.Score}");
+                }
+            }
+        }
     }
 }

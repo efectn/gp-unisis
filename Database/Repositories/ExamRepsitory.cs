@@ -26,8 +26,9 @@ public class ExamRepository
             .ToList();
         var totalCoefficient = existingExams.Sum(e => e.ExamCoefficient) + exam.ExamCoefficient;
         if (totalCoefficient > 100)
-            throw new InvalidOperationException("Total exam coefficient for the same semester and course cannot exceed 100.");
-        
+            throw new InvalidOperationException(
+                "Total exam coefficient for the same semester and course cannot exceed 100.");
+
         _context.Exams.Add(exam);
         _context.SaveChanges();
     }
@@ -80,6 +81,7 @@ public class ExamRepository
         return _context.Exams
             .Include(e => e.Course)
             .Include(e => e.Semester)
+            .Include(e => e.Grades)
             .FirstOrDefault(e => e.Id == id);
     }
 
@@ -103,6 +105,8 @@ public class ExamRepository
             .Include(e => e.Semester)
             .Include(e => e.Course)
                 .ThenInclude(c => c.Department)
+            .Include(e => e.Grades)
+                .ThenInclude(e => e.Student)
             .Where(e => e.Course.DepartmentId == departmentId)
             .ToList();
     }

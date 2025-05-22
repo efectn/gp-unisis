@@ -12,7 +12,7 @@ public class BellCurveViewModel
     private readonly DepartmentRepository _departmentRepository;
     private readonly StudentCourseSelectionRepository _studentCourseSelectionRepository;
 
-    private readonly ExamLetterGradeInterval _examLetterGradeIntervalRepository;
+    private readonly CourseLetterGradeInterval _examLetterGradeIntervalRepository;
 
     public BellCurveViewModel(ExamRepository examRepository, GradeRepository gradeRepository, StudentRepository studentRepository, CourseRepository courseRepository, DepartmentRepository departmentRepository, StudentCourseSelectionRepository studentCourseSelectionRepository, ExamLetterGradeInterval examLetterGradeIntervalRepository)
     {

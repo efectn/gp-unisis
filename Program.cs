@@ -145,10 +145,10 @@ public class Bruh
         var studentViewModel = new StudentViewModel(studentRepository, departmentRepository);
         var courseViewModel = new CourseViewModel(departmentRepository, courseRepository, semesterRepository);
         var courseScheduleViewModel = new CourseScheduleViewModel(courseRepository, semesterRepository);
-        var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository, studentCourseSelectionRepository);
-        var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository, departmentRepository);
-        var calculateLetterGradeViewModel = new CalculateLetterGradeViewModel(examRepository, gradeRepository, studentRepository, courseRepository);
         var courseSelectionViewModel = new StudentCourseSelectionViewModel(semesterRepository, courseRepository, studentRepository, studentCourseSelectionRepository);
+        var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository);
+        var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository, departmentRepository, studentCourseSelectionRepository, courseRepository);
+        var calculateLetterGradeViewModel = new CalculateLetterGradeViewModel(examRepository, gradeRepository, studentRepository, courseRepository);
         var studentCourseScheduleViewModel = new StudentCourseScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentCourseExamScheduleViewModel = new StudentCourseExamScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentPersonalViewModel = new StudentPersonalViewModel(studentPersonalRepository);
@@ -385,6 +385,9 @@ public class Bruh
                     break;
                 case 62:
                     announcementViewModel.ShowStudentAnnouncements();
+                    break;
+                case 64:
+                    gradeViewModel.ShowGradesStudent();
                     break;
                 //case 63:
                 //    bellCurveViewModel.CalculateBellCurve();

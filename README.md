@@ -27,7 +27,7 @@ todo list:
   - [x] Show course schedule.
   - [x] Show exam schedule.
   - [ ] Show transcript.
-  - [ ] Show grades of courses.
+  - [x] Show grades of courses.
   - [ ] Show course groups and check graduation status.
     - [ ] Check graduation in accordance with transcript.
   - [x] Show announcements.
