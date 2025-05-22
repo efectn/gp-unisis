@@ -22,6 +22,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Exam> Exams { get; set; }
     public DbSet<StudentPersonal> StudentPersonals { get; set; }
 
+    public DbSet<ExamLetterGradeInterval> examLetterGradeIntervals { get; set;}
+
 
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

@@ -4,8 +4,11 @@ public class ExamLetterGradeInterval
 {
     public int Id { get; set; }
     
-    public int ExamId { get; set; }
-    public Exam Exam { get; set; }
+    public int CourseId { get; set; }
+    public Course Course { get; set; }
+
+    public int SemesterId { get; set; }
+    public Semester Semester { get; set; }
     
     public double AAStart { get; set; }
     public double AAEnd { get; set; }

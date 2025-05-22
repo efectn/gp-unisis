@@ -12,7 +12,9 @@ public class BellCurveViewModel
     private readonly DepartmentRepository _departmentRepository;
     private readonly StudentCourseSelectionRepository _studentCourseSelectionRepository;
 
-    public BellCurveViewModel(ExamRepository examRepository, GradeRepository gradeRepository, StudentRepository studentRepository, CourseRepository courseRepository, DepartmentRepository departmentRepository, StudentCourseSelectionRepository studentCourseSelectionRepository)
+    private readonly ExamLetterGradeInterval _examLetterGradeIntervalRepository;
+
+    public BellCurveViewModel(ExamRepository examRepository, GradeRepository gradeRepository, StudentRepository studentRepository, CourseRepository courseRepository, DepartmentRepository departmentRepository, StudentCourseSelectionRepository studentCourseSelectionRepository, ExamLetterGradeInterval examLetterGradeIntervalRepository)
     {
         _examRepository = examRepository;
         _gradeRepository = gradeRepository;
@@ -20,6 +22,7 @@ public class BellCurveViewModel
         _courseRepository = courseRepository;
         _departmentRepository = departmentRepository;
         _studentCourseSelectionRepository = studentCourseSelectionRepository;
+        _examLetterGradeIntervalRepository = examLetterGradeIntervalRepository;
     }
 
     public void CalculateBellCurve()
@@ -75,11 +78,29 @@ public class BellCurveViewModel
         foreach (var student in students)
         {
             var grades = _gradeRepository.GetGradesByStudentAndCourse(student.Id, courseId);
-            if (grades == null)
+            if (grades == null || !grades.Any())
             {
-                Console.WriteLine("Herhangi bir not bulunamadı.");
+                Console.WriteLine($"{student.FirstName} Öğrencisi için {courseId} ID'sine sahip herhangi bir not bulunamadı.");
+                return;
             }
-            double avgScore = grades.Any() ? grades.Average(g => g.Score) : 0;
+
+            double totalWeightedScore = 0;
+            int totalWeight = 0;
+
+            foreach (var grade in grades)
+            {
+                var exam = _examRepository.GetExamById(grade.ExamId);
+                if (exam == null)
+                {
+                    Console.WriteLine($"Grade ID {grade.Id} için sınav bilgisi bulunamadı.");
+                    continue;
+                }
+
+                totalWeightedScore += grade.Score * exam.examCoefficient;
+                totalWeight += exam.examCoefficient;
+            }
+
+            double avgScore = totalWeight > 0 ? totalWeightedScore / totalWeight : 0;
 
             StudentTotalScore += avgScore;
             StudentCount++;
@@ -111,7 +132,11 @@ public class BellCurveViewModel
             string letterGrade = GetLetterGrade(avgScore, TScore);
 
             Console.WriteLine($"Öğrenci: {student.FirstName} {student.LastName} - Ortalama: {avgScore:F2} - T-Score: {TScore:F2} - Harf Notu: {letterGrade}");
-        }   
+        }
+
+        var newInterval =  CreateGradeInterval(Mean, courseId);
+        _examLetterGradeIntervalRepository.AddGradeInterval(newInterval, courseId);
+        
     }
 
     public double CalculateMean(double Total, int Count)
@@ -216,5 +241,189 @@ public class BellCurveViewModel
         {
             return "FF";
         }
+    }
+    public ExamLetterGradeInterval CreateGradeInterval(double ort, int courseId)
+    {
+        var interval = new ExamLetterGradeInterval
+        {
+            CourseId = courseId
+        };
+
+        if (ort >= 62.5 && ort <= 69.99)
+        {
+            interval.AAStart = 100;
+            interval.AAEnd = 61;
+
+            interval.BAStart = 60.99;
+            interval.BAEnd = 56;
+
+            interval.BBStart = 55.99;
+            interval.BBEnd = 51;
+
+            interval.CBStart = 50.99;
+            interval.CBEnd = 46;
+
+            interval.CCStart = 45.99;
+            interval.CCEnd = 41;
+
+            interval.DCStart = 40.99;
+            interval.DCEnd = 36;
+
+            interval.DDStart = 35.99;
+            interval.DDEnd = 31;
+
+            interval.FDStart = 30.99;
+            interval.FDEnd = 26;
+        }
+        else if (ort >= 57.5 && ort <= 62.49)
+        {
+            interval.AAStart = 100;
+            interval.AAEnd = 63;
+
+            interval.BAStart = 62.99;
+            interval.BAEnd = 58;
+
+            interval.BBStart = 57.99;
+            interval.BBEnd = 53;
+
+            interval.CBStart = 52.99;
+            interval.CBEnd = 48;
+
+            interval.CCStart = 47.99;
+            interval.CCEnd = 43;
+
+            interval.DCStart = 42.99;
+            interval.DCEnd = 38;
+
+            interval.DDStart = 37.99;
+            interval.DDEnd = 33;
+
+            interval.FDStart = 32.99;
+            interval.FDEnd = 28;
+        }
+        else if (ort >= 52.5 && ort <= 57.49)
+        {
+            interval.AAStart = 100;
+            interval.AAEnd = 65;
+
+            interval.BAStart = 64.99;
+            interval.BAEnd = 60;
+
+            interval.BBStart = 59.99;
+            interval.BBEnd = 55;
+
+            interval.CBStart = 54.99;
+            interval.CBEnd = 50;
+
+            interval.CCStart = 49.99;
+            interval.CCEnd = 45;
+
+            interval.DCStart = 44.99;
+            interval.DCEnd = 40;
+
+            interval.DDStart = 39.99;
+            interval.DDEnd = 35;
+
+            interval.FDStart = 34.99;
+            interval.FDEnd = 30;
+        }
+        else if (ort >= 47.5 && ort <= 52.49)
+        {
+            interval.AAStart = 100;
+            interval.AAEnd = 67;
+
+            interval.BAStart = 66.99;
+            interval.BAEnd = 62;
+
+            interval.BBStart = 61.99;
+            interval.BBEnd = 57;
+
+            interval.CBStart = 56.99;
+            interval.CBEnd = 52;
+
+            interval.CCStart = 51.99;
+            interval.CCEnd = 47;
+
+            interval.DCStart = 46.99;
+            interval.DCEnd = 42;
+
+            interval.DDStart = 41.99;
+            interval.DDEnd = 37;
+
+            interval.FDStart = 36.99;
+            interval.FDEnd = 32;
+        }
+        else if (ort >= 42.5 && ort <= 47.49)
+        {
+            interval.AAStart = 100;
+            interval.AAEnd = 69;
+
+            interval.BAStart = 68.99;
+            interval.BAEnd = 64;
+
+            interval.BBStart = 63.99;
+            interval.BBEnd = 59;
+
+            interval.CBStart = 58.99;
+            interval.CBEnd = 54;
+
+            interval.CCStart = 53.99;
+            interval.CCEnd = 49;
+
+            interval.DCStart = 48.99;
+            interval.DCEnd = 44;
+
+            interval.DDStart = 43.99;
+            interval.DDEnd = 39;
+
+            interval.FDStart = 38.99;
+            interval.FDEnd = 34;
+        }
+        else if (ort >= 0.0 && ort <= 42.49)
+        {
+            interval.AAStart = 100;
+            interval.AAEnd = 71;
+
+            interval.BAStart = 70.99;
+            interval.BAEnd = 66;
+
+            interval.BBStart = 65.99;
+            interval.BBEnd = 61;
+
+            interval.CBStart = 60.99;
+            interval.CBEnd = 56;
+
+            interval.CCStart = 55.99;
+            interval.CCEnd = 51;
+
+            interval.DCStart = 50.99;
+            interval.DCEnd = 46;
+
+            interval.DDStart = 45.99;
+            interval.DDEnd = 41;
+
+            interval.FDStart = 40.99;
+            interval.FDEnd = 36;
+        }
+        else
+        {
+            interval.AAStart = 0;
+            interval.AAEnd = 0;
+            interval.BAStart = 0;
+            interval.BAEnd = 0;
+            interval.BBStart = 0;
+            interval.BBEnd = 0;
+            interval.CBStart = 0;
+            interval.CBEnd = 0;
+            interval.CCStart = 0;
+            interval.CCEnd = 0;
+            interval.DCStart = 0;
+            interval.DCEnd = 0;
+            interval.DDStart = 0;
+            interval.DDEnd = 0;
+            interval.FDStart = 0;
+            interval.FDEnd = 0;
+        }
+        return interval;
     }
 }
