@@ -99,6 +99,8 @@ public class TranscriptRepository
         {
             throw new InvalidOperationException($"Semester with ID {transcript.SemesterId} does not exist.");
         }
+        
+        Console.WriteLine("2regfth {0}", transcript.LetterGrade);
 
         existTranscript.StudentId = transcript.StudentId;
         existTranscript.CourseId = transcript.CourseId;

@@ -365,6 +365,7 @@ public class TranscriptViewModel
         }
         else
         {
+            Console.WriteLine("1e2wrgfgt");
             transcript.LetterGrade = GetLetterGradeWeight(letterGrade, finalNote);
         }
         transcript.HasFailed = transcript.LetterGrade <= 0.5;

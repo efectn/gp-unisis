@@ -6,8 +6,8 @@ todo list:
   - [x] CRUD for semesters.
   - [x] CRUD for lecturers.
   - [x] CRUD for admins.
-  - [ ] Add course groups for departments.
-    - [ ] Check graduation status.
+  - [x] Add course groups for departments.
+    - [x] Check graduation status.
     - [x] Syllabus for course groups.
   - [x] Approve courses added by lecturers.
   - [x] Publish announcements.
@@ -28,6 +28,6 @@ todo list:
   - [x] Show exam schedule.
   - [x] Show transcript. (akademisyen final not hesaplama)
   - [x] Show grades of courses.
-  - [ ] Show course groups and check graduation status.
-    - [ ] Check graduation in accordance with transcript.
+  - [x] Show course groups and check graduation status.
+    - [x] Check graduation in accordance with transcript.
   - [x] Show announcements.

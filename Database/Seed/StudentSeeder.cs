@@ -9,6 +9,7 @@ public class StudentSeeder
     public static void Seed(ModelBuilder modelBuilder)
     {
         var departmentIds = new[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        var semesters = new[] { 1, 2, 3, 4 };
         var password = "827ccb0eea8a706c4c34a16891f84e7b"; // MD5 hash of "12345"
 
         var studentFaker = new Faker<Student>()
@@ -20,6 +21,8 @@ public class StudentSeeder
             .RuleFor(s => s.NationalId, f => f.Random.Replace("#############"))
             .RuleFor(s => s.DateOfBirth, f => f.Date.Between(new DateTime(1980, 1, 1), new DateTime(2005, 12, 31)))
             .RuleFor(s => s.IsGraduated, false)
+            .RuleFor(s => s.EntranceSemesterId, f => 1 )
+            .RuleFor(s => s.ActiveSemesterId, f => f.PickRandom(semesters))
             .RuleFor(s => s.DepartmentId, f => f.PickRandom(departmentIds));
 
         var students = studentFaker.Generate(200);

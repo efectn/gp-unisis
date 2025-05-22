@@ -156,6 +156,7 @@ public class Bruh
         var studentPersonalViewModel = new StudentPersonalViewModel(studentPersonalRepository);
         var announcementViewModel = new AnnouncementViewModel(announcementRepository, studentCourseSelectionRepository, courseRepository);
         var transcriptViewModel = new TranscriptViewModel(studentCourseSelectionRepository, gradeRepository, lecturerRepository, examRepository, courseLetterGradeIntervalRepository, transcriptRepository);
+        var studentCourseGroupViewModel = new StudentCourseGroupViewModel(courseGroupRepository, studentRepository, transcriptRepository);
         
         //var bellCurveViewModel = new BellCurveViewModel(examRepository, gradeRepository, studentRepository, courseRepository, departmentRepository, studentCourseSelectionRepository);
         /*
@@ -404,6 +405,12 @@ public class Bruh
                     break;
                 case 68:
                     transcriptViewModel.ShowStudentTranscript();
+                    break;
+                case 69:
+                    studentCourseGroupViewModel.ShowStudentCourseGroups();
+                    break;
+                case 70:
+                    studentCourseGroupViewModel.CanStudentGraduate();
                     break;
                 default:
                     Console.WriteLine("sayfa yok");
