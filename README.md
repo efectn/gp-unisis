@@ -36,3 +36,4 @@ todo list:
   - [x] Don't allow students to retake courses that they have already passed.
     - [x] What if student passed FF course later?
   - [x] Add course selection period to semesters.
+  - [x] Let active semester be system-wide, not specific to lecturers or students.

@@ -186,7 +186,6 @@ public class ExamScheduleViewModel
         catch (Exception e)
         {
             Console.WriteLine($"Hata: {e.Message}");
-            return;
         }
     }
 

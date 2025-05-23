@@ -22,7 +22,6 @@ public class StudentSeeder
             .RuleFor(s => s.DateOfBirth, f => f.Date.Between(new DateTime(1980, 1, 1), new DateTime(2005, 12, 31)))
             .RuleFor(s => s.IsGraduated, false)
             .RuleFor(s => s.EntranceSemesterId, f => 1 )
-            .RuleFor(s => s.ActiveSemesterId, f => f.PickRandom(semesters))
             .RuleFor(s => s.DepartmentId, f => f.PickRandom(departmentIds));
 
         var students = studentFaker.Generate(200);

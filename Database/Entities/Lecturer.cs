@@ -15,9 +15,6 @@ public class Lecturer
     public string Password { get; set; }
     public string Email { get; set; }
     
-    public int? ActiveSemesterId { get; set; }
-    public Semester? ActiveSemester { get; set; }
-
     public ICollection<Department> Departments { get; set; }
     public ICollection<Announcement> Announcements { get; set; }
     public ICollection<Course> Courses { get; set; } = new List<Course>();

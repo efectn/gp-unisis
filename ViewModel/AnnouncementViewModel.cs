@@ -137,7 +137,7 @@ public class AnnouncementViewModel
         }
 
         var courseSelections = _studentCourseSelectionRepository.GetSelectionsByStudentId(studentId)
-            .Where(s => s.SemesterId == semesterId).SelectMany(s => s.Courses).Select(c => c.Id).ToList();
+            .Where(s => s.SemesterId == semesterId && s.Confirmed).SelectMany(s => s.Courses).Select(c => c.Id).ToList();
         
         // Get announcements for the selected courses or from admin, student personal
         var announcements = _announcementRepository.GetAllAnnouncements()

@@ -1,4 +1,5 @@
-﻿using gp_unisis.Database;
+﻿using System.Text.Json;
+using gp_unisis.Database;
 using gp_unisis.Database.Entities;
 using gp_unisis.Database.Repositories;
 using gp_unisis.ViewModel;
@@ -10,6 +11,10 @@ public class Bruh
 {
     public static void Main()
     {
+        // Load config.json
+        var config = File.ReadAllText("config.json");
+        var configJson = JsonSerializer.Deserialize<Dictionary<string, object>>(config);
+        
         var db = new ApplicationDbContext();
         if (db.Database.EnsureCreated())
         {
@@ -150,7 +155,6 @@ public class Bruh
         var courseSelectionViewModel = new StudentCourseSelectionViewModel(semesterRepository, courseRepository, studentRepository, studentCourseSelectionRepository);
         var examScheduleViewModel = new ExamScheduleViewModel(examRepository, semesterRepository, courseRepository);
         var gradeViewModel = new GradeViewModel(gradeRepository, studentRepository, examRepository, semesterRepository, departmentRepository, studentCourseSelectionRepository, courseRepository);
-        var calculateLetterGradeViewModel = new CalculateLetterGradeViewModel(examRepository, gradeRepository, studentRepository, courseRepository);
         var studentCourseScheduleViewModel = new StudentCourseScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentCourseExamScheduleViewModel = new StudentCourseExamScheduleViewModel(semesterRepository, studentCourseSelectionRepository, courseRepository, studentRepository);
         var studentPersonalViewModel = new StudentPersonalViewModel(studentPersonalRepository);
@@ -331,9 +335,6 @@ public class Bruh
                 case 42:
                     examScheduleViewModel.ListExamSchedule();
                     break;
-                case 43:
-                    calculateLetterGradeViewModel.CalculateStudentCourseGrade();
-                    break;
                 case 44:
                     gradeViewModel.ListExamGrades();
                     break;
@@ -414,7 +415,28 @@ public class Bruh
                     break;
                 case 71:
                     transcriptViewModel.CalculateStudentCGPA();
-                    break;   
+                    break;
+                case 72:
+                    Console.WriteLine("Config.json içeriği:");
+                    foreach (var kvp in configJson)
+                    {
+                        Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+                    }
+                    break;
+                case 73:
+                    Console.WriteLine("Config.json içeriğini düzenleyin:");
+                    foreach (var kvp in configJson)
+                    {
+                        Console.Write($"{kvp.Key}: ");
+                        var newValue = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(newValue))
+                        {
+                            configJson[kvp.Key] = newValue;
+                        }
+                    }
+                    File.WriteAllText("config.json", JsonSerializer.Serialize(configJson));
+                    Console.WriteLine("Config.json içeriği güncellendi.");
+                    break;
                 default:
                     Console.WriteLine("sayfa yok");
                     break;

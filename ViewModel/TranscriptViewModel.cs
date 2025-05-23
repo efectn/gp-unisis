@@ -435,8 +435,6 @@ public class TranscriptViewModel
         var transcripts = _transcriptRepository.GetAllTranscripts()
             .Where(t => t.StudentId == studentId)
             .GroupBy(t => t.SemesterId).ToList();
-        var cgpa = 0.0;
-        var totalCredits = 0;
         
         if (transcripts.Count == 0)
         {
@@ -452,8 +450,6 @@ public class TranscriptViewModel
             var credits = semesterTranscripts.Sum(t => t.Course.Credit);
             var totalGradePoints = semesterTranscripts.Sum(t => t.LetterGrade * t.Course.Credit);
             var gpa = totalGradePoints / credits;
-            cgpa += gpa * credits;
-            totalCredits += credits;
 
             Console.WriteLine($"Dönem ID: {semesterId}, GPA: {gpa}");
             Console.WriteLine("Dersler:");
