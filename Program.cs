@@ -412,6 +412,9 @@ public class Bruh
                 case 70:
                     studentCourseGroupViewModel.CanStudentGraduate();
                     break;
+                case 71:
+                    transcriptViewModel.CalculateStudentCGPA();
+                    break;   
                 default:
                     Console.WriteLine("sayfa yok");
                     break;

@@ -31,7 +31,8 @@ todo list:
   - [x] Show course groups and check graduation status.
     - [x] Check graduation in accordance with transcript.
   - [x] Show announcements.
-- [ ] Additional things.
-  - [ ] Helper method to get CGPA.
-  - [ ] Don't allow students to retake courses that they have already passed.
-    - [ ] What if student passed FF course later?
+- [x] Additional things.
+  - [x] Helper method to get CGPA.
+  - [x] Don't allow students to retake courses that they have already passed.
+    - [x] What if student passed FF course later?
+  - [x] Add course selection period to semesters.

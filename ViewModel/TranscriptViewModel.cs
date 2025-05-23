@@ -463,8 +463,50 @@ public class TranscriptViewModel
             }
         }
         
-        var totalCgpa = cgpa / totalCredits;
-        Console.WriteLine($"Toplam CGPA: {totalCgpa}");
+        Console.WriteLine($"Toplam CGPA: {CalculateStudentCGPAById(studentId)}");
+    }
+
+    public void CalculateStudentCGPA()
+    {
+        Console.WriteLine("Öğrenci ID'si girin: ");
+        if (!int.TryParse(Console.ReadLine(), out var studentId))
+        {
+            Console.WriteLine("Geçersiz öğrenci ID'si.");
+            return;
+        }
+        
+        var cgpa = CalculateStudentCGPAById(studentId);
+        Console.WriteLine($"Öğrenci ID: {studentId}, CGPA: {cgpa}");
+    }
+
+    public double CalculateStudentCGPAById(int studentId)
+    {
+        // Only take latest attempt from transcript if a student took a course for multiple times
+        var transcripts = _transcriptRepository.GetAllTranscripts()
+            .Where(t => t.StudentId == studentId)
+            .GroupBy(t => t.CourseId)  // Group only by CourseId
+            .Select(g => g.OrderByDescending(t => t.SemesterId).First()) // Take the one with highest SemesterId
+            .ToList();
+
+        if (transcripts.Count == 0)
+        {
+            Console.WriteLine("Bu öğrenciye ait transkript notu bulunamadı.");
+            return  0.0;
+        }
+        
+        var cgpa = 0.0;
+        var totalCredits = 0;
+        
+        foreach (var transcript in transcripts)
+        {
+            Console.WriteLine($"Ders Adı: {transcript.CourseName}, Kredi: {transcript.Course.Credit}, Harf Notu: {transcript.LetterGrade}");
+            var credits = transcript.Course.Credit;
+            var totalGradePoints = transcript.LetterGrade * credits;
+            cgpa += totalGradePoints;
+            totalCredits += credits;
+        }
+        
+        return cgpa / totalCredits;
     }
 
     public double CalculateRelativeGrade(double rawGrade, double average, double standardDeviation)

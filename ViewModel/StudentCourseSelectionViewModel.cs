@@ -10,8 +10,11 @@ public class StudentCourseSelectionViewModel
     public readonly StudentCourseSelectionRepository _studentCourseSelectionRepository;
     public readonly StudentRepository _studentRepository;
 
-    public StudentCourseSelectionViewModel(SemesterRepository semesterRepository, CourseRepository courseRepository,
-        StudentRepository studentRepository, StudentCourseSelectionRepository studentCourseSelectionRepository)
+    public StudentCourseSelectionViewModel(SemesterRepository semesterRepository, 
+        CourseRepository courseRepository,
+        StudentRepository studentRepository, 
+        StudentCourseSelectionRepository studentCourseSelectionRepository
+        )
     {
         _semesterRepository = semesterRepository;
         _courseRepository = courseRepository;
@@ -48,6 +51,22 @@ public class StudentCourseSelectionViewModel
             Console.WriteLine("Öğrenci bulunamadı.");
             return;
         }
+        
+        var selectedSemester = _semesterRepository.GetSemesterById(semesterId);
+        if (selectedSemester == null)
+        {
+            Console.WriteLine("Dönem bulunamadı.");
+            return;
+        }
+        
+        // Check semester course registration dates
+        if (DateTime.Now < selectedSemester.CourseRegistrationStartDate || DateTime.Now > selectedSemester.CourseRegistrationEndDate)
+        {
+            Console.WriteLine("Ders kayıt dönemi kapalı. Seçim yapamazsınız.");
+            return;
+        }
+
+        var transcript = student.Transcripts;
 
         // Check if the student is already registered for the semester
         var existingSelection = _studentCourseSelectionRepository.GetAllSelections()
@@ -68,6 +87,14 @@ public class StudentCourseSelectionViewModel
             .ToList();
         foreach (var course in courses)
         {
+            // Skip if student already passed the course successfully
+            if (transcript != null && transcript.Any(tc => tc.CourseId == course.Id && !tc.HasFailed))
+            {
+                Console.WriteLine(
+                    $"{course.Name} dersi zaten başarıyla verilmiş. Bu dersi tekrar seçemezsiniz.");
+                continue;
+            }
+            
             Console.WriteLine(
                 $"- ID: {course.Id}, Ad: {course.Name}, Kredi: {course.Credit}, Kontenjan: {course.Quota}");
         }
@@ -186,6 +213,13 @@ public class StudentCourseSelectionViewModel
         if (semester == null)
         {
             Console.WriteLine("Dönem bulunamadı.");
+            return;
+        }
+        
+        // Check semester course registration dates
+        if (DateTime.Now < semester.CourseRegistrationStartDate || DateTime.Now > semester.CourseRegistrationEndDate)
+        {
+            Console.WriteLine("Ders kayıt dönemi kapalı. Güncelleme yapamazsınız.");
             return;
         }
 

@@ -48,6 +48,8 @@ public class SemesterViewModel
             return;
         }
         
+        DateTime courseRegistrationStartDate = ReadDate("Ders kayıt başlangıç tarihi");
+        DateTime courseRegistrationEndDate = ReadDate("Ders kayıt bitiş tarihi");
         DateTime startDate = ReadDate("Başlangıç tarihi");
         DateTime endDate = ReadDate("Bitiş tarihi");
         DateTime finalExamDate = ReadDate("Final sınav tarihi");
@@ -57,7 +59,9 @@ public class SemesterViewModel
             Name = name,
             StartDate = startDate,
             EndDate = endDate,
-            FinalExamDate = finalExamDate
+            FinalExamDate = finalExamDate,
+            CourseRegistrationStartDate = courseRegistrationStartDate,
+            CourseRegistrationEndDate = courseRegistrationEndDate
         };
 
         try
@@ -97,12 +101,16 @@ public class SemesterViewModel
         DateTime startDate = ReadDate("Yeni başlangıç tarihi");
         DateTime endDate = ReadDate("Yeni bitiş tarihi");
         DateTime finalExamDate = ReadDate("Yeni final sınav tarihi");
+        DateTime courseRegistrationStartDate = ReadDate("Yeni ders kayıt başlangıç tarihi");
+        DateTime courseRegistrationEndDate = ReadDate("Yeni ders kayıt bitiş tarihi");
         
         // Use old values if new ones are not provided
         semester.Name = string.IsNullOrEmpty(name) ? semester.Name : name;
         semester.StartDate = startDate == DateTime.MinValue ? semester.StartDate : startDate;
         semester.EndDate = endDate == DateTime.MinValue ? semester.EndDate : endDate;
         semester.FinalExamDate = finalExamDate == DateTime.MinValue ? semester.FinalExamDate : finalExamDate;
+        semester.CourseRegistrationStartDate = courseRegistrationStartDate == DateTime.MinValue ? semester.CourseRegistrationStartDate : courseRegistrationStartDate;
+        semester.CourseRegistrationEndDate = courseRegistrationEndDate == DateTime.MinValue ? semester.CourseRegistrationEndDate : courseRegistrationEndDate;
         
         try
         {
