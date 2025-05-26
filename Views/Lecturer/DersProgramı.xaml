@@ -21,64 +21,74 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sol Menü -->
-        <Border Background="#2E2E2E" BorderBrush="#444" BorderThickness="1" Margin="0">
-            <StackPanel Margin="9,13,10,10">
-                <TextBlock Text="☰ MENÜ"
-                           Foreground="White"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           Margin="0,0,0,15" />
+        <Border Grid.Column="0"
+        Background="#2E2E2E"
+        BorderBrush="#444"
+        BorderThickness="1"
+        Padding="9,13,10,10">
+            <StackPanel>
+                <Button Content="☰ Ana Menü"
+                   Foreground="White"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,0,0,15" />
 
-                <Expander Header="Ders Bilgileri"
-                          Margin="0,0,0,10"
-                          Foreground="White"
-                          Background="#3A3A3A"
-                          FontSize="15"
-                          ExpandDirection="Down" Width="204">
+                <Expander Header="Ders Bilgileri" 
+                  Margin="0,0,0,10"
+                  Foreground="White" 
+                  Background="#3A3A3A" 
+                  FontSize="15"
+                  ExpandDirection="Down"
+                  Width="204">
                     <StackPanel>
-                        <Button Content="Ders Programı" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
+                        <Button Content="Ders Programı" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15" Click="Button_Click"/>
                         <Button Content="Sınav Programı" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
                     </StackPanel>
                 </Expander>
 
-                <Expander Header="Sınav İşlemleri"
-                          Margin="0,0,0,10"
-                          Foreground="White"
-                          Background="#3A3A3A"
-                          FontSize="15"
-                          ExpandDirection="Down" Width="204">
+                <Expander Header="Sınav İşlemleri" 
+                  Margin="0,0,0,10"
+                  Foreground="White" 
+                  Background="#3A3A3A" 
+                  FontSize="15"
+                  ExpandDirection="Down"
+                  Width="204">
                     <StackPanel>
                         <Button Content="Not Girişi" Margin="5" Background="White" Foreground="#3A3A3A"/>
                         <Button Content="Harf Notu Hesaplama" Margin="5" Background="White" Foreground="#3A3A3A"/>
-                        <Button Content="Dönem Seçimi" Margin="5" Background="White" Foreground="#3A3A3A"/>
                     </StackPanel>
                 </Expander>
 
-                <Expander Header="Ders Ekleme"
-                          Margin="0,0,0,10"
-                          Foreground="White"
-                          Background="#3A3A3A"
-                          FontSize="15"
-                          ExpandDirection="Down" Width="204">
+                <Expander Header="Ders/Sınav Ekleme" 
+                  Margin="0,0,0,10"
+                  Foreground="White" 
+                  Background="#3A3A3A" 
+                  FontSize="15"
+                  ExpandDirection="Down"
+                  Width="204">
                     <StackPanel>
                         <Button Content="Programa Ders Ekleme" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
-                        <Button Content="Sınav Programı" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
+                        <Button Content="Programa Sınav Ekleme" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
                     </StackPanel>
                 </Expander>
 
-                <Expander Header="Akademisyen"
-                          Margin="0,0,0,10"
-                          Foreground="White"
-                          FontSize="15"
-                          Background="#3A3A3A"
-                          ExpandDirection="Down" Width="204">
+
+
+                <Expander Header="Duyuru İşlemleri" 
+                  Margin="0,0,0,10"
+                  Foreground="White" 
+                  Background="#3A3A3A"
+                  FontSize="15"
+                  ExpandDirection="Down"
+                  Width="204">
                     <StackPanel>
-                        <Button Content="Duyuru" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
-                        <Button Content="Akademisyen Giriş Ekranı" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
+                        <Button Content="Duyuru Görüntüleme" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
+                        <Button Content="Duyuru Ekleme" Margin="5" Background="White" Foreground="#3A3A3A" FontSize="15"/>
                     </StackPanel>
                 </Expander>
             </StackPanel>
         </Border>
+
 
         <ScrollViewer Grid.Column="1" Margin="10,10,10,129" VerticalScrollBarVisibility="Auto">
             <StackPanel>

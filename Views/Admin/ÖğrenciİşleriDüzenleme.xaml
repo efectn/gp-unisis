@@ -7,12 +7,19 @@
         mc:Ignorable="d"
         Title="ÖğrenciİşleriDüzenleme" Height="450" Width="800">
     <Grid>
-        <StackPanel Background="#2E2E2E" Grid.Column="0" Grid.Row="0" Margin="0,0,581,0">
-            <TextBlock Text="☰ MENÜ"
-                       Foreground="White"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Margin="0,0,0,15" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- SOL MENÜ -->
+        <StackPanel Background="#2E2E2E" Grid.Column="0">
+            <Button Content="☰ Ana Menü"
+                    Height="40"
+                    Foreground="White"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Margin="0,15,0,15" />
 
             <Expander Header="Genel İşlemler"
                       Margin="0,0,0,10"
@@ -22,17 +29,16 @@
                       ExpandDirection="Down"
                       Width="210">
                 <StackPanel>
-                    <Button Content="Fakülte İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Bölüm İşlermleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Dönem İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Akademisyen İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-
+                    <Button Content="Fakülte İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Bölüm İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Dönem İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Akademisyen İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
                 </StackPanel>
             </Expander>
 
-            <Expander Header="Duyuru Yayınlama"
+            <Expander Header="Duyuru İşlemleri"
                       Margin="0,0,0,10"
                       Foreground="White"
                       Background="#3A3A3A"
@@ -40,8 +46,8 @@
                       ExpandDirection="Down"
                       Width="210">
                 <StackPanel>
-                    <Button Content="Bölüm İçi" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Bölüm Dışı" Margin="5" Foreground=" #3A3A3A" Background="White"/>
+                    <Button Content="Duyuru Ekleme" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Duyuru Görüntüleme" Margin="5" Foreground="#3A3A3A" Background="White"/>
                 </StackPanel>
             </Expander>
 
@@ -53,18 +59,33 @@
                       ExpandDirection="Down"
                       Width="210">
                 <StackPanel>
-                    <Button Content="Genel Bilgiler" Margin="5" Foreground=" #3A3A3A" Background="White"/>
+                    <Button Content="Genel Bilgiler" Margin="5" Foreground="#3A3A3A" Background="White"/>
                 </StackPanel>
             </Expander>
         </StackPanel>
-        <Grid Margin="343,93,198,229">
-            <Label Content="Ad Soyad:" FontWeight="Bold" Margin="4,36,155,52"/>
-            <TextBox Text="Personel Ad Soyad" FontWeight="Bold" Margin="109,36,0,52"/>
-            <Label Content="Email:" FontWeight="Bold" Margin="0,0,159,87"/>
-            <TextBox Text="Email gir" FontWeight="Bold" Margin="109,0,0,87"/>
-            <Button Content="Öğrenci Personeli Düzenle"
-                Width="200" Background="Green"
-                HorizontalAlignment="Left" Margin="15,80,0,0"/>
+
+        <!-- İÇERİK PANELİ -->
+        <Grid Grid.Column="1" Margin="40,40,40,40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Ad Soyad:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,5"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="Personel Ad Soyad" FontWeight="Normal" Height="28" Margin="0,5"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Email:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,5"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="Email gir" FontWeight="Normal" Height="28" Margin="0,5"/>
+
+            <Button Grid.Row="2" Grid.Column="1" Content="Öğrenci Personeli Düzenle"
+                    Width="200" Height="40" Margin="0,20,0,0"
+                    Background="Green" Foreground="White"
+                    HorizontalAlignment="Left"/>
         </Grid>
     </Grid>
 </Window>

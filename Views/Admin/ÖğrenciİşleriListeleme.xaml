@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OKUL.AdminRiyal"
         mc:Ignorable="d"
-        Title="ÖğrenciİşleriListeleme" Height="450" Width="1000">
+        Title="ÖğrenciİşleriListeleme" Height="450" Width="900">
     <Grid Margin="0,0,85,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="230"/>
             <!-- Menü -->
             <ColumnDefinition Width="*"/>
             <!-- İçerik -->
@@ -18,48 +18,51 @@
         </Grid.RowDefinitions>
 
         <!-- Sol Menü Paneli -->
-        <StackPanel Background="#2E2E2E" Grid.Row="0" Grid.Column="0">
-            <TextBlock Text="☰ MENÜ"
-                   Foreground="White"
-                   FontSize="18"
-                   FontWeight="Bold"
-                   Margin="10,10,0,15" />
+        <StackPanel Background="#2E2E2E" Grid.Column="0">
+            <Button Content="☰ Ana Menü"
+            Height="40"
+            Foreground="White"
+            FontSize="18"
+            FontWeight="Bold"
+            Margin="0,15,0,15" />
 
             <Expander Header="Genel İşlemler"
-                  Margin="10,0,10,10"
-                  Foreground="White"
-                  Background="#3A3A3A"
-                  FontSize="15"
-                  ExpandDirection="Down">
+              Margin="0,0,0,10"
+              Foreground="White"
+              Background="#3A3A3A"
+              FontSize="15"
+              ExpandDirection="Down"
+              Width="210">
                 <StackPanel>
                     <Button Content="Fakülte İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
-                    <Button Content="Bölüm İşlermleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Bölüm İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
                     <Button Content="Dönem İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
                     <Button Content="Akademisyen İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
                     <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
                     <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
-                    <Button Content="Admin İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White"/>
                 </StackPanel>
             </Expander>
 
-            <Expander Header="Duyuru Yayınlama"
-                  Margin="10,0,10,10"
-                  Foreground="White"
-                  Background="#3A3A3A"
-                  FontSize="15"
-                  ExpandDirection="Down">
+            <Expander Header="Duyuru İşlemleri"
+              Margin="0,0,0,10"
+              Foreground="White"
+              Background="#3A3A3A"
+              FontSize="15"
+              ExpandDirection="Down"
+              Width="210">
                 <StackPanel>
-                    <Button Content="Bölüm İçi" Margin="5" Foreground="#3A3A3A" Background="White"/>
-                    <Button Content="Bölüm Dışı" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Duyuru Ekleme" Margin="5" Foreground="#3A3A3A" Background="White"/>
+                    <Button Content="Duyuru Görüntüleme" Margin="5" Foreground="#3A3A3A" Background="White"/>
                 </StackPanel>
             </Expander>
 
             <Expander Header="Admin"
-                  Margin="10,0,10,10"
-                  Foreground="White"
-                  Background="#3A3A3A"
-                  FontSize="15"
-                  ExpandDirection="Down">
+              Margin="0,0,0,10"
+              Foreground="White"
+              Background="#3A3A3A"
+              FontSize="15"
+              ExpandDirection="Down"
+              Width="210">
                 <StackPanel>
                     <Button Content="Genel Bilgiler" Margin="5" Foreground="#3A3A3A" Background="White"/>
                 </StackPanel>
@@ -125,7 +128,7 @@
             </ListView>
 
             <!-- Form Alanı -->
-            <StackPanel Orientation="Vertical" Margin="0,248,-162,0" Grid.RowSpan="2">
+            <StackPanel Orientation="Vertical" Margin="0,248,0,0" Grid.RowSpan="2">
                 <StackPanel Orientation="Horizontal" Margin="0,5" Height="24">
                     <Label Content="Ad Soyad:" Width="100" FontWeight="Bold"/>
                     <TextBox Width="150" Text="Personel Ad Soyad" FontWeight="Bold"/>

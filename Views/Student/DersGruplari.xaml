@@ -1,0 +1,85 @@
+﻿<Window x:Class="OKUL.Views.OgrenciSayfalari.DersGruplari"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ders Grupları" Height="600" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sol Menü -->
+        <Border Background="#2E2E2E" BorderBrush="#444" BorderThickness="1">
+            <StackPanel Margin="10">
+                <Button Content="☰ Ana Menü" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,10,0,15"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Sağ Ana İçerik -->
+        <Grid Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Üst Bilgi -->
+                <RowDefinition Height="*"/>
+                <!-- Liste -->
+            </Grid.RowDefinitions>
+
+            <!-- Üst Bilgi Alanı -->
+            <Grid Margin="0,0,0,15" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="Toplam Kredi:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding ToplamKredi}" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="Toplam Ders:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding ToplamDers}" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <TextBlock Text="Mezun Olabilme Durumu:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding MezunOlabilirMi}" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Orientation="Vertical">
+                    <TextBlock Text="Aktif Dönem:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding AktifDonem}" FontSize="16"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Ders Grupları Listesi -->
+            <ListView Grid.Row="1" ItemsSource="{Binding DersGruplariListesi}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Grup Adı" Width="200" DisplayMemberBinding="{Binding GrupAdi}" />
+                        <GridViewColumn Header="Min Kredi" Width="80" DisplayMemberBinding="{Binding MinKredi}" />
+                        <GridViewColumn Header="Min Ders Sayısı" Width="100" DisplayMemberBinding="{Binding MinDersSayisi}" />
+                        <GridViewColumn Header="Seçmeli" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Secmeli}" IsEnabled="False" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Detaylar" Width="90">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Detaylar" Tag="{Binding}" Click="Detaylar_Click" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+
+    </Grid>
+</Window>

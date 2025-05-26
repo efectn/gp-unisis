@@ -1,0 +1,72 @@
+﻿<Window x:Class="OKUL.Views.OgrenciSayfalari.DersGrubuAyrinti"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:OKUL.Views.OgrenciSayfalari"
+        Title="Grup Detay" Height="600" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sol Menü -->
+        <Border Background="#2E2E2E" BorderBrush="#444" BorderThickness="1">
+            <StackPanel Margin="10">
+                <Button Content="☰ Ana Menü" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,10,0,15"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Sağ Ana İçerik -->
+        <Grid Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Üst Bilgi -->
+                <RowDefinition Height="*"/>
+                <!-- Liste -->
+            </Grid.RowDefinitions>
+
+            <!-- Üst Bilgi Alanı -->
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="Seçmeli mi:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding SecmeliText}" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="Ders Sayısı:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding DersSayisi}" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <TextBlock Text="Alınan Kredi:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding AlinanKredi}" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Orientation="Vertical">
+                    <TextBlock Text="Alınan Ders Sayısı:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding AlinanDersSayisi}" FontSize="16"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Dersler Listesi -->
+            <ListView Grid.Row="1" ItemsSource="{Binding Dersler}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Ders Adı" Width="250" DisplayMemberBinding="{Binding DersAdi}" />
+                        <GridViewColumn Header="Kredi" Width="70" DisplayMemberBinding="{Binding Kredi}" />
+                        <GridViewColumn Header="Dönem" Width="120" DisplayMemberBinding="{Binding Donem}" />
+                        <GridViewColumn Header="Akademisyen" Width="250" DisplayMemberBinding="{Binding Akademisyen}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+    </Grid>
+</Window>
