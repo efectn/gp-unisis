@@ -1,0 +1,215 @@
+﻿<Application x:Class="gp_unisis.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:gp_unisis"
+             xmlns:converters="clr-namespace:gp_unisis.Converters"
+             xmlns:vms="clr-namespace:gp_unisis.ViewModel"
+             xmlns:vmss="clr-namespace:gp_unisis.ViewModel.Student"
+             xmlns:vml="clr-namespace:gp_unisis.ViewModel.Lecturer"
+             xmlns:vmsa = "clr-namespace:gp_unisis.ViewModel.Admin"
+             xmlns:vmssa = "clr-namespace:gp_unisis.ViewModel.StudentAffairs"
+             xmlns:views="clr-namespace:gp_unisis.Views"
+             xmlns:viewsStudent="clr-namespace:gp_unisis.Views.Student"
+             xmlns:viewsLecturer="clr-namespace:gp_unisis.Views.Lecturer"
+             xmlns:viewsStudentAffairs = "clr-namespace:gp_unisis.Views.StudentAffairs"
+             xmlns:viewsAdmin="clr-namespace:gp_unisis.Views.Admin"
+
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:BoolToEvetHayirConverter x:Key="BoolToEvetHayirConverter"/>
+            <converters:RoleToBooleanConverter x:Key="RoleToBooleanConverter"/>
+
+            <DataTemplate DataType="{x:Type vms:LoginViewModel}">
+                <views:LoginWindow />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vmss:StudentDashboardViewModel}">
+                <viewsStudent:Anasayfa />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:DersSecimiViewModel}">
+                <viewsStudent:DersSecimi />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:DonemDerslerimViewModel}">
+                <viewsStudent:DonemDerslerim />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:SinavProgramiViewModel}">
+                <viewsStudent:SinavProgrami />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmss:NotlarimViewModel}">
+                <viewsStudent:Notlarim />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vmss:DersGrubuAyrintiViewModel}">
+                <viewsStudent:DersGrubuAyrinti />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:DersGruplariViewModel}">
+                <viewsStudent:DersGruplari />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:DersProgramiViewModel}">
+                <viewsStudent:DersProgrami />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:TranskriptViewModel}">
+                <viewsStudent:Transkript />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmss:TranskriptAnalizViewModel}">
+                <viewsStudent:TranskriptAnaliz />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type vml:AkademisyenAnaSayfaViewModel}">
+                <viewsLecturer:AkademisyenAnaSayfa />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type vml:DersDuzenleSilViewModel}">
+                <viewsLecturer:DersDuzenleSil />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:DersSinavEkleViewModel}">
+                <viewsLecturer:DersSinavEkle />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:DersProgramiViewModel}">
+                <viewsLecturer:DersProgrami />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:NotGirisiViewModel}">
+                <viewsLecturer:NotGirisi />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vml:DersProgramiEkleViewModel}">
+                <viewsLecturer:DersProgramiEkle />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vml:DersListesiViewModel}">
+                <viewsLecturer:DersListesi />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:DersEkleViewModel}">
+                <viewsLecturer:ProgramaDersEkleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:SinavProgramiViewModel}">
+                <viewsLecturer:SinavProgrami/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:TranskriptAnaSayfaViewModel}">
+                <viewsLecturer:TranskriptAnaSayfa/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:TranskriptGoruntulemeViewModel}">
+                <viewsLecturer:TranskriptGoruntuleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vml:TranskriptHesaplamaViewModel}">
+                <viewsLecturer:TranskriptHesaplama/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:AdminAnaSayfaViewModel}">
+                <viewsAdmin:AdminAnaSayfa/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:AdminDüzenlemeViewModel}">
+                <viewsAdmin:AdminDüzenleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:AdminListelemeViewModel}">
+                <viewsAdmin:AdminListeleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:AkademisyenDuzenlemeViewModel}">
+                <viewsAdmin:AkademisyenDuzenleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:AkademisyenListeleViewModel}">
+                <viewsAdmin:AkademisyenListele/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:BölümDüzenlemeViewModel}">
+                <viewsAdmin:BölümDüzenleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:BölümListelemeViewModel}">
+                <viewsAdmin:BölümListeleme/>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type vmsa:DersGrubuListelemeViewModel}">
+                <viewsAdmin:DersGrubuListeleme/>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type vmsa:DönemDüzenlemeViewModel}">
+                <viewsAdmin:DönemDüzenleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:DönemListelemeViewModel}">
+                <viewsAdmin:DönemListeleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:FakülteDüzenlemeViewModel}">
+                <viewsAdmin:FakülteDüzenleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:FakülteListelemeViewModel}">
+                <viewsAdmin:FakülteListeleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:ÖğrenciİşleriDüzenlemeViewModel}">
+                <viewsAdmin:ÖğrenciİşleriDüzenleme/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmsa:ÖğrenciİşleriListelemeViewModel}">
+                <viewsAdmin:ÖğrenciİşleriListeleme/>
+            </DataTemplate>
+
+
+
+
+
+
+            <DataTemplate DataType="{x:Type vmssa:AffairsAnaSayfaViewModel}">
+                <viewsStudentAffairs:Anasayfa/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmssa:DersSecimiGoruntulemeViewModel}">
+                <viewsStudentAffairs:DersSecimiGoruntule/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmssa:DersSecimiListeleViewModel}">
+                <viewsStudentAffairs:DersSecimiListele/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmssa:OgrenciDuzenleViewModel}">
+                <viewsStudentAffairs:OgrenciDuzenle/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmssa:OgrenciEkleViewModel}">
+                <viewsStudentAffairs:OgrenciEkle/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmssa:OgrenciListeleViewModel}">
+                <viewsStudentAffairs:OgrenciListele/>
+            </DataTemplate>
+
+
+            <Style x:Key="GriButonStili" BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

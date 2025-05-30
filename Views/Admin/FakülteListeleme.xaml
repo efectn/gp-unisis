@@ -1,11 +1,11 @@
-﻿<Window x:Class="OKUL.AdminRiyal.FakülteListeleme"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OKUL.AdminRiyal"
-        mc:Ignorable="d"
-        Title="FakülteListeleme" Height="550" Width="1062">
+﻿<UserControl x:Class="gp_unisis.Views.Admin.FakülteListeleme"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:gp_unisis.Views.Admin"
+             mc:Ignorable="d"
+             >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230"/>
@@ -27,6 +27,7 @@
                     Foreground="White"
                     FontSize="18"
                     FontWeight="Bold"
+                    Command="{Binding AdminAnaSayfaCommand}"
                     Margin="0,15,0,15" />
 
             <Expander Header="Genel İşlemler"
@@ -37,26 +38,12 @@
                       ExpandDirection="Down"
                       Width="210">
                 <StackPanel>
-                    <Button Content="Fakülte İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Bölüm İşlermleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Dönem İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Akademisyen İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-
-                </StackPanel>
-            </Expander>
-
-            <Expander Header="Duyuru İşlemleri"
-                      Margin="0,0,0,10"
-                      Foreground="White"
-                      Background="#3A3A3A"
-                      FontSize="15"
-                      ExpandDirection="Down"
-                      Width="210">
-                <StackPanel>
-                    <Button Content="Duyuru Ekleme" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Duyuru Görüntüleme" Margin="5" Foreground=" #3A3A3A" Background="White"/>
+                    <Button Content="Fakülte İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding FakülteListelemeCommand}"/>
+                    <Button Content="Bölüm İşlermleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding BölümListelemeCommand}"/>
+                    <Button Content="Dönem İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding DönemListelemeCommand}"/>
+                    <Button Content="Akademisyen İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding AkademisyenListeleCommand}"/>
+                    <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding DersGrubuListelemeCommand}"/>
+                    <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding ÖğrenciİşleriListelemeCommand}"/>
                 </StackPanel>
             </Expander>
 
@@ -68,14 +55,24 @@
                       ExpandDirection="Down"
                       Width="210">
                 <StackPanel>
-                    <Button Content="Genel Bilgiler" Margin="5" Foreground=" #3A3A3A" Background="White"/>
+                    <Button Content="Admin Listele" Margin="5" Background="White" Foreground="#3A3A3A" Command="{Binding AdminListelemeCommand}"/>
                 </StackPanel>
             </Expander>
+            <Button  Content="Çıkış Yap"
+                     Height="45"
+                     FontSize="28"
+                     FontFamily="Segoe UI Light"
+                     Foreground="White"
+                     Background="Red"
+                     HorizontalAlignment="Center"
+                     Command="{Binding LogOutCommand}"
+                     Grid.Column="1"
+                     Grid.Row="0" Width="210"/>
         </StackPanel>
 
-        <!-- BÖLÜM LİSTELEME -->
+        <!-- FAKÜLTE LİSTELEME -->
         <ListView Grid.Row="0" Grid.Column="1" AlternationCount="2"
-              ItemsSource="{Binding SinavProgramiListesi}">
+                  ItemsSource="{Binding Faculties}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -102,22 +99,26 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="100"/>
-                    <GridViewColumn Header="Adı" Width="100"/>
-                    <GridViewColumn Header="İletişim Numarası" Width="170"/>
-                    <GridViewColumn Header="Başkan" Width="110"/>
-                    <GridViewColumn Header="Başkan Yardımcısı" Width="170"/>
+                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Adı" Width="100" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="İletişim Numarası" Width="170" DisplayMemberBinding="{Binding ContactNumber}"/>
+                    <GridViewColumn Header="Başkan" Width="110" DisplayMemberBinding="{Binding Dean}"/>
+                    <GridViewColumn Header="Başkan Yardımcısı" Width="170" DisplayMemberBinding="{Binding ViceDean}"/>
                     <GridViewColumn Header="Düzenle" Width="120">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Düzenle" Background="Blue" Foreground="White"/>
+                                <Button Content="Düzenle" Background="Blue" Foreground="White"
+                                        Command="{Binding DataContext.FakulteDuzenleCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Sil" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Sil" Background="Red" Foreground="White"/>
+                                <Button Content="Sil" Background="Red" Foreground="White"
+                                        Command="{Binding DataContext.FakulteSilCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -126,7 +127,7 @@
         </ListView>
 
         <!-- FORM ALANI -->
-        <Grid Grid.Row="1" Grid.Column="1" Margin="20,20,173,20" >
+        <Grid Grid.Row="1" Grid.Column="1" Margin="20,20,173,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="180"/>
@@ -141,29 +142,28 @@
 
             <!-- Adı -->
             <Label Content="Adı:" FontWeight="Bold" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Height="28"/>
+            <TextBox Text="{Binding YeniFakulteAdı, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Height="28"/>
 
             <!-- İletişim -->
             <Label Content="İletişim Numarası:" FontWeight="Bold" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Height="28"/>
+            <TextBox Text="{Binding YeniNumara, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Height="28"/>
 
             <!-- Adres -->
             <Label Content="Adres:" FontWeight="Bold" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="0,13,0,0"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Height="60" TextWrapping="Wrap"/>
+            <TextBox Text="{Binding YeniAdres, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Height="60" TextWrapping="Wrap"/>
 
             <!-- Başkan -->
             <Label Content="Fakülte Başkanı:" FontWeight="Bold" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Height="28"/>
-            <TextBox Grid.Row="0" Grid.Column="3" Height="28"/>
+            <TextBox Text="{Binding YeniBaskan, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3" Height="28"/>
 
             <!-- Başkan Yardımcısı -->
             <Label Content="Fakülte Başkan Yardımcısı:" FontWeight="Bold" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Height="28"/>
-
-            <!-- Fakülte -->
+            <TextBox Text="{Binding YeniBaskanYardımcısı, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="3" Height="28"/>
 
             <!-- Kaydet Butonu -->
             <Button Grid.Row="2" Grid.Column="2" Height="50" Width="227" Content="Kaydet"
-                Background="Green" Foreground="White" HorizontalAlignment="Left" Margin="52,6,0,4" Grid.ColumnSpan="2"/>
+                    Command="{Binding FakulteEkleCommand}"
+                    Background="Green" Foreground="White" HorizontalAlignment="Left" Margin="52,6,0,4" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

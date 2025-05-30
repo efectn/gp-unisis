@@ -17,6 +17,7 @@ public class TranscriptRepository
         return _context.Transcripts
             .Include(t => t.Student)
             .Include(t => t.Course)
+            .ThenInclude(t => t.Lecturer)
             .Include(t => t.Semester)
             .ToList();
     }

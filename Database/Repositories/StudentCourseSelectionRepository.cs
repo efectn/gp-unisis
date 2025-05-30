@@ -16,6 +16,7 @@ public class StudentCourseSelectionRepository
     {
         return _context.StudentCourseSelections
             .Include(scs => scs.Student)
+            .ThenInclude(s => s.Department)
             .Include(scs => scs.Courses)
             .Include(scs => scs.Semester)
             .ToList();
@@ -116,6 +117,7 @@ public class StudentCourseSelectionRepository
             .Include(scs => scs.Courses)
             .ThenInclude(c => c.Exams)
             .Include(scs => scs.Courses)
+            .ThenInclude(c => c.Lecturer)
             .Include(scs => scs.Semester)
             .ToList();
     }

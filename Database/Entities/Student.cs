@@ -21,8 +21,8 @@ public class Student
     public int? EntranceSemesterId { get; set; }
     public Semester? EntranceSemester { get; set; }
 
-    public ICollection<Grade> Grades { get; set; }
-    public ICollection<Transcript> Transcripts { get; set; }
-    
-    public ICollection<StudentCourseSelection> StudentCourseSelections { get; set; }
+    public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+    public ICollection<Transcript> Transcripts { get; set; } = new List<Transcript>();
+
+    public ICollection<StudentCourseSelection> StudentCourseSelections { get; set; } = new List<StudentCourseSelection>();
 }

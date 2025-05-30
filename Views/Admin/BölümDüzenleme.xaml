@@ -1,11 +1,11 @@
-﻿<Window x:Class="OKUL.AdminRiyal.BölümDüzenleme"
+﻿<UserControl x:Class="gp_unisis.Views.Admin.BölümDüzenleme"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OKUL.AdminRiyal"
+        xmlns:local="clr-namespace:gp_unisis.Views.Admin"
         mc:Ignorable="d"
-        Title="BölümDüzenleme" Height="550" Width="800">
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230"/>
@@ -25,6 +25,7 @@
                Foreground="White"
                FontSize="18"
                FontWeight="Bold"
+               Command="{Binding AdminAnaSayfaCommand}"
                Margin="0,15,0,15" />
 
             <Expander Header="Genel İşlemler"
@@ -35,26 +36,13 @@
               ExpandDirection="Down"
               Width="210">
                 <StackPanel>
-                    <Button Content="Fakülte İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Bölüm İşlermleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Dönem İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Akademisyen İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground=" #3A3A3A" Background="White"/>
+                    <Button Content="Fakülte İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding FakülteListelemeCommand}"/>
+                    <Button Content="Bölüm İşlermleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding BölümListelemeCommand}"/>
+                    <Button Content="Dönem İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding DönemListelemeCommand}"/>
+                    <Button Content="Akademisyen İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding AkademisyenListeleCommand}"/>
+                    <Button Content="Ders Grubu İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding DersGrubuListelemeCommand}"/>
+                    <Button Content="Öğrenci İşleri İşlemleri" Margin="5" Foreground="#3A3A3A" Background="White" Command="{Binding ÖğrenciİşleriListelemeCommand}"/>
 
-                </StackPanel>
-            </Expander>
-
-            <Expander Header="Duyuru İşlemleri"
-              Margin="0,0,0,10"
-              Foreground="White"
-              Background="#3A3A3A"
-              FontSize="15"
-              ExpandDirection="Down"
-              Width="210">
-                <StackPanel>
-                    <Button Content="Duyuru Ekleme" Margin="5" Foreground=" #3A3A3A" Background="White"/>
-                    <Button Content="Duyuru Görüntüleme" Margin="5" Foreground=" #3A3A3A" Background="White"/>
                 </StackPanel>
             </Expander>
 
@@ -66,9 +54,20 @@
               ExpandDirection="Down"
               Width="210">
                 <StackPanel>
-                    <Button Content="Genel Bilgiler" Margin="5" Foreground=" #3A3A3A" Background="White"/>
+                    <Button Content="Admin Listele" Margin="5" Background="White" Foreground="#3A3A3A" Command="{Binding AdminListelemeCommand}"/>
                 </StackPanel>
             </Expander>
+
+            <Button  Content="Çıkış Yap"
+                     Height="45"
+                     FontSize="28"
+                     FontFamily="Segoe UI Light"
+                     Foreground="White"
+                     Background="Red"
+                     HorizontalAlignment="Center"
+                     Command="{Binding LogOutCommand}"
+                     Grid.Column="1"
+                     Grid.Row="0" Width="210"/>
         </StackPanel>
         <Grid HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="495" Margin="58,109,0,0" Grid.Column="1">
             <Label Content="Bölüm Adı:" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="80"/>
@@ -77,13 +76,18 @@
             <Label Content="Bölüm Başkanı:" HorizontalAlignment="Left" Height="28" Margin="246,0,0,0" VerticalAlignment="Top" Width="96"/>
             <Label Content="Bölüm Başkan Yardımcısı:" HorizontalAlignment="Left" Height="28" Margin="246,48,0,0" VerticalAlignment="Top" Width="147"/>
             <Label Content="Fakülte:" HorizontalAlignment="Left" Height="28" Margin="246,93,0,0" VerticalAlignment="Top" Width="96"/>
-            <TextBox HorizontalAlignment="Left" Height="28" Margin="119,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
-            <TextBox HorizontalAlignment="Left" Height="28" Margin="119,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
-            <TextBox HorizontalAlignment="Left" Height="28" Margin="119,93,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
-            <TextBox HorizontalAlignment="Left" Height="28" Margin="390,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
-            <TextBox HorizontalAlignment="Left" Height="28" Margin="393,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
-            <ComboBox HorizontalAlignment="Left" Height="28" Margin="342,93,0,0" VerticalAlignment="Top" Width="150"/>
-            <Button Content="Bölüm Güncelle" HorizontalAlignment="Left" Height="51" Margin="141,149,0,0" VerticalAlignment="Top" Width="187" Background="Green"/>
+            <TextBox HorizontalAlignment="Left" Height="28" Margin="119,0,0,0" TextWrapping="Wrap" Text="{Binding Department.Name, Mode=TwoWay}"  VerticalAlignment="Top" Width="102" />
+            <TextBox HorizontalAlignment="Left" Height="28" Margin="119,48,0,0" TextWrapping="Wrap" Text="{Binding Department.ContactNumber, Mode=TwoWay}" VerticalAlignment="Top" Width="102"/>
+            <TextBox HorizontalAlignment="Left" Height="28" Margin="119,93,0,0" TextWrapping="Wrap" Text="{Binding Department.Address, Mode=TwoWay}" VerticalAlignment="Top" Width="102"/>
+            <TextBox HorizontalAlignment="Left" Height="28" Margin="390,0,0,0" TextWrapping="Wrap" Text="{Binding Department.Head, Mode=TwoWay}" VerticalAlignment="Top" Width="102"/>
+            <TextBox HorizontalAlignment="Left" Height="28" Margin="393,48,0,0" TextWrapping="Wrap" Text="{Binding Department.ViceHead, Mode=TwoWay}" VerticalAlignment="Top" Width="102" />
+            <ComboBox 
+                ItemsSource="{Binding FacultyNames}"
+                SelectedItem="{Binding Department.Faculty, Mode=TwoWay}"
+                DisplayMemberPath="Name"
+
+                HorizontalAlignment="Left" Height="28" Margin="342,93,0,0" VerticalAlignment="Top" Width="150" />
+            <Button Content="Bölüm Güncelle" HorizontalAlignment="Left" Height="51" Margin="141,149,0,0" VerticalAlignment="Top" Width="187" Background="Green"  Command="{Binding BolumGuncelleCommand,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

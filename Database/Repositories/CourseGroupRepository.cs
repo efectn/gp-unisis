@@ -17,6 +17,7 @@ public class CourseGroupsRepository
     {
         return _context.CourseGroups
             .Include(cg => cg.Courses)
+            .ThenInclude(c => c.Lecturer)
             .Where(d => d.DepartmentId == departmentId)
             .ToList();
     }

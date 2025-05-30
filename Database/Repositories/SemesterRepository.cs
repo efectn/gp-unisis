@@ -53,14 +53,14 @@ public class SemesterRepository
         }
         
         // Check course selection periods
-        if (semester.CourseRegistrationStartDate == default ||
+        /*if (semester.CourseRegistrationStartDate == default ||
             semester.CourseRegistrationEndDate == default ||
             semester.CourseRegistrationEndDate < semester.CourseRegistrationStartDate ||
             semester.CourseRegistrationStartDate < semester.StartDate ||
             semester.CourseRegistrationEndDate > semester.EndDate)
         {
             throw new ArgumentException("Course registration dates must be valid and consistent.");
-        }
+        }*/
 
         _context.Semesters.Add(semester);
         _context.SaveChanges();
@@ -90,14 +90,14 @@ public class SemesterRepository
         }
         
         // Check course selection periods
-        if (semester.CourseRegistrationStartDate == default ||
+        /*if (semester.CourseRegistrationStartDate == default ||
             semester.CourseRegistrationEndDate == default ||
             semester.CourseRegistrationEndDate < semester.CourseRegistrationStartDate ||
             semester.CourseRegistrationStartDate < semester.StartDate ||
             semester.CourseRegistrationEndDate > semester.EndDate)
         {
             throw new ArgumentException("Course registration dates must be valid and consistent.");
-        }
+        }*/
 
         existSemester.StartDate = semester.StartDate;
         existSemester.EndDate = semester.EndDate;

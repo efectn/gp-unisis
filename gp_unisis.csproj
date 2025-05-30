@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\alumni.png" />
+    <None Remove="Assets\man.png" />
+    <None Remove="Assets\menu.png" />
+    <None Remove="Assets\school.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.3" />
+    <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\alumni.png" />
+    <Resource Include="Assets\man.png" />
+    <Resource Include="Assets\menu.png" />
+    <Resource Include="Assets\school.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Lecturer\DersProgramiEkle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

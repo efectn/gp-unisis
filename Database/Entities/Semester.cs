@@ -8,10 +8,10 @@ public class Semester
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public DateTime FinalExamDate { get; set; }
-    public DateTime CourseRegistrationStartDate { get; set; }
-    public DateTime CourseRegistrationEndDate { get; set; }
+    //public DateTime CourseRegistrationStartDate { get; set; }
+   //public DateTime CourseRegistrationEndDate { get; set; }
 
-    public ICollection<Course> Courses { get; set; }
-    public ICollection<Grade> Grades { get; set; }
-    public ICollection<Transcript> Transcripts { get; set; }
+    public ICollection<Course> Courses { get; set; } = new List<Course>();
+    public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+    public ICollection<Transcript> Transcripts { get; set; } = new List<Transcript>();
 }

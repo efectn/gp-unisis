@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.Views.Akademisyen
+namespace gp_unisis.Views.Lecturer
 {
     /// <summary>
     /// ProgramaDersEkleme.xaml etkileşim mantığı
     /// </summary>
-    public partial class ProgramaDersEkleme : Window
+    public partial class ProgramaDersEkleme : UserControl
     {
         public ProgramaDersEkleme()
         {

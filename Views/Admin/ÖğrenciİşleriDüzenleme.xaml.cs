@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.AdminRiyal
+namespace gp_unisis.Views.Admin
 {
     /// <summary>
     /// ÖğrenciİşleriDüzenleme.xaml etkileşim mantığı
     /// </summary>
-    public partial class ÖğrenciİşleriDüzenleme : Window
+    public partial class ÖğrenciİşleriDüzenleme : UserControl
     {
         public ÖğrenciİşleriDüzenleme()
         {

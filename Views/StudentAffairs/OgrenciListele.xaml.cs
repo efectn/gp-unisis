@@ -14,35 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OKUL.Views.Ogrenciİsleri
+namespace gp_unisis.Views.StudentAffairs
 {
-    public class Ogrenci
-    {
-        public int Id { get; set; }
-        public string OgrenciNo { get; set; }
-        public string AdSoyad { get; set; }
-        public string Bolum { get; set; }
-    }
-
     /// <summary>
     /// OgrenciListele.xaml etkileşim mantığı
     /// </summary>
-    public partial class OgrenciListele : Window
+    public partial class OgrenciListele : UserControl
     {
-        public ObservableCollection<Ogrenci> Ogrenciler { get; set; }
-
         public OgrenciListele()
         {
-            Ogrenciler = new ObservableCollection<Ogrenci>
-        {
-            new Ogrenci { Id = 1, OgrenciNo = "1001", AdSoyad = "Ahmet Yılmaz", Bolum = "Matematik" },
-            new Ogrenci { Id = 2, OgrenciNo = "1002", AdSoyad = "Ayşe Demir", Bolum = "Fizik" },
-            new Ogrenci { Id = 3, OgrenciNo = "1003", AdSoyad = "Mehmet Kaya", Bolum = "Kimya" },
-        };
-
-            this.DataContext = this;
-
             InitializeComponent();
         }
     }
 }
+            

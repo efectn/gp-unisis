@@ -1,5 +1,4 @@
-﻿using OKUL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,12 +13,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.Views.OgrenciSayfalari
+namespace gp_unisis.Views.Student
 {
     /// <summary>
     /// SinavProgrami.xaml etkileşim mantığı
     /// </summary>
-    public partial class SinavProgrami : Window
+    public partial class SinavProgrami : UserControl
     {
         public ObservableCollection<SinavProgramiSatiri> Sinavlar { get; set; }
 
@@ -33,8 +32,18 @@ namespace OKUL.Views.OgrenciSayfalari
                 new SinavProgramiSatiri { ID=4, SinavTipi="Yerenlemeli Sınav", SinavAdi="Nasıl Sinemlenilir", SinavSuresi="5 dk", SinavTarihi="27.06.2025", SinavSaati="13:00" }
 
             };
-            this.DataContext = this;
+            //this.DataContext = this;
             InitializeComponent();
         }
+    }
+
+    public class SinavProgramiSatiri
+    {
+        public int ID { get; set; }
+        public string SinavTipi { get; set; }
+        public string SinavAdi { get; set; }
+        public string SinavSuresi { get; set; }
+        public string SinavTarihi { get; set; }
+        public string SinavSaati { get; set; }
     }
 }

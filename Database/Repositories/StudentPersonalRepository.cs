@@ -80,4 +80,9 @@ public class StudentPersonalRepository
     {
         return _context.StudentPersonals.ToList();
     }
+
+    public StudentPersonal GetStudentPersonalById(int id)
+    {
+        return _context.StudentPersonals.FirstOrDefault(a => a.Id == id);
+    }
 }

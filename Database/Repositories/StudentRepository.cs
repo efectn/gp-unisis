@@ -16,9 +16,17 @@ public class StudentRepository
     {
         return _context.Students
             .Include(s => s.Department)
+            .ThenInclude(d => d.Courses)
+            .ThenInclude(c => c.Lecturer)
+            .Include(s => s.Department)
+            .ThenInclude(d => d.Faculty)
             .Include(s => s.Grades)
             .Include(s => s.Transcripts)
             .Include(s => s.StudentCourseSelections)
+            .ThenInclude(scs => scs.Courses)
+            .ThenInclude(c => c.Exams)
+            .ThenInclude(e => e.Grades)
+            .Include(s => s.EntranceSemester)
             .ToList();
     }
 

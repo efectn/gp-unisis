@@ -12,7 +12,7 @@ public class AdminRepository
         _context = context;
     }
 
-    public void AddAdmin(Admin admin)
+    public void AddAdmin(Entities.Admin admin)
     {
         if (admin == null)
         {
@@ -34,7 +34,7 @@ public class AdminRepository
         _context.SaveChanges();
     }
 
-    public void UpdateAdmin(Admin admin)
+    public void UpdateAdmin(Entities.Admin admin)
     {
         if (admin == null)
         {
@@ -59,7 +59,7 @@ public class AdminRepository
         _context.SaveChanges();
     }
 
-    public void DeleteAdmin(Admin admin)
+    public void DeleteAdmin(Entities.Admin admin)
     {
         if (admin == null)
         {
@@ -76,8 +76,13 @@ public class AdminRepository
         _context.SaveChanges();
     }
 
-    public List<Admin> GetAllAdminsName()
+    public List<Entities.Admin> GetAllAdminsName()
     {
         return _context.Admins.ToList();
+    }
+
+    public Entities.Admin GetAdminById(int id)
+    {
+        return _context.Admins.FirstOrDefault(a => a.Id == id);
     }
 }

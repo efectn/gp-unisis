@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using static OKUL.Views.OgrenciSayfalari.DersGruplari;
+using static gp_unisis.Views.Student.DersGruplari;
 
-namespace OKUL.Views.OgrenciSayfalari
+namespace gp_unisis.Views.Student
 {
-    public partial class DersGruplari : Window, INotifyPropertyChanged
+    public partial class DersGruplari : UserControl, INotifyPropertyChanged
     {
         public ObservableCollection<DersGrubu> DersGruplariListesi { get; set; }
 
@@ -56,7 +56,7 @@ namespace OKUL.Views.OgrenciSayfalari
 
             HesaplaToplamlar();
 
-            this.DataContext = this;
+            //this.DataContext.DersGruplariListesi = DersGruplariListesi;
         }
 
         private void HesaplaToplamlar()

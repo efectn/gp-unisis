@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.AdminRiyal
+namespace gp_unisis.Views.Admin
 {
     /// <summary>
     /// AkademisyenListele.xaml etkileşim mantığı
     /// </summary>
-    public partial class AkademisyenListele : Window
+    public partial class AkademisyenListele : UserControl
     {
         public AkademisyenListele()
         {

@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<Admin> Admins { get; set; }
+    public DbSet<Entities.Admin> Admins { get; set; }
     public DbSet<Faculty> Faculties { get; set; }
     public DbSet<Department> Departments { get; set; }
     public DbSet<Semester> Semesters { get; set; }
-    public DbSet<Lecturer> Lecturers { get; set; }
+    public DbSet<Entities.Lecturer> Lecturers { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Announcement> Announcements { get; set; }
     public DbSet<Student> Students { get; set; }

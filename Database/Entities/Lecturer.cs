@@ -15,8 +15,8 @@ public class Lecturer
     public string Password { get; set; }
     public string Email { get; set; }
     
-    public ICollection<Department> Departments { get; set; }
-    public ICollection<Announcement> Announcements { get; set; }
+    public ICollection<Department> Departments { get; set; } = new List<Department>();
+    public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
     public ICollection<Course> Courses { get; set; } = new List<Course>();
 
 }

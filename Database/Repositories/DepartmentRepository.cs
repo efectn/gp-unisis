@@ -113,7 +113,7 @@ public class DepartmentRepository
         _context.SaveChanges();
     }
     
-    public Lecturer[] GetLecturersByDepartmentId(int departmentId)
+    public Entities.Lecturer[] GetLecturersByDepartmentId(int departmentId)
     {
         var department = _context.Departments.Include(d => d.Lecturers).FirstOrDefault(d => d.Id == departmentId);
         if (department == null)

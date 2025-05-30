@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.Admin
+namespace gp_unisis.Views.Admin
 {
     /// <summary>
     /// AdminAnaSayfa.xaml etkileşim mantığı
     /// </summary>
-    public partial class AdminAnaSayfa : Window
+    public partial class AdminAnaSayfa : UserControl
     {
         public AdminAnaSayfa()
         {

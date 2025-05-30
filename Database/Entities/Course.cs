@@ -18,10 +18,10 @@ public class Course
     public int DepartmentId { get; set; }
     public Department Department { get; set; }
 
-    public ICollection<Semester> Semesters { get; set; }
-    public ICollection<CourseScheduleEntry> CourseScheduleEntries { get; set; }
-    public ICollection<Grade> Grades { get; set; }
-    public ICollection<Announcement> Announcements { get; set; }
+    public ICollection<Semester> Semesters { get; set; } = new List<Semester>();
+    public ICollection<CourseScheduleEntry> CourseScheduleEntries { get; set; } = new List<CourseScheduleEntry>();
+    public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+    public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
     public ICollection<CourseGroup> CourseGroups { get; set; } = new List<CourseGroup>();
     
     public ICollection<StudentCourseSelection> StudentCourseSelections { get; set; } = new List<StudentCourseSelection>();

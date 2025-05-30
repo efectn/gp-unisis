@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.AdminRiyal
+namespace gp_unisis.Views.Admin
 {
     /// <summary>
     /// DersGrubuListeleme.xaml etkileşim mantığı
     /// </summary>
-    public partial class DersGrubuListeleme : Window
+    public partial class DersGrubuListeleme : UserControl
     {
         public DersGrubuListeleme()
         {

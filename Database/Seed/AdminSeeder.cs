@@ -8,9 +8,9 @@ public class AdminSeeder
     public static void Seed(ModelBuilder modelBuilder)
     {
         var password = "827ccb0eea8a706c4c34a16891f84e7b"; // MD5 hash of "12345"
-        var lecturers = new Admin[]
+        var lecturers = new Entities.Admin[]
         {
-            new Admin
+            new Entities.Admin
             {
                 Id = 1,
                 Name  = "Efe Çetin",
@@ -19,6 +19,6 @@ public class AdminSeeder
             },
         };
         
-        modelBuilder.Entity<Admin>().HasData(lecturers);
+        modelBuilder.Entity<Entities.Admin>().HasData(lecturers);
     }
 }

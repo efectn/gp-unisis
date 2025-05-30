@@ -12,13 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.Views.OgrenciSayfalari
+namespace gp_unisis.Views.Student
 {
     
     /// <summary>
     /// DersSecimiListele.xaml etkileşim mantığı
     /// </summary>
-    public partial class DonemDerslerim : Window
+    public partial class DonemDerslerim : UserControl
     {
         public DonemDerslerim()
         {

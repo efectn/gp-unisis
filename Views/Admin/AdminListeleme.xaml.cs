@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.AdminRiyal
+namespace gp_unisis.Views.Admin
 {
     /// <summary>
     /// AdminListeleme.xaml etkileşim mantığı
     /// </summary>
-    public partial class AdminListeleme : Window
+    public partial class AdminListeleme : UserControl
     {
         public AdminListeleme()
         {

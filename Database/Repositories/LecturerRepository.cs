@@ -12,26 +12,17 @@ public class LecturerRepository
         _context = context;
     }
 
-    public List<Lecturer> GetAllLecturers()
+    public List<Entities.Lecturer> GetAllLecturers()
     {
         return _context.Lecturers.ToList();
     }
 
-    public Lecturer GetLecturerById(int id)
+    public Entities.Lecturer GetLecturerById(int id)
     {
-        var lecturer = _context.Lecturers.
-            Include(d => d.Departments).
-            Include(c => c.Courses).
-            ThenInclude(c => c.Semesters).
-            FirstOrDefault(l => l.Id == id);
-        if (lecturer == null)
-        {
-            throw new InvalidOperationException($"Lecturer with ID {id} not found.");
-        }
-        return lecturer;
+        return _context.Lecturers.FirstOrDefault(a => a.Id == id);
     }
 
-    public Lecturer GetLecturerByEmail(string email)
+    public Entities.Lecturer GetLecturerByEmail(string email)
     {
         var lecturer = _context.Lecturers.Include(l => l.Departments).FirstOrDefault(l => l.Email == email);
 
@@ -43,7 +34,7 @@ public class LecturerRepository
         return lecturer;
     }
 
-    public void AddLecturer(Lecturer lecturer)
+    public void AddLecturer(Entities.Lecturer lecturer)
     {
         if (lecturer == null)
         {
@@ -65,7 +56,7 @@ public class LecturerRepository
         _context.SaveChanges();
     }
 
-    public void UpdateLecturer(Lecturer lecturer)
+    public void UpdateLecturer(Entities.Lecturer lecturer)
     {
         if (lecturer == null)
         {
@@ -121,7 +112,7 @@ public class LecturerRepository
         return lecturer.Departments.ToList();
     }
 
-    public List<Lecturer> GetLecturersByDepartment(int departmentId)
+    public List<Entities.Lecturer> GetLecturersByDepartment(int departmentId)
     {
         return _context.Lecturers
                        .Where(l => l.Departments.Any(d => d.Id == departmentId))

@@ -12,12 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OKUL.Views.Ogrenciİsleri
+namespace gp_unisis.Views.StudentAffairs
 {
     /// <summary>
     /// DersSecimiListele.xaml etkileşim mantığı
     /// </summary>
-    public partial class DersSecimiGoruntule : Window
+    public partial class DersSecimiGoruntule : UserControl
     {
         public DersSecimiGoruntule()
         {

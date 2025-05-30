@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace OKUL.Views.OgrenciSayfalari
+namespace gp_unisis.Views.Student
 {
-    public partial class Transkript : Window
+    public partial class Transkript : UserControl
     {
         public Transkript()
         {
@@ -25,7 +25,7 @@ namespace OKUL.Views.OgrenciSayfalari
         private void YükleVeriler()
         {
             // Örnek dönemler
-            donemComboBox.ItemsSource = new List<string> { "2023 Güz", "2024 Bahar" };
+            /*donemComboBox.ItemsSource = new List<string> { "2023 Güz", "2024 Bahar" };
             donemComboBox.SelectedIndex = 0;
 
             // Örnek transkript verisi
@@ -52,7 +52,7 @@ namespace OKUL.Views.OgrenciSayfalari
             double gano = ano; // Bu örnekte GANO ile ANO aynı
 
             anoTextBlock.Text = $"Dönem ANO: {ano:F2}";
-            ganoTextBlock.Text = $"Genel GANO: {gano:F2}";
+            ganoTextBlock.Text = $"Genel GANO: {gano:F2}";*/
         }
 
         private void Analiz_Click(object sender, RoutedEventArgs e)
