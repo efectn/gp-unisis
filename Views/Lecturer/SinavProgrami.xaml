@@ -111,7 +111,7 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="Ders" DisplayMemberBinding="{Binding Course.Name}" />
                     <GridViewColumn Header="Sınav Adı" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Sınav Süresi" DisplayMemberBinding="{Binding DurationMinutes}" />

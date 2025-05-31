@@ -10,6 +10,7 @@ namespace gp_unisis.Helpers
     {
         public static string CreateMD5(string input)
         {
+            if (string.IsNullOrEmpty(input)) return string.Empty;
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
             {

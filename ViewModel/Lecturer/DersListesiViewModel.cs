@@ -37,6 +37,7 @@ namespace gp_unisis.ViewModel.Lecturer
 
 
         public ICommand LogOutCommand { get; set; }
+        public ICommand DersSilCommand { get; set; }
 
         public ObservableCollection<Course> Courses { get; set; } = new ObservableCollection<Course>();
 
@@ -127,6 +128,26 @@ namespace gp_unisis.ViewModel.Lecturer
                 if (param is Course course)
                 {
                     _mainVM.CurrentViewModel = new DersDuzenleSilViewModel(_mainVM, course.Id);
+                }
+            });
+            
+            DersSilCommand = new RelayCommand(param =>
+            {
+                if (param is Course course)
+                {
+                    try
+                    {
+                        _mainVM.Globals.CourseRepository.DeleteCourse(course.Id);
+                        MessageBox.Show("Ders başarıyla silindi!");
+                        _mainVM.CurrentViewModel = new DersListesiViewModel(_mainVM);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
+                    // Refresh page
+                    _mainVM.CurrentViewModel = new DersProgramiViewModel(_mainVM);
                 }
             });
         }

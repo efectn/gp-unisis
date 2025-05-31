@@ -102,7 +102,7 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Button Content="Sil" Margin="0,0,5,0"
-                                                Command="{Binding DataContext.DersProgramiSilCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                Command="{Binding DataContext.DersSilCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}" Background="Red" Foreground="White"/>
                                         <Button Content="Düzenle" Margin="0,0,5,0"
                                                 Command="{Binding DataContext.DersDuzenleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
