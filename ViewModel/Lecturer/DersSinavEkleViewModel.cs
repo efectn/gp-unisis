@@ -145,7 +145,7 @@ namespace gp_unisis.ViewModel.Lecturer
                 return;
             }
 
-            var courses = user.Courses
+            var courses = _mainVM.Globals.CourseRepository.GetCoursesByLecturerId(user.Id)
                 .Where(c => c.Semesters.Any(s => s.Id == semesterId)).ToList();
 
             if (courses == null)

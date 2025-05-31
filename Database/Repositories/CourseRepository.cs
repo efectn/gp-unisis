@@ -134,6 +134,13 @@ public class CourseRepository
     {
         return _context.Courses
             .Include(c => c.Lecturer)
+            .Include(c => c.Exams)
+            .ThenInclude(e => e.Grades)
+            .Include(c => c.CourseScheduleEntries)
+            .Include(c => c.Grades)
+            .Include(c => c.Department)
+            .Include(c => c.CourseLetterGradeIntervals)
+            .Include(c => c.Semesters)
             .Where(c => c.LecturerId == id)
             .ToList();
     }

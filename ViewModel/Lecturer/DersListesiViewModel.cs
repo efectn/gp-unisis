@@ -79,7 +79,7 @@ namespace gp_unisis.ViewModel.Lecturer
             }
 
 
-            var courses = user.Courses.ToList();
+            var courses = _mainVM.Globals.CourseRepository.GetCoursesByLecturerId(user.Id);
             if (courses != null)
             {
                 Courses = new ObservableCollection<Course>(courses);

@@ -76,7 +76,7 @@ namespace gp_unisis.ViewModel.Lecturer
                 return;
             }
 
-            var exams = user.Courses.SelectMany(c => c.Exams).Where(e => e.SemesterId == semesterId).ToList();
+            var exams = _mainVM.Globals.CourseRepository.GetCoursesByLecturerId(user.Id).SelectMany(c => c.Exams).Where(e => e.SemesterId == semesterId).ToList();
             Exams = new ObservableCollection<Exam>(exams);
 
             SinavEkleCommand = new RelayCommand(_ =>
