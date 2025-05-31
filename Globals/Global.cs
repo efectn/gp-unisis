@@ -55,10 +55,6 @@ namespace gp_unisis.Globals
             TranscriptRepository = new TranscriptRepository(db);
             CourseLetterGradeIntervalRepository = new CourseLetterGradeIntervalRepository(db);
             ApplicationDbContext = db;
-            
-            // TODO: change
-            ActiveSemesterId = 4;
-            ActiveSemester = SemesterRepository.GetSemesterById(4);
-        }
+                    }
     }
 }

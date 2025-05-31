@@ -76,6 +76,12 @@ namespace gp_unisis.ViewModel.Admin
             {
                 if (param is Semester semester)
                 {
+                    if (semester.Id == _mainMV.Globals.ActiveSemesterId)
+                    {
+                        MessageBox.Show("Aktif dönem silinemez!");
+                        return;
+                    }
+
                     try
                     {
                         _mainMV.Globals.SemesterRepository.DeleteSemester(semester.Id);

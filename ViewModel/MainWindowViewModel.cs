@@ -13,8 +13,6 @@ namespace gp_unisis.ViewModel
         private ViewModelBase _currentViewModel;
         public Global Globals;
 
-        private int activeSemesterId = 1;
-
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel;

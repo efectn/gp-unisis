@@ -18,6 +18,8 @@ using gp_unisis.Database;
 using gp_unisis.Database.Entities;
 using gp_unisis.Globals;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.IO;
 
 namespace gp_unisis.Views
 {
@@ -141,8 +143,28 @@ namespace gp_unisis.Views
         }
 
         var globals = new Global(db);
+            try
+            {
+                string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+                var config = File.ReadAllText(filePath);
+                var configJson = JsonSerializer.Deserialize<Dictionary<string, object>>(config);
+                var semesterId = Convert.ToInt32(configJson["active_semester_id"]);
 
-        DataContext = new MainWindowViewModel(globals);
+                var activeSemester = globals.SemesterRepository.GetSemesterById(semesterId);
+                globals.ActiveSemesterId = semesterId;
+                globals.ActiveSemester = activeSemester;
+            }
+            catch (Exception e)
+            {
+                var latestSemester = globals.SemesterRepository.GetAllSemesters().LastOrDefault();
+                if (latestSemester != null)
+                {
+                    globals.ActiveSemesterId = latestSemester.Id;
+                    globals.ActiveSemester = latestSemester;
+                }
+            }
+
+            DataContext = new MainWindowViewModel(globals);
         }
     }
 }

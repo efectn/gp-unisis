@@ -13,6 +13,13 @@
     <None Remove="Assets\man.png" />
     <None Remove="Assets\menu.png" />
     <None Remove="Assets\school.png" />
+    <None Remove="config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
