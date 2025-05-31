@@ -86,7 +86,7 @@ namespace gp_unisis.ViewModel
                 }
                 else
                 {
-                    _mainVM.Globals.LoggedLecturer = _mainVM.Globals.LecturerRepository.GetLecturerById(7);
+                    _mainVM.Globals.LoggedLecturer = _mainVM.Globals.LecturerRepository.GetLecturerById(lecturer.Id);
                     _mainVM.CurrentViewModel = new AkademisyenAnaSayfaViewModel(_mainVM);
                 }
             }
@@ -116,7 +116,7 @@ namespace gp_unisis.ViewModel
                 else
                 {
                     _mainVM.Globals.LoggedStudentPersonal =
-                        _mainVM.Globals.StudentPersonalRepository.GetAllStudentPersonalsName().First();
+                        studentAffair;
                     _mainVM.CurrentViewModel = new AffairsAnaSayfaViewModel(_mainVM);
                 }
             }

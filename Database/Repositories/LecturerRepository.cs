@@ -14,7 +14,15 @@ public class LecturerRepository
 
     public List<Entities.Lecturer> GetAllLecturers()
     {
-        return _context.Lecturers.ToList();
+        return _context.Lecturers
+            .Include(l => l.Courses)
+            .ThenInclude(c => c.Exams)
+            .ThenInclude(e => e.Grades)
+            .Include(l => l.Courses)
+            .ThenInclude(c => c.CourseScheduleEntries)
+            .Include(l => l.Departments)
+            .ThenInclude(d => d.Faculty)
+            .ToList();
     }
 
     public Entities.Lecturer GetLecturerById(int id)

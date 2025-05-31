@@ -65,7 +65,14 @@ namespace gp_unisis.ViewModel.Lecturer
 
             if (user.Departments != null && user.Departments.Count() > 0)
             {
-                faculty = user.Departments.First().Faculty.Name;
+                if (user.Departments.Count != 0)
+                {
+                    var dep = user.Departments.First();
+                    if (dep != null && dep.Faculty != null)
+                    {
+                        faculty = dep.Faculty.Name;
+                    } 
+                }
             }
 
 
